@@ -1,0 +1,26 @@
+---
+spring:
+  profiles:
+    active: user2
+server:
+  port: 8999
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    preferIpAddress: true
+---
+spring:
+  profiles:
+    active: user1
+server:
+  port: 8998
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    preferIpAddress: true
