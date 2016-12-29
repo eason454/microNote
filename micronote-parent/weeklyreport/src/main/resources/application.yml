@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: weeklyreport
+server:
+  port: 9001
+eureka:
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://peer1:8761/eureka/

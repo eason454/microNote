@@ -14,17 +14,14 @@
         <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-web</artifactId>
-        	<version>1.4.2.RELEASE</version>
         </dependency>
         <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-actuator</artifactId>
-        	<version>1.4.2.RELEASE</version>
         </dependency>
         <dependency>
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-test</artifactId>
-       <version>1.4.2.RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -96,6 +93,8 @@
     	<module>eureka-server</module>
     	<module>gateway</module>
     	<module>users</module>
+    	<module>weeklyreport</module>
+    	<module>hystrixdashboard</module>
     </modules>
     <parent>
     <groupId>org.springframework.boot</groupId>

@@ -1,26 +1,60 @@
+#,http://peer2:8762/eureka/
 ---
 spring:
-  profiles:
-    active: user2
+  profiles: user2
+  application:
+    name: user
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: auto
+  datasource:
+    platform: h2
+    schema: classpath:shcema.sql
+    data: classpath:data.sql
+logging:
+  level:
+    root: info
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.asiainfo.persistence: ERROR
 server:
   port: 8999
-
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://peer1:8761/eureka/
   instance:
     preferIpAddress: true
 ---
 spring:
-  profiles:
-    active: user1
+  profiles: user1
+  application:
+    name: user
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: auto
+  datasource:
+    platform: h2
+    schema: classpath:shcema.sql
+    data: classpath:data.sql
+logging:
+  level:
+    root: info
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.asiainfo.persistence: ERROR
 server:
   port: 8998
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://peer1:8761/eureka/
   instance:
     preferIpAddress: true
