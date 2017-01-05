@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class MicroRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="record_id")
+	@Column(name = "record_id")
 	private Long recordId;
-	
+
 }

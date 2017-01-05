@@ -1,6 +1,5 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
-import java.io.Serializable;
 import java.sql.Time;
 
 import javax.persistence.Column;
