@@ -81,8 +81,8 @@
 		<module>config-server</module>
 		<module>eureka-server</module>
 		<module>gateway</module>
-		<module>users</module>
+
 		<module>weeklyreport</module>
-		<module>hystrixdashboard</module>
+		
 	</modules>
 </project>

@@ -9,12 +9,7 @@
 	<name>hystrixdashboard</name>
 	<description>hystrixdashboard</description>
 
-	<parent>
-		<groupId>com.asiainfo</groupId>
-		<artifactId>micronote-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+
 
 	<dependencies>
 		<dependency>
