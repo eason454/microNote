@@ -1,10 +1,31 @@
 package com.asiainfo.domain.entity.user;
 
-public class User {
-	private Long id;
-	private String username;
-	private Integer age;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="micro_record_user")
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
+	private Long id;
+	@Column(name = "user_mame")
+	private String name;
+	@Column(name = "user_account")
+	private String account;
+	@Column(name = "user_password")
+	private String password;
+	@Column(name = "state")
+	private String state;
+	@Column(name = "create_date")
+	private long createDate;
+	
 	public Long getId() {
 		return id;
 	}
@@ -13,19 +34,46 @@ public class User {
 		this.id = id;
 	}
 
-	public Integer getAge() {
-		return age;
+	public String getName() {
+		return name;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setAccount(String account) {
+		this.account = account;
 	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public long getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(long createDate) {
+		this.createDate = createDate;
+	}
+	
+	
+
 }
