@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "plan_record")
-@PrimaryKeyJoinColumn(referencedColumnName = "reportRecordId")
+@PrimaryKeyJoinColumn(referencedColumnName = "report_record_id")
 public class PlanRecord extends ReportRecord {
 	@Column(name = "content")
 	private String planContent;
