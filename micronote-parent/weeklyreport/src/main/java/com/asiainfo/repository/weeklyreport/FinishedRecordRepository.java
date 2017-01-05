@@ -7,6 +7,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 /**
  * Created by eason on 2017/1/5.
  */
-@RepositoryRestResource(collectionResourceRel = "finishedRecords",path = "finishedRecordsß")
+@RepositoryRestResource(collectionResourceRel = "finishedRecords",path = "finishedRecords")
 public interface FinishedRecordRepository extends JpaRepository<FinishedRecord,Long> {
 }
