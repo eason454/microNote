@@ -92,13 +92,13 @@
     	<module>config-server</module>
     	<module>eureka-server</module>
     	<module>gateway</module>
-    	<module>users</module>
+    	
     	<module>weeklyreport</module>
     	<module>hystrixdashboard</module>
     </modules>
     <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.4.0.RELEASE</version>
+    <version>1.4.3.RELEASE</version>
 </parent>
 </project>

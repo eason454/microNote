@@ -9,12 +9,12 @@
 	<name>users</name>
 	<description>users</description>
 
-	<parent>
+<!-- 	<parent>
 		<groupId>com.asiainfo</groupId>
 		<artifactId>micronote-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+		<relativePath/> lookup parent from repository
+	</parent> -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
