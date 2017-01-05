@@ -24,6 +24,22 @@ public class ReportRecord {
 	
 	@Column(name = "micro_record_id")
 	private long microRecordId;
+	
+	@Column(name = "start_date")
+	private long startDate;
+
+	@Column(name = "end_date")
+	private long endDate;
+
+	@Column(name = "state")
+	private String state = "new";
+	
+	/**
+	 * 1、plan
+	 * 2、work
+	 */
+	@Column(name = "record_type")
+	private String recordType;
 
 	public ReportRecord(Long reportRecordId, long microRecordId) {
 		super();
@@ -54,6 +70,36 @@ public class ReportRecord {
 
 	public void setMicroRecordId(long microRecordId) {
 		this.microRecordId = microRecordId;
+	}
+
+
+	public long getStartDate() {
+		return startDate;
+	}
+
+
+	public void setStartDate(long startDate) {
+		this.startDate = startDate;
+	}
+
+
+	public long getEndDate() {
+		return endDate;
+	}
+
+
+	public void setEndDate(long endDate) {
+		this.endDate = endDate;
+	}
+
+
+	public String getState() {
+		return state;
+	}
+
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	

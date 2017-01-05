@@ -2,12 +2,19 @@ package com.asiainfo.domain.entity.weeklyreport;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="weekly_report_to")
 public class WeeklyReportTo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "weekly_report_to_id")
+	long id;
 	/**
 	 * 汇报人Id
 	 */
