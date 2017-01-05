@@ -24,9 +24,8 @@ public class WeeklyReport {
 	private long id;
 	
 	/**
-	 * 状态
-	 * 1、submitted 已提交
-	 * 2、onChange 新的周报
+	 * 1、submitted 已提交<br>
+	 * 2、onChange 新的周报<br>
 	 */
 	@Column(name="state")
 	private String state;
