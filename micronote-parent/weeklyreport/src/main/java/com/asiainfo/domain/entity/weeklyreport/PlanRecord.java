@@ -11,56 +11,40 @@ import javax.persistence.Table;
 @Table(name = "plan_record")
 @PrimaryKeyJoinColumn(referencedColumnName = "report_record_id")
 public class PlanRecord extends ReportRecord {
-	@Column(name = "content")
-	private String planContent;
-	private int state;
 	@Column(name = "start_date")
-	private Time startDate;
-	@Column(name = "end_date")
-	private Time endDate;
+	private long startDate;
 
-	public PlanRecord(Long reportRecordId, Time createDate, String planContent, int state, Time startDate,
-			Time endDate) {
-		super(reportRecordId, createDate);
-		this.planContent = planContent;
-		this.state = state;
+	@Column(name = "end_date")
+	private long endDate;
+
+	@Column(name = "state")
+	private String state = "new";
+
+	public PlanRecord(Long reportRecordId, long startDate, long endDate, long microRecordId) {
+		super(reportRecordId, microRecordId);
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
 
-	public PlanRecord(Long reportRecordId, Time createDate) {
-		super(reportRecordId, createDate);
+	public PlanRecord(Long reportRecordId, long microRecordId) {
+		super(reportRecordId, microRecordId);
+		this.startDate = System.currentTimeMillis();
+		this.endDate = System.currentTimeMillis() + 86400000 * 7;
 	}
 
-	public String getPlanContent() {
-		return planContent;
-	}
-
-	public void setPlanContent(String planContent) {
-		this.planContent = planContent;
-	}
-
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
-	public Time getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Time startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
-	public Time getEndDate() {
+	public long getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Time endDate) {
+	public void setEndDate(long endDate) {
 		this.endDate = endDate;
 	}
 }
