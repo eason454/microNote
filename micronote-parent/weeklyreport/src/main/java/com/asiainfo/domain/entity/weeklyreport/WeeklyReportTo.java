@@ -12,7 +12,7 @@ public class WeeklyReportTo {
 	 * 汇报人Id
 	 */
 	@Column(name="report_user_id")
-	private long report_user_id;
+	private long reportUserId;
 	
 	/**
 	 * 审核人Id
@@ -20,5 +20,20 @@ public class WeeklyReportTo {
 	@Column(name="auditing_user_id")
 	private long auditingUserId;
 	
+	public long getReportUserId() {
+		return reportUserId;
+	}
+
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
+	}
+
+	public long getAuditingUserId() {
+		return auditingUserId;
+	}
+
+	public void setAuditingUserId(long auditingUserId) {
+		this.auditingUserId = auditingUserId;
+	}
 	
 }

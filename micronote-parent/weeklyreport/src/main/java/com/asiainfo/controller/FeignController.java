@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asiainfo.domain.User;
+import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.service.UserFeignClient;
 
 @RestController
