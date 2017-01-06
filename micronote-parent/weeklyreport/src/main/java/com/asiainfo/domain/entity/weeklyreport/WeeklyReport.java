@@ -23,7 +23,7 @@ public class WeeklyReport {
 	@Id
 	@Column(name="weekly_report_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
 	/**
 	 * 1、submitted 已提交<br>
@@ -41,8 +41,8 @@ public class WeeklyReport {
 	/**
 	 * 审核人Id
 	 */
-	@Column(name="auditing_user_id")
-	private long auditingUserId;
+	@Column(name="auditing_user_id",nullable = true)
+	private Long auditingUserId;
 	
 	@Column(name="create_date")
 	private long createDate=System.currentTimeMillis();
@@ -56,11 +56,11 @@ public class WeeklyReport {
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="reportRecordId")
 	private Set<ReportRecord> reportRecord = new HashSet<ReportRecord>();
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -80,11 +80,11 @@ public class WeeklyReport {
 		this.reportUserId = reportUserId;
 	}
 
-	public long getAuditingUserId() {
+	public Long getAuditingUserId() {
 		return auditingUserId;
 	}
 
-	public void setAuditingUserId(long auditingUserId) {
+	public void setAuditingUserId(Long auditingUserId) {
 		this.auditingUserId = auditingUserId;
 	}
 
