@@ -116,4 +116,7 @@ public class WeeklyReport {
 		this.reportUserId = reportUserId;
 		this.state= CommonConst.WeeklyReportReport.READY;
 	}
+
+	public WeeklyReport() {
+	}
 }

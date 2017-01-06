@@ -13,7 +13,7 @@ public class WeeklyReportController {
     @Autowired
     private WeeklyReportService weeklyReportService;
     @RequestMapping(path = "/createWeeklyReport",method = RequestMethod.POST)
-    public WeeklyReport createWeeklyReport(@RequestParam("userId") long reportUserId){
-     return  weeklyReportService.createWeeklyReport(reportUserId);
+    public WeeklyReport createWeeklyReport(@RequestBody WeeklyReport weeklyReport){
+     return  weeklyReportService.createWeeklyReport(weeklyReport.getReportUserId());
     }
 }
