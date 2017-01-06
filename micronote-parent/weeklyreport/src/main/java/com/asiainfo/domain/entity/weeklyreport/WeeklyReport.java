@@ -1,8 +1,9 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import com.asiainfo.util.consts.CommonConst;
+import com.sun.org.apache.regexp.internal.RE;
+
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,16 +26,24 @@ public class WeeklyReport {
 	
 	/**
 	 * 1、submitted 已提交<br>
-	 * 2、onChange 新的周报<br>
+	 * 2、ready 准备中的周报<br>
 	 */
 	@Column(name="state")
 	private String state;
+
+	public long getReportUserId() {
+		return reportUserId;
+	}
+
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
+	}
 
 	/**
 	 * 汇报人Id
 	 */
 	@Column(name="report_user_id")
-	private long report_user_id;
+	private long reportUserId;
 	
 	/**
 	 * 审核人Id
@@ -51,8 +60,8 @@ public class WeeklyReport {
 	@Column(name="weekly")
 	private int weekly = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="reportRecordId")
-	private Set<ReportRecord> reportRecord = new HashSet<ReportRecord>();
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,targetEntity = ReportRecord.class,mappedBy="reportRecordId")
+	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 	public long getId() {
 		return id;
@@ -70,13 +79,6 @@ public class WeeklyReport {
 		this.state = state;
 	}
 
-	public long getReport_user_id() {
-		return report_user_id;
-	}
-
-	public void setReport_user_id(long report_user_id) {
-		this.report_user_id = report_user_id;
-	}
 
 	public long getAuditingUserId() {
 		return auditingUserId;
@@ -102,12 +104,26 @@ public class WeeklyReport {
 		this.weekly = weekly;
 	}
 
-	public Set<ReportRecord> getReportRecord() {
+	public List<ReportRecord> getReportRecord() {
 		return reportRecord;
 	}
 
-	public void setReportRecord(Set<ReportRecord> reportRecord) {
+	public void setReportRecord(List<ReportRecord> reportRecord) {
 		this.reportRecord = reportRecord;
 	}
-	
+
+	public WeeklyReport(long reportUserId, List<ReportRecord> reportRecord) {
+		this.reportUserId = reportUserId;
+		this.reportRecord = reportRecord;
+	}
+
+	/**
+	 *
+	 * @param reportUserId
+	 * @apiNote 新建周报
+	 */
+	public WeeklyReport(long reportUserId) {
+		this.reportUserId = reportUserId;
+		this.state= CommonConst.WeeklyReportReport.READY;
+	}
 }

@@ -31,6 +31,9 @@ public class ReportRecord {
 	@Column(name = "state")
 	private String state = "new";
 
+	public ReportRecord() {
+	}
+
 	/**
 	 * 1、plan
 	 * 2、work
