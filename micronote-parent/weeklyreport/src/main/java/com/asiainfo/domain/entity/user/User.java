@@ -78,7 +78,14 @@ public class User {
 	public void setCreateDate(long createDate) {
 		this.createDate = createDate;
 	}
-	
-	
 
+	public User(String name, String account, String state, long createDate) {
+		this.name = name;
+		this.account = account;
+		this.state = state;
+		this.createDate = createDate;
+	}
+
+	public User() {
+	}
 }
