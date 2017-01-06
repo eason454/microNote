@@ -33,7 +33,7 @@ public class ReportRecord {
 
 	@Column(name = "state")
 	private String state = "new";
-	
+
 	/**
 	 * 1、plan
 	 * 2、work
