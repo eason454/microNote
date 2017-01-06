@@ -24,7 +24,6 @@ public class NotifyController {
 	@RequestMapping(path = "/notify", method = RequestMethod.POST)
 	@ResponseBody
 	public String notify(@RequestBody Message message) {
-		
 		NotifyServer.notify(message);
 		return "OK";
 	}
