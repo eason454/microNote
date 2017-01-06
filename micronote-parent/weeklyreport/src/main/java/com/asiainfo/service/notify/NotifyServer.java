@@ -46,7 +46,7 @@ public class NotifyServer {
 	@Scheduled(cron = "* * 0/5  * * ? ")
 	public static void notifyQueen() {
 		try {
-			System.out.println("========================notify=============================");
+			System.out.println("==============   ==========notify=============================");
 			if (!notifyOnTimeQueen.isEmpty())
 				System.out.println(notifyOnTimeQueen.take().getContent());
 		} catch (InterruptedException e) {
