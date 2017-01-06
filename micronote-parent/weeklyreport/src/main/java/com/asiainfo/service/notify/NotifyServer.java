@@ -32,7 +32,7 @@ public class NotifyServer {
 				public void run() {
 					while (true) {
 						try {
-							System.out.println("==========================notify immediately=============================");
+//							System.out.println("==========================notify immediately=============================");
 							System.out.println(notifyQueen.take().getContent());
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
@@ -44,10 +44,10 @@ public class NotifyServer {
 		}
 	}
 
-	@Scheduled(cron = "0/5 * *  * * ? ")
+	@Scheduled(cron = "* * 1  * * ? ")
 	public static void notifyQueen() {
 		try {
-			System.out.println("==========================notify=============================");
+//			System.out.println("==========================notify=============================");
 			if (!notifyOnTimeQueen.isEmpty())
 				System.out.println(notifyOnTimeQueen.take().getContent());
 		} catch (InterruptedException e) {

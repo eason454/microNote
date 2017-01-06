@@ -37,3 +37,8 @@
 /micronote-parent/weeklyreport/.settings/org.eclipse.core.resources.prefs
 /micronote-parent/weeklyreport/.settings/org.eclipse.jdt.core.prefs
 /micronote-parent/weeklyreport/.settings/org.eclipse.m2e.core.prefs
+.idea/
+*.iml
+*.iws
+*.ipr
+target/
