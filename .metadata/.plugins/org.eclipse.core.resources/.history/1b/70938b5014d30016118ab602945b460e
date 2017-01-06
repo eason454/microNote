@@ -1,0 +1,5 @@
+package com.asiainfo.domain.entity.microRecord;
+
+public class MicroRecord {
+
+}

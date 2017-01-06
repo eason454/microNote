@@ -1,0 +1,16 @@
+package com.asiainfo.domain.entity.microRecord;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+@Entity
+public class RecordAttachment {
+	
+	@Column(name="record_attach_id")
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+
+}

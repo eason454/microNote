@@ -1,0 +1,14 @@
+package com.asiainfo.domain.entity.microRecord;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="micro_record")
+public class MicroRecord {
+	
+	long id;
+	String content;
+	
+	RecordAttachment[] recordAttachments;
+}

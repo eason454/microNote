@@ -1,0 +1,28 @@
+package com.asiainfo.domain.entity.weeklyreport;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "weekly_report")
+public class WeeklyReport {
+	
+	@Id
+	@Column(name="weekly_report_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	long id;
+	
+	@Column(name="state")
+	String state;
+
+	@Column(name="report_user_id")
+	long report_user_id;
+	
+
+	@Column(name="report_user_id")
+	long report_user_id;
+}

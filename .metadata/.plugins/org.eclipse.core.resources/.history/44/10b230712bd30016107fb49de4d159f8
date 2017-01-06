@@ -1,0 +1,11 @@
+package com.asiainfo.domain.entity.weeklyreport;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="weekly_report_to")
+public class WeeklyReportTo {
+
+	
+}

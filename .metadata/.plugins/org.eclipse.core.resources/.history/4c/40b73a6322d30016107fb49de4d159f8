@@ -1,0 +1,62 @@
+package com.asiainfo.domain.entity.weeklyreport;
+
+import java.sql.Time;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.asiainfo.domain.entity.microRecord.MicroRecord;
+
+@Entity
+@Table(name = "report_record")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class ReportRecord {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "report_record_id")
+	private Long reportRecordId;
+	@Column(name = "create_date")
+	private Time createDate;
+	
+//	@OneToOne(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="id")
+//	private MicroRecord record;
+	
+	@Column(name = "micro_record_id")
+	private long microRecordId;
+
+	public ReportRecord(Long reportRecordId, Time createDate, long microRecordId) {
+		super();
+		this.reportRecordId = reportRecordId;
+		this.createDate = createDate;
+	}
+
+	public ReportRecord() {
+		super();
+	}
+
+	public Long getReportRecordId() {
+		return reportRecordId;
+	}
+
+	public void setReportRecordId(Long reportRecordId) {
+		this.reportRecordId = reportRecordId;
+	}
+
+	public Time getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Time createDate) {
+		this.createDate = createDate;
+	}
+
+}

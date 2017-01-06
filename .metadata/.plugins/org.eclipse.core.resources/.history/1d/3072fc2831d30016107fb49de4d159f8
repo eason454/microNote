@@ -1,0 +1,10 @@
+package com.asiainfo.domain.entity.user;
+
+public class User {
+	private Long id;
+	private String username;
+	private String account;
+	private String password;
+	
+	
+}
