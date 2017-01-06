@@ -15,19 +15,14 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private Long id;
-	
 	@Column(name = "user_mame")
 	private String name;
-	
 	@Column(name = "user_account")
 	private String account;
-	
 	@Column(name = "user_password")
 	private String password;
-	
 	@Column(name = "state")
 	private String state;
-	
 	@Column(name = "create_date")
 	private long createDate;
 	
