@@ -13,7 +13,6 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
 public class NotifyServer {
 
 	private static final BlockingQueue<Message> notifyOnTimeQueen = new LinkedBlockingQueue<Message>();
-
 	private static final BlockingQueue<Message> notifyQueen = new LinkedBlockingQueue<Message>();
 
 	public static void notify(Message message) {
@@ -44,7 +43,7 @@ public class NotifyServer {
 		}
 	}
 
-	@Scheduled(cron = "0/5 * *  * * ? ")
+	@Scheduled(cron = "* * 0/5  * * ? ")
 	public static void notifyQueen() {
 		try {
 			System.out.println("==========================notify=============================");
