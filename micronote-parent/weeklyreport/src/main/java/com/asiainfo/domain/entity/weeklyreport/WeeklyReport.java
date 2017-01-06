@@ -1,5 +1,7 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
+import com.asiainfo.util.consts.CommonConst;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +36,7 @@ public class WeeklyReport {
 	 * 汇报人Id
 	 */
 	@Column(name="report_user_id")
-	private long report_user_id;
+	private long reportUserId;
 	
 	/**
 	 * 审核人Id
@@ -70,12 +72,12 @@ public class WeeklyReport {
 		this.state = state;
 	}
 
-	public long getReport_user_id() {
-		return report_user_id;
+	public long getReportUserId() {
+		return reportUserId;
 	}
 
-	public void setReport_user_id(long report_user_id) {
-		this.report_user_id = report_user_id;
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
 	}
 
 	public long getAuditingUserId() {
@@ -109,5 +111,9 @@ public class WeeklyReport {
 	public void setReportRecord(Set<ReportRecord> reportRecord) {
 		this.reportRecord = reportRecord;
 	}
-	
+
+	public WeeklyReport(long reportUserId) {
+		this.reportUserId = reportUserId;
+		this.state= CommonConst.WeeklyReportReport.READY;
+	}
 }
