@@ -1,6 +1,0 @@
-package com.asiainfo.domain.entity.microRecord;
-
-@Entity
-public class RecordAttachment {
-
-}

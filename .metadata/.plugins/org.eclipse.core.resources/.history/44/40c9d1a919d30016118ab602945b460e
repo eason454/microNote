@@ -1,8 +1,0 @@
-package com.asiainfo.domain.entity.microRecord;
-
-import javax.persistence.Entity;
-
-@Entity
-public class RecordAttachment {
-
-}
