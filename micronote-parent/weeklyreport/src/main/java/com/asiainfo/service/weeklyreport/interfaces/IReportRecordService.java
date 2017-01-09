@@ -8,14 +8,14 @@ public interface IReportRecordService {
     /*
     修改周报项（成果类）
      */
-    public boolean modifyReportRecord(ReportRecord reportRecord);
+     boolean modifyReportRecord(ReportRecord reportRecord);
     /*
     删除周报项（成果类）
      */
-    public boolean deleteReportRecord(long reportRecordId);
+     boolean deleteReportRecord(long reportRecordId);
     /*
     增加周报项（成果类）
      */
-    public ReportRecord createReportRecord(ReportRecord reportRecord);
+     ReportRecord createReportRecord(ReportRecord reportRecord);
 
 }
