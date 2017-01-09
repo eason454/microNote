@@ -23,6 +23,18 @@ public class Plan {
     
     @Column(name="end_date")
     private Long endDate;
+
+    @Column(name="report_user_id")
+    private long reportUserId;
+
+    public long getReportUserId() {
+        return reportUserId;
+    }
+
+    public void setReportUserId(long reportUserId) {
+        this.reportUserId = reportUserId;
+    }
+
     /**
      * 状态
      */
@@ -45,10 +57,11 @@ public class Plan {
     public Plan() {
     }
 
-    public Plan(String content, Long startDate, Long endDate, String state, String operState, List<RecordAttachment> recordAttachments) {
+    public Plan(String content, Long startDate, Long endDate, long reportUserId, String state, String operState, List<RecordAttachment> recordAttachments) {
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.reportUserId = reportUserId;
         this.state = state;
         this.operState = operState;
         this.recordAttachments = recordAttachments;
