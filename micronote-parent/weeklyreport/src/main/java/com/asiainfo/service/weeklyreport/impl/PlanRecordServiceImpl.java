@@ -1,15 +1,11 @@
 package com.asiainfo.service.weeklyreport.impl;
 
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
-import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
-import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
-import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordServer;
+import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.RecordType;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
@@ -22,7 +18,7 @@ import com.asiainfo.util.time.TimeUtil;
  *
  */
 @Component
-public class PlanRecordServerImpl implements IPlanRecordServer {
+public class PlanRecordServerImpl implements IPlanRecordService {
 
 	@Autowired
 	ReportRecordRepository reportRecordRepository;

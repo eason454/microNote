@@ -4,7 +4,7 @@ package com.asiainfo.service.weeklyreport.interfaces;
  * 处理工作计划条目的业务逻辑
  * @author yi
  */
-public interface IPlanRecordServer{
+public interface IPlanRecordService{
 	
 	/**
 	 * 取消计划
