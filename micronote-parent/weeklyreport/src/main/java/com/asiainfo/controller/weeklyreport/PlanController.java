@@ -39,7 +39,7 @@ public class PlanController {
 
     @PostMapping(path = "/confirmedPlan")
     public boolean confirmedPlan(@RequestParam(value = "planId") long planId,
-                                 @RequestParam(value = "planId") long worklyReportId) {
+                                 @RequestParam(value = "worklyReportId") long worklyReportId) {
         try {
             planRecordService.confirmePlan(planId, worklyReportId);
         } catch (Exception ex) {
@@ -50,7 +50,7 @@ public class PlanController {
     }
 
     @PostMapping(path = "/delayPlan")
-    public boolean confirmedPlan(@RequestParam(value = "planId") long planId) {
+    public boolean delayPlan(@RequestParam(value = "planId") long planId) {
         try {
             planRecordService.delayPlan(planId);
         } catch (Exception ex) {
