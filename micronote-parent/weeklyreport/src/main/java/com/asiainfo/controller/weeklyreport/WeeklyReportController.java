@@ -38,6 +38,6 @@ public class WeeklyReportController {
 
 	@RequestMapping(path = "/submitWeeklyReport", method = RequestMethod.POST)
 	public boolean submitWeeklyReport(@RequestParam("weeklyReportId") long weeklyReportId) throws Exception {
-		return weeklyReportService.submitWeeklyReport(weeklyReportId);
+		 return weeklyReportService.submitWeeklyReport(weeklyReportId);
 	}
 }
