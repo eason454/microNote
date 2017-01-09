@@ -1,5 +1,9 @@
 package com.asiainfo.service.weeklyreport.impl;
 
+import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.repository.weeklyreport.PlanRepository;
+import com.asiainfo.util.CommonUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -7,9 +11,10 @@ import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
-import com.asiainfo.util.consts.CommonConst.RecordType;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+
+import static com.asiainfo.util.CommonUtils.getNullPropertyNames;
 
 /**
  * 简单的计划操作实现
@@ -22,7 +27,8 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Autowired
 	ReportRecordRepository reportRecordRepository;
-
+	@Autowired
+	private PlanRepository planRepository;
 	@Override
 	public boolean canelPlan(long planRecordId) throws Exception{
 		// TODO 修改计划状态到取消 (canceled)
@@ -71,5 +77,22 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		
 		return true;
 	}
+	@Override
+	public Plan createWeeklyPlan(Plan plan) {
+		return planRepository.save(plan);
+	}
 
+	@Override
+	public boolean modifyWeeklyPlan(Plan plan) {
+		Plan oldPlan=planRepository.findOne(plan.getPlanId());
+		String[] nullProperties=CommonUtils.getNullPropertyNames(plan);
+		BeanUtils.copyProperties(plan,oldPlan,nullProperties);
+		return true;
+	}
+
+	@Override
+	public boolean deleteWeeklyPlan(long planId) {
+		planRepository.delete(planId);
+		return true;
+	}
 }

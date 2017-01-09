@@ -23,21 +23,34 @@ public class Plan {
     
     @Column(name="end_date")
     private Long endDate;
-  
+    /**
+     * 状态
+     */
     @Column
     private String state;
-    
+    @Column(name="oper_state")
+    private String operState;
+
+    public String getOperState() {
+        return operState;
+    }
+
+    public void setOperState(String operState) {
+        this.operState = operState;
+    }
+
     @OneToMany(targetEntity = RecordAttachment.class)
     private List<RecordAttachment> recordAttachments;
 
     public Plan() {
     }
 
-    public Plan(String content, Long startDate, Long endDate, String state, List<RecordAttachment> recordAttachments) {
+    public Plan(String content, Long startDate, Long endDate, String state, String operState, List<RecordAttachment> recordAttachments) {
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
         this.state = state;
+        this.operState = operState;
         this.recordAttachments = recordAttachments;
     }
 
