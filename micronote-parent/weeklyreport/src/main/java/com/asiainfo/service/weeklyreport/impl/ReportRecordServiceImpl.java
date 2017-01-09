@@ -14,26 +14,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReportRecordServiceImpl implements IReportRecordService {
-    @Autowired
-    private ReportRecordRepository reportRecordRepository;
-    @Override
-    public ReportRecord createWeeklyPlan(ReportRecord reportRecord) {
-        return reportRecordRepository.save(reportRecord);
-    }
-
-    @Override
-    public boolean modifyWeeklyPlan(ReportRecord reportRecord) {
-        //目前修改只能是内容，结束时间
-        ReportRecord oldReportRecord=reportRecordRepository.findOne(reportRecord.getReportRecordId());
-        String[] ignoreList= CommonUtils.getNullPropertyNames(reportRecord);
-        BeanUtils.copyProperties(reportRecord,oldReportRecord);
-        reportRecordRepository.save(oldReportRecord);
-        return true;
-    }
-
-    @Override
-    public boolean deleteWeeklyPlan(long reportRecordId) {
-        reportRecordRepository.delete(reportRecordId);
-        return true;
-    }
 }
