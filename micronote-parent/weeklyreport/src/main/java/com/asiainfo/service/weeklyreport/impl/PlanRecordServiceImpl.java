@@ -48,15 +48,16 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		plan.setStartDate(System.currentTimeMillis());
 		
 		//TODO 复制一个条目为新的完成工作
-//		ReportRecord workRecord = planRecord.cloneReportRecord();
-//		workRecord.setReportRecordId(null);
-////		workRecord.setRecordType(RecordType.WORK);
-//		workRecord.setState(WorkRecordState.WORKED);
-//		workRecord.setCreateDate(System.currentTimeMillis());
+		ReportRecord workRecord = new ReportRecord();
+		workRecord.setCreateDate(System.currentTimeMillis());
+		workRecord.setContent(plan.getContent());
+		workRecord.setEndDate(System.currentTimeMillis());
+		workRecord.setStartDate(System.currentTimeMillis());
+		workRecord.setRecordAttachments(plan.getRecordAttachments());
 		
 		//TODO 保存計劃工作和工作的修改
 		planRepository.save(plan);
-//		reportRecordRepository.save(workRecord);
+		reportRecordRepository.save(workRecord);
 			
 		return true;
 	}
