@@ -56,7 +56,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		
 		//TODO 保存計劃工作和工作的修改
 		planRepository.save(plan);
-		reportRecordRepository.save(workRecord);
+//		reportRecordRepository.save(workRecord);
 			
 		return true;
 	}
