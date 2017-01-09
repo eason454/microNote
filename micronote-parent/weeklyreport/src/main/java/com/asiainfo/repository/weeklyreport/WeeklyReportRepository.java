@@ -13,4 +13,5 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "weeklyReports",path = "weeklyReports")
 public interface WeeklyReportRepository extends JpaRepository<WeeklyReport,Long> {
+    WeeklyReport findByReportUserId(long reportUserId);
 }

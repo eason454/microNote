@@ -11,4 +11,5 @@ import java.util.List;
 public interface WeeklyReportService {
     public WeeklyReport createWeeklyReport(long reportUserId);
     public List<ReportRecord> findByCreateDateBetween(long currentTime);
+    public WeeklyReport queryWeeklyReportByUserId(long userId);
 }

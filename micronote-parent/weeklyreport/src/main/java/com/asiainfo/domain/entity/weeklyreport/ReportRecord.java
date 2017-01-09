@@ -18,26 +18,13 @@ public class ReportRecord {
 	@Column(name = "create_date")
 	private long createDate = System.currentTimeMillis();
 	
-	@Column(name = "micro_record_id")
-	private long microRecordId;
-	
+
 	@Column(name = "start_date")
 	private long startDate;
 
 	@Column(name = "end_date")
 	private long endDate;
 
-	/**
-	 * <B>周报条目是计划(plan)状态为:</B> <br>
-	 * new 新建未生效<br>
-	 * planning 规划<br>
-	 * canceled 已取消<br>
-	 * confirmed 已确认<br>
-	 * <br>
-	 * <B>周报条目是工作(work)状态为:</B><br>
-	 * new 新建未生效<br>
-	 * worked 已完成工作<br>
-	 */
 	@Column(name = "state")
 	private String state = "new";
 
@@ -52,7 +39,7 @@ public class ReportRecord {
 		this.recordAttachments = recordAttachments;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="id")
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY, mappedBy="id")
 	private List<RecordAttachment> recordAttachments = new ArrayList<RecordAttachment>();
 	public String getContent() {
 		return content;
@@ -77,10 +64,15 @@ public class ReportRecord {
 	@Column(name = "record_type")
 	private String recordType;
 
-	public ReportRecord(Long reportRecordId, long microRecordId) {
-		super();
-		this.reportRecordId = reportRecordId;
-		this.microRecordId = microRecordId;
+
+	public ReportRecord(long startDate, long endDate, String content, String recordType) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.content = content;
+		this.recordType = recordType;
+	}
+
+	public ReportRecord() {
 	}
 
 	public Long getReportRecordId() {
@@ -99,13 +91,7 @@ public class ReportRecord {
 		this.createDate = createDate;
 	}
 
-	public long getMicroRecordId() {
-		return microRecordId;
-	}
 
-	public void setMicroRecordId(long microRecordId) {
-		this.microRecordId = microRecordId;
-	}
 
 	public long getStartDate() {
 		return startDate;
@@ -137,7 +123,4 @@ public class ReportRecord {
 	}
 
 	
-	public ReportRecord cloneReportRecord() throws CloneNotSupportedException{
-		return (ReportRecord) this.clone();
-	}
 }

@@ -2,9 +2,7 @@ package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.util.consts.CommonConst;
 
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,9 +50,17 @@ public class WeeklyReport {
 	 */
 	@Column(name="weekly")
 	private int weekly = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="reportRecordId")
-	private Set<ReportRecord> reportRecord = new HashSet<ReportRecord>();
+
+	public List<ReportRecord> getReportRecord() {
+		return reportRecord;
+	}
+
+	public void setReportRecord(List<ReportRecord> reportRecord) {
+		this.reportRecord = reportRecord;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,targetEntity = ReportRecord.class)
+	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 	public Long getId() {
 		return id;
@@ -104,13 +110,6 @@ public class WeeklyReport {
 		this.weekly = weekly;
 	}
 
-	public Set<ReportRecord> getReportRecord() {
-		return reportRecord;
-	}
-
-	public void setReportRecord(Set<ReportRecord> reportRecord) {
-		this.reportRecord = reportRecord;
-	}
 
 	public WeeklyReport(long reportUserId) {
 		this.reportUserId = reportUserId;
