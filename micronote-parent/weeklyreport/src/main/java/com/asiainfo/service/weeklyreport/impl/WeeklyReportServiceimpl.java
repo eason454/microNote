@@ -17,8 +17,7 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	@Override
 	public WeeklyReport createWeeklyReport(long reportUserId) {
 		// 构造WeeklyReport对象
-//		WeeklyReport weeklyReport = new WeeklyReport(reportUserId);
-//		return weeklyReportRepository.save(weeklyReport);
-		return null;
+		WeeklyReport weeklyReport = new WeeklyReport(reportUserId);
+		return weeklyReportRepository.save(weeklyReport);
 	}
 }
