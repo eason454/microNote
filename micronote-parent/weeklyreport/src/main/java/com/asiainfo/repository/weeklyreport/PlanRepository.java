@@ -13,4 +13,5 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "plan",path = "plan")
 public interface PlanRepository extends JpaRepository<Plan,Long> {
+    public List<Plan> findByEndDateGreaterThanAndStartDateLessThan(@Param("beginDate") long beginDate, @Param("endDate") long endDate);
 }
