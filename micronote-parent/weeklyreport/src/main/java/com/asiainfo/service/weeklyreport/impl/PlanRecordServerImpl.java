@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
-import com.asiainfo.service.weeklyreport.interfaces.PlanRecordServer;
+import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordServer;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.RecordType;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
@@ -17,7 +17,7 @@ import com.asiainfo.util.consts.CommonConst.WorkRecordState;
  *
  */
 @Component
-public class PlanRecordServerImpl implements PlanRecordServer {
+public class PlanRecordServerImpl implements IPlanRecordServer {
 
 	@Autowired
 	ReportRecordRepository reportRecordRepository;
