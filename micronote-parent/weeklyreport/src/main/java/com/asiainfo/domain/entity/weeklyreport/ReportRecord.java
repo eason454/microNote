@@ -30,6 +30,17 @@ public class ReportRecord {
 	@Column(name="content", nullable=false)
 	private String content;
 
+	@Column(name="report_user_id")
+	private long reportUserId;
+
+	public long getReportUserId() {
+		return reportUserId;
+	}
+
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
+	}
+
 	public List<RecordAttachment> getRecordAttachments() {
 		return recordAttachments;
 	}
@@ -63,6 +74,17 @@ public class ReportRecord {
 	}
 
 	public ReportRecord() {
+	}
+
+	public ReportRecord(long createDate, long startDate, long endDate, String state, String content, long reportUserId, List<RecordAttachment> recordAttachments, String recordType) {
+		this.createDate = createDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.state = state;
+		this.content = content;
+		this.reportUserId = reportUserId;
+		this.recordAttachments = recordAttachments;
+		this.recordType = recordType;
 	}
 
 	public Long getReportRecordId() {
