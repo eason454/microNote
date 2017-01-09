@@ -1,20 +1,18 @@
 package com.asiainfo.service.weeklyreport.impl;
 
-import com.asiainfo.domain.entity.weeklyreport.Plan;
-import com.asiainfo.repository.weeklyreport.PlanRepository;
-import com.asiainfo.util.CommonUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
+import com.asiainfo.repository.weeklyreport.PlanRepository;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
+import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
-
-import static com.asiainfo.util.CommonUtils.getNullPropertyNames;
 
 /**
  * 简单的计划操作实现
