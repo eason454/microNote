@@ -60,5 +60,10 @@ public interface IPlanRecordService{
 	 */
 	 List<Plan> queryNextWeekPlan(long userId);
 
-     List<Plan> queryThisWeekPlan(long userId);
+    /**
+     * 获取本周计划
+     * @param userId
+     * @return
+     */
+    List<Plan> queryThisWeekPlan(long userId);
 }

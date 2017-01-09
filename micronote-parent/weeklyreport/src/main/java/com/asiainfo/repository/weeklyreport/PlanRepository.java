@@ -20,7 +20,6 @@ public interface PlanRepository extends JpaRepository<Plan,Long> {
      * @return
      */
     List<Plan> findByEndDateGreaterThanAndStartDateLessThan(long userId,@Param("beginDate") long beginDate, @Param("endDate") long endDate);
-
     /**
      * 获取下周计划
      * @param time
