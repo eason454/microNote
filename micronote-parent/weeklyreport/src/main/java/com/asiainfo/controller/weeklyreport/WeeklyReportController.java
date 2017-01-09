@@ -17,12 +17,12 @@ public class WeeklyReportController {
     @Autowired
     private WeeklyReportService weeklyReportService;
     @RequestMapping(path = "/createWeeklyReport",method = RequestMethod.POST)
-    public WeeklyReport createWeeklyReport(@RequestBody WeeklyReport weeklyReport){
-     return  weeklyReportService.createWeeklyReport(weeklyReport.getReportUserId());
+    public WeeklyReport createWeeklyReport(@RequestParam("userId") long reportUserId){
+     return  weeklyReportService.createWeeklyReport(reportUserId);
     }
 
     @RequestMapping(path = "/queryReportRecords", method = RequestMethod.GET)
-    public List<ReportRecord> queryReportRecrodsByWeek(Long currentTime){
+    public List<ReportRecord> queryReportRecrodsByWeek(Long currentTime) {
         return weeklyReportService.findByCreateDateBetween(currentTime);
     }
 }
