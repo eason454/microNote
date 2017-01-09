@@ -57,7 +57,7 @@ public class PlanController {
 	}
 	
 	@PostMapping(path = "/delayPlan")
-	public boolean confirmedPlan(@RequestParam(value = "planId") long planId) {
+	public boolean delayPlan(@RequestParam(value = "planId") long planId) {
 		try {
 			return planRecordService.delayPlan(planId);
 		} catch (Exception ex) {
