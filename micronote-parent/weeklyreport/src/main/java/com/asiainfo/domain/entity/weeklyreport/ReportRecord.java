@@ -122,5 +122,7 @@ public class ReportRecord {
 		this.state = state;
 	}
 
-	
+	public ReportRecord cloneReportRecord() throws CloneNotSupportedException{
+		return (ReportRecord) super.clone();
+	}
 }
