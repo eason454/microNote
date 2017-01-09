@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ReportRecordController {
     @Autowired
-    private IReportRecordService reportRecordService;
-@PostMapping(path = "/create")
+    private  IReportRecordService reportRecordService;
+
+    @PostMapping(path = "/create")
     public ReportRecord createWeeklyPlan(@RequestBody ReportRecord reportRecord){
         return reportRecordService.createWeeklyPlan(reportRecord);
    }
