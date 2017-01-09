@@ -18,7 +18,6 @@ public interface CommonConst {
 	 * planning 规划<br>
 	 * canceled 已取消<br>
 	 * confirmed 已确认<br>
-	 * confirmed 已延遲<br>
 	 * @author yi
 	 */
 	public static interface PlanRecordState {
@@ -26,7 +25,6 @@ public interface CommonConst {
 		public static final String PLANNING = "planning";
 		public static final String CANCELED = "canceled";
 		public static final String CONFIRMED = "confirmed";
-		public static final String DELAYED = "delayed";
 	}
 	
 	/**
