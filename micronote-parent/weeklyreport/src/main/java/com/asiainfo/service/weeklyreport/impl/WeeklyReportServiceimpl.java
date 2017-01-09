@@ -60,4 +60,13 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	public WeeklyReport queryWeeklyReportByUserId(long userId) {
 		return weeklyReportRepository.findByReportUserId(userId);
 	}
+
+	@Override
+	public boolean submitWeeklyReport(long weeklyReportId) throws Exception {
+		//TODO 提交周報
+		
+		//TODO 生成推送信息
+		
+		return false;
+	}
 }
