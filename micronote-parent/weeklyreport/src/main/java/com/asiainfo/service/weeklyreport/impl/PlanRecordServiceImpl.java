@@ -2,6 +2,8 @@ package com.asiainfo.service.weeklyreport.impl;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.repository.weeklyreport.PlanRepository;
+import com.asiainfo.util.CommonUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +13,8 @@ import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+
+import static com.asiainfo.util.CommonUtils.getNullPropertyNames;
 
 /**
  * 简单的计划操作实现
@@ -80,13 +84,15 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Override
 	public boolean modifyWeeklyPlan(Plan plan) {
-		planRepository.fin
+		Plan oldPlan=planRepository.findOne(plan.getPlanId());
+		String[] nullProperties=CommonUtils.getNullPropertyNames(plan);
+		BeanUtils.copyProperties(plan,oldPlan,nullProperties);
 		return true;
 	}
 
 	@Override
-	public boolean deleteWeeklyPlan(long reportRecordId) {
-		reportRecordRepository.delete(reportRecordId);
+	public boolean deleteWeeklyPlan(long planId) {
+		planRepository.delete(planId);
 		return true;
 	}
 }
