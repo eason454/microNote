@@ -32,10 +32,10 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	@Override
 	public boolean canelPlan(long planRecordId) throws Exception{
 		// TODO 修改计划状态到取消 (canceled)
-		ReportRecord reportRecord = reportRecordRepository.findOne(planRecordId);
-		reportRecord.setState(PlanRecordState.CANCELED);
-		reportRecord.setStartDate(System.currentTimeMillis());
-		reportRecordRepository.save(reportRecord);
+		Plan plan = planRepository.findOne(planRecordId);
+		plan.setState(PlanRecordState.CANCELED);
+		plan.setStartDate(System.currentTimeMillis());
+		planRepository.save(plan);
 		return true;
 	}
 
@@ -43,20 +43,20 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	public boolean confirmePlan(long planRecordId, long worklyReportId) throws Exception {
 		 //  TODO 确认计划完成
 		 //  查询现在要完成的计划 变成确认状态confirmed
-		ReportRecord planRecord = reportRecordRepository.findOne(planRecordId);
-		planRecord.setState(PlanRecordState.CONFIRMED);
-		planRecord.setStartDate(System.currentTimeMillis());
+		Plan plan = planRepository.findOne(planRecordId);
+		plan.setState(PlanRecordState.CONFIRMED);
+		plan.setStartDate(System.currentTimeMillis());
 		
 		//TODO 复制一个条目为新的完成工作
-		ReportRecord workRecord = planRecord.cloneReportRecord();
-		workRecord.setReportRecordId(null);
-//		workRecord.setRecordType(RecordType.WORK);
-		workRecord.setState(WorkRecordState.WORKED);
+		ReportRecord workRecord = new ReportRecord();
 		workRecord.setCreateDate(System.currentTimeMillis());
+		workRecord.setContent(plan.getContent());
+		workRecord.setState(WorkRecordState.WORKED);
+		workRecord.setRecordAttachments(plan.getRecordAttachments());
 		
 		//TODO 保存計劃工作和工作的修改
-		reportRecordRepository.save(planRecord);
-		workRecord = reportRecordRepository.save(workRecord);
+		planRepository.save(plan);
+		reportRecordRepository.save(workRecord);
 			
 		return true;
 	}
@@ -65,18 +65,19 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	public boolean delayPlan(long planRecordId) throws Exception{
 		
 		// TODO 延遲計劃
-		ReportRecord planRecord = reportRecordRepository.findOne(planRecordId);
+		Plan plan = planRepository.findOne(planRecordId);
 		//取得下周五的日期
-		long nextFriday = TimeUtil.getNextFridayDate();
-		//判断一下现在的结束时间是否大于下周五的时间
-		if(planRecord.getEndDate() < nextFriday){
+		long nextWeekEndDate = TimeUtil.getNextWeekEndDate();
+		//判断一下现在的结束时间是否大于下周周末的时间
+		if(plan.getEndDate() < nextWeekEndDate){
 			//修改结束日期到下周五
-			planRecord.setEndDate(nextFriday);
-			reportRecordRepository.save(planRecord);
+			plan.setEndDate(nextWeekEndDate);
+			planRepository.save(plan);
 		}
 		
 		return true;
 	}
+	
 	@Override
 	public Plan createWeeklyPlan(Plan plan) {
 		return planRepository.save(plan);
