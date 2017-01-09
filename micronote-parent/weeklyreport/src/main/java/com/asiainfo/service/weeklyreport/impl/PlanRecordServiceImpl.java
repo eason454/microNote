@@ -51,8 +51,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		ReportRecord workRecord = new ReportRecord();
 		workRecord.setCreateDate(System.currentTimeMillis());
 		workRecord.setContent(plan.getContent());
-		workRecord.setEndDate(System.currentTimeMillis());
-		workRecord.setStartDate(System.currentTimeMillis());
+		workRecord.setState(WorkRecordState.WORKED);
 		workRecord.setRecordAttachments(plan.getRecordAttachments());
 		
 		//TODO 保存計劃工作和工作的修改
