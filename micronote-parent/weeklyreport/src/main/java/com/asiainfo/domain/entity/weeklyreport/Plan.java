@@ -1,9 +1,16 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
-import com.asiainfo.domain.entity.microRecord.RecordAttachment;
-
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.asiainfo.domain.entity.microRecord.RecordAttachment;
+import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 
 /**
  * Created by eason on 2017/1/9.
@@ -39,17 +46,7 @@ public class Plan {
      * 状态
      */
     @Column
-    private String state;
-    @Column(name="oper_state")
-    private String operState;
-
-    public String getOperState() {
-        return operState;
-    }
-
-    public void setOperState(String operState) {
-        this.operState = operState;
-    }
+    private String state = PlanRecordState.PLANNING;
 
     @OneToMany(targetEntity = RecordAttachment.class)
     private List<RecordAttachment> recordAttachments;
@@ -63,7 +60,6 @@ public class Plan {
         this.endDate = endDate;
         this.reportUserId = reportUserId;
         this.state = state;
-        this.operState = operState;
         this.recordAttachments = recordAttachments;
     }
 
