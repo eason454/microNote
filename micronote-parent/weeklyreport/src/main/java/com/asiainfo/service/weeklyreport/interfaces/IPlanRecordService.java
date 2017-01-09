@@ -1,5 +1,7 @@
 package com.asiainfo.service.weeklyreport.interfaces;
 
+import com.asiainfo.domain.entity.weeklyreport.Plan;
+
 /**
  * 处理工作计划条目的业务逻辑
  * @author yi
@@ -26,5 +28,27 @@ public interface IPlanRecordService{
 	 * @return
 	 */
 	public boolean delayPlan(long planRecordId) throws Exception;
+
+	/**
+	 * 创建计划
+	 * @param plan
+	 * @return
+	 */
+	public Plan createWeeklyPlan(Plan plan);
+
+	/**
+	 * 修改计划
+	 * @param plan
+	 * @return
+	 */
+
+	public boolean modifyWeeklyPlan(Plan plan);
+
+	/**
+	 * 删除计划
+	 * @param planId
+	 * @return
+	 */
+	public boolean deleteWeeklyPlan(long planId);
 	
 }
