@@ -20,4 +20,9 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 		WeeklyReport weeklyReport = new WeeklyReport(reportUserId);
 		return weeklyReportRepository.save(weeklyReport);
 	}
+
+	@Override
+	public WeeklyReport queryWeeklyReportByUserId(long userId) {
+		return weeklyReportRepository.findByReportUserId(userId);
+	}
 }

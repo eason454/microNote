@@ -9,4 +9,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "weeklyReports",path = "weeklyReports")
 public interface WeeklyReportRepository extends JpaRepository<WeeklyReport,Long> {
+    WeeklyReport findByReportUserId(long reportUserId);
 }
