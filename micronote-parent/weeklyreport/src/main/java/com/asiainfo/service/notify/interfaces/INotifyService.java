@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.asiainfo.service.notify.impl.Message;
 
-@FeignClient("weeklyreport")
+@FeignClient("notifyServer")
 public interface INotifyService {
 	
-	@RequestMapping(path = "/microNote/notifyOnTime", method = RequestMethod.POST)
+	@RequestMapping(path = "/notify/notifyOnTime", method = RequestMethod.POST)
 	@ResponseBody
 	public String notifyOnTime(@RequestBody Message message);
 	
-	@RequestMapping(path = "/microNote/notify", method = RequestMethod.POST)
+	@RequestMapping(path = "/notify/notify", method = RequestMethod.POST)
 	@ResponseBody
 	public String notify(@RequestBody Message message);
 	

@@ -49,7 +49,7 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 		/*
 		 * 获取输入时间所在周的某一天 day取值：MONDAY,SUNDAY 暂时只取每周的首与尾，不作其它考虑
 		 */
-		int daySequence = 0;
+//		int daySequence = 0;
 		Calendar calendar = Calendar.getInstance();
 		if (calendar.getFirstDayOfWeek() == Calendar.SUNDAY) {
 			calendar.setFirstDayOfWeek(Calendar.MONDAY);
@@ -86,7 +86,6 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 		// TODO 生成推送信息
 		notifyService.notify(new Message(weeklyReport.getAuditingUserId() + "", notifyMessage,
 				NotificationType.WEEKLY_REPORT_CHECK_NOTIFY));
-
 		return true;
 	}
 }
