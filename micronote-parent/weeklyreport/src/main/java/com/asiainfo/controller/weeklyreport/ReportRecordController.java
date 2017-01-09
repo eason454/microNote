@@ -15,25 +15,5 @@ import java.util.List;
  */
 @RestController
 public class ReportRecordController {
-    @Autowired
-    private IReportRecordService reportRecordService;
-    @Autowired
-    private WeeklyReportService weeklyReportService;
-    @PostMapping(path = "/createWeeklyPlan")
-    public ReportRecord createWeeklyPlan(@RequestBody ReportRecord reportRecord,@RequestHeader(value="userId") long userId) {
-        WeeklyReport weeklyReport= weeklyReportService.queryWeeklyReportByUserId(userId);
-        List<ReportRecord> list=new ArrayList<ReportRecord>();
-        list.add(reportRecord);
-        weeklyReport.setReportRecord(list);
-        return reportRecordService.createWeeklyPlan(reportRecord);
-    }
-    @PostMapping(path="/modifyWeeklyPlan")
-    public boolean modifyWeeklyPlan(@RequestBody ReportRecord reportRecord){
-        return reportRecordService.modifyWeeklyPlan(reportRecord);
-    }
-    @DeleteMapping(path="/deleteWeeklyPlan")
-    public boolean deleteWeeklyPlan(@RequestBody ReportRecord reportRecord){
-        return reportRecordService.deleteWeeklyPlan(reportRecord.getReportRecordId());
-    }
 }
 
