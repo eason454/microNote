@@ -5,6 +5,8 @@ import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Created by eason on 2017/1/9.
  */
@@ -24,7 +26,10 @@ public class PlanController {
     public boolean deleteWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
-
+    @GetMapping(path="/queryNextWeekPlan")
+    public List<Plan> queryNextWeekPlan(@RequestHeader(value = "userId") long userId){
+        return planRecordService.queryNextWeekPlan(userId);
+    }
     @PostMapping(path = "/cancelPlan")
     public boolean cancelPlan(@RequestParam(value = "planId") long planId) {
         try {
