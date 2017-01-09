@@ -32,7 +32,7 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	public List<ReportRecord> findByCreateDateBetween(long currentTime) {
 		long startDate = getDayInWeek(currentTime, "MONDAY");
 		long endDate = getDayInWeek(currentTime,"SUNDAY");
-		return reportRecordRepository.findByCreateDateBetweenOrderByCreateDate(startDate, endDate);
+		return reportRecordRepository.findByCreateDateBetweenOrderByCreateDateDesc(startDate,endDate);
 	}
 
 	private long getDayInWeek(long currentTime, String day) {

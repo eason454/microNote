@@ -13,5 +13,5 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "reportRecords",path = "reportRecords")
 public interface ReportRecordRepository extends JpaRepository<ReportRecord,Long> {
-    public List<ReportRecord> findByCreateDateBetweenOrderByCreateDate(@Param("startDate") long startDate, @Param("endDate") long endDate);
+    public List<ReportRecord> findByCreateDateBetweenOrderByCreateDateDesc(@Param("startDate") long startDate, @Param("endDate") long endDate);
 }
