@@ -13,6 +13,7 @@ import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+import org.springframework.stereotype.Service;
 
 import static com.asiainfo.util.CommonUtils.getNullPropertyNames;
 
@@ -22,7 +23,7 @@ import static com.asiainfo.util.CommonUtils.getNullPropertyNames;
  * @author yi
  *
  */
-@Component
+@Service
 public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Autowired
@@ -88,6 +89,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		Plan oldPlan=planRepository.findOne(plan.getPlanId());
 		String[] nullProperties=CommonUtils.getNullPropertyNames(plan);
 		BeanUtils.copyProperties(plan,oldPlan,nullProperties);
+		planRepository.save(plan);
 		return true;
 	}
 
