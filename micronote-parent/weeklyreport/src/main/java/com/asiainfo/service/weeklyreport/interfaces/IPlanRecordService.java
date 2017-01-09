@@ -15,28 +15,28 @@ public interface IPlanRecordService{
 	 * @param planRecordId
 	 * @return
 	 */
-	public boolean canelPlan(long planId) throws Exception;
+	 boolean canelPlan(long planId) throws Exception;
 	
 	/**
 	 * 确认完成计划
 	 * @param planRecordId
 	 * @return
 	 */
-	public boolean confirmePlan(long planId, long worklyReportId) throws Exception;
+	 boolean confirmePlan(long planId, long worklyReportId) throws Exception;
 	
 	/**
 	 * 延迟计划
 	 * @param planRecordId
 	 * @return
 	 */
-	public boolean delayPlan(long planId) throws Exception;
+	 boolean delayPlan(long planId) throws Exception;
 
 	/**
 	 * 创建计划
 	 * @param plan
 	 * @return
 	 */
-	public Plan createWeeklyPlan(Plan plan);
+	 Plan createWeeklyPlan(Plan plan);
 
 	/**
 	 * 修改计划
@@ -44,20 +44,21 @@ public interface IPlanRecordService{
 	 * @return
 	 */
 
-	public boolean modifyWeeklyPlan(Plan plan);
+	 boolean modifyWeeklyPlan(Plan plan);
 
 	/**
 	 * 删除计划
 	 * @param planId
 	 * @return
 	 */
-	public boolean deleteWeeklyPlan(long planId);
+	 boolean deleteWeeklyPlan(long planId);
 
 	/**
 	 * 获取下周计划
 	 * @param lastTimeThisWeek
 	 * @return
 	 */
-	public List<Plan> queryNextWeekPlan(long userId);
-	
+	 List<Plan> queryNextWeekPlan(long userId);
+
+     List<Plan> queryThisWeekPlan(long userId);
 }
