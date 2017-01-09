@@ -9,4 +9,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
  */
 @RepositoryRestResource(collectionResourceRel = "microRecords",path = "microRecords")
 public interface MicroRecordRepository extends JpaRepository<MicroRecord,Long> {
+	
 }
