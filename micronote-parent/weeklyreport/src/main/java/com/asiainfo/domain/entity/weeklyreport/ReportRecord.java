@@ -1,11 +1,10 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.asiainfo.domain.entity.microRecord.RecordAttachment;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "report_record")
@@ -30,6 +29,35 @@ public class ReportRecord {
 
 	@Column(name = "state")
 	private String state = "new";
+
+	@Column(name="content", nullable=false)
+	private String content;
+
+	public List<RecordAttachment> getRecordAttachments() {
+		return recordAttachments;
+	}
+
+	public void setRecordAttachments(List<RecordAttachment> recordAttachments) {
+		this.recordAttachments = recordAttachments;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY, mappedBy="id")
+	private List<RecordAttachment> recordAttachments = new ArrayList<RecordAttachment>();
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getRecordType() {
+		return recordType;
+	}
+
+	public void setRecordType(String recordType) {
+		this.recordType = recordType;
+	}
 
 	/**
 	 * 1、plan
