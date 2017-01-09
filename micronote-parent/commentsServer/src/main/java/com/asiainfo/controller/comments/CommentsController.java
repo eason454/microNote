@@ -13,11 +13,16 @@ import com.asiainfo.domain.entity.comments.CommentRecord;
 import com.asiainfo.repository.comments.ICommentRecordRepository;
 import com.asiainfo.repository.comments.ICommentRepository;
 
+/**
+ * 
+ * @author yi
+ */
 @RestController
 public class CommentsController {
 	
 	@Autowired
 	ICommentRecordRepository commentRecordRepository;
+	
 	@Autowired
 	ICommentRepository commentRepository;
 	
@@ -28,8 +33,7 @@ public class CommentsController {
 	
 	@GetMapping(path = "/getComment/{commentId}")
 	public Comment getComment(@PathVariable("commentId") long commentId){
-		Comment comment = commentRepository.findOne(commentId);
-		comment.getRecords();
+		Comment comment = commentRepository.findByCommentTargetId(commentId);
 		return comment;
 	}
 	

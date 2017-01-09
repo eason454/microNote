@@ -25,7 +25,7 @@ public class Comment {
 	@Column(name = "comment_id")
 	private long id;
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY, targetEntity = CommentRecord.class)
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, targetEntity = CommentRecord.class)
 	private List<CommentRecord> records ;
 	
 	@Column(name = "create_date")
