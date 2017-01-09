@@ -5,7 +5,6 @@ import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
 import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.AutoConfigurationReportEndpoint;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,3 +36,4 @@ public class ReportRecordController {
         return reportRecordService.deleteWeeklyPlan(reportRecord.getReportRecordId());
     }
 }
+
