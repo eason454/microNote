@@ -20,7 +20,7 @@ public class Plan {
     @Column(name="end_date")
     private Long endDate;
     /**
-     *
+     * 操作状态
      */
     private String state;
     @OneToMany(targetEntity = RecordAttachment.class)
