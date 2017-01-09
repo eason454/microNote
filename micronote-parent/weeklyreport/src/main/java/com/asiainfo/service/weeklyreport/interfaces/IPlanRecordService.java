@@ -13,21 +13,21 @@ public interface IPlanRecordService{
 	 * @param planRecordId
 	 * @return
 	 */
-	public boolean canelPlan(long planRecordId) throws Exception;
+	public boolean canelPlan(long planId) throws Exception;
 	
 	/**
 	 * 确认完成计划
 	 * @param planRecordId
 	 * @return
 	 */
-	public boolean confirmePlan(long planRecordId, long worklyReportId) throws Exception;
+	public boolean confirmePlan(long planId, long worklyReportId) throws Exception;
 	
 	/**
 	 * 延迟计划
 	 * @param planRecordId
 	 * @return
 	 */
-	public boolean delayPlan(long planRecordId) throws Exception;
+	public boolean delayPlan(long planId) throws Exception;
 
 	/**
 	 * 创建计划

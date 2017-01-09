@@ -17,4 +17,8 @@ public interface PlanRepository extends JpaRepository<Plan,Long> {
     public List<Plan> findByStartDateAndEndDate(@Param("beginDate") long beginDate,@Param("endDate") long endDate);
 
 //    public List<Plan> findByEndDateGreaterThanOrStartDateLessThan(@Param("beginDate") long beginDate, @Param("endDate") long endDate);
+    List<Plan> findByEndDateGreaterThanAndStartDateLessThan(@Param("beginDate") long beginDate, @Param("endDate") long endDate);
+    @Query
+    List<Plan> findByNextWeeklyPlan();
+
 }

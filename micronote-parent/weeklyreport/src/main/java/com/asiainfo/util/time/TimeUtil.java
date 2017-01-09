@@ -48,12 +48,11 @@ public class TimeUtil {
 	}
 
 	/**
-	 * 获取本周五的日期
+	 * 获取本周末的日期
 	 */
 	public static long getWeekEndDate() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.WEEK_OF_YEAR, 1);
-		// calendar.add(Calendar.DATE, 4);
 		setZero(calendar);
 		calendar.setTimeInMillis(calendar.getTime().getTime() - 1);
 		logger.debug("getWeekEndDate:" + calendar.getTime());
@@ -72,7 +71,7 @@ public class TimeUtil {
 	}
 
 	/**
-	 * 獲取下周五的日期
+	 * 獲取下周末的日期
 	 * 
 	 * @return
 	 */
@@ -91,7 +90,10 @@ public class TimeUtil {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 	}
-
+	public static int getWeekOfYear(){
+		Calendar calendar=Calendar.getInstance();
+		return calendar.get(Calendar.WEEK_OF_YEAR);
+	}
 	public static void main(String[] args) {
 		logger.debug(getWeekStartDateByWeek(2017, 1));
 		logger.debug(getWeekEndDateByWeek(2017, 1));
@@ -99,6 +101,7 @@ public class TimeUtil {
 		logger.debug(getWeekEndDate());
 		logger.debug(getNextWeekStartDate());
 		logger.debug(getNextWeekEndDate());
+		logger.debug(getWeekOfYear());
 	}
 
 }

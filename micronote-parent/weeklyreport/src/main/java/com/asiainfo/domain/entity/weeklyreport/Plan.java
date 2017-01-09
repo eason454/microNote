@@ -1,117 +1,114 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
-import com.asiainfo.domain.entity.microRecord.RecordAttachment;
-
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.asiainfo.domain.entity.microRecord.RecordAttachment;
+import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 
 /**
  * Created by eason on 2017/1/9.
  */
 @Entity
 public class Plan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "plan_id")
-    private Long planId;
-    
-    @Column
-    private String content;
-    
-    @Column(name="start_date")
-    private Long startDate;
-    
-    @Column(name="end_date")
-    private Long endDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "plan_id")
+	private Long planId;
 
-    @Column(name="report_user_id")
-    private long reportUserId;
+	@Column
+	private String content;
 
-    public long getReportUserId() {
-        return reportUserId;
-    }
+	@Column(name = "start_date")
+	private Long startDate;
 
-    public void setReportUserId(long reportUserId) {
-        this.reportUserId = reportUserId;
-    }
+	@Column(name = "end_date")
+	private Long endDate;
 
-    /**
-     * 状态
-     */
-    @Column
-    private String state;
-    @Column(name="oper_state")
-    private String operState;
+	@Column(name = "report_user_id")
+	private long reportUserId;
 
-    public String getOperState() {
-        return operState;
-    }
+	public long getReportUserId() {
+		return reportUserId;
+	}
 
-    public void setOperState(String operState) {
-        this.operState = operState;
-    }
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
+	}
 
-    @OneToMany(targetEntity = RecordAttachment.class)
-    private List<RecordAttachment> recordAttachments;
+	/**
+	 * 状态
+	 */
+	@Column
+	private String state = PlanRecordState.PLANNING;
 
-    public Plan() {
-    }
+	@OneToMany(targetEntity = RecordAttachment.class)
+	private List<RecordAttachment> recordAttachments;
 
-    public Plan(String content, Long startDate, Long endDate, long reportUserId, String state, String operState, List<RecordAttachment> recordAttachments) {
-        this.content = content;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.reportUserId = reportUserId;
-        this.state = state;
-        this.operState = operState;
-        this.recordAttachments = recordAttachments;
-    }
+	public Plan() {
+	}
 
-    public Long getPlanId() {
-        return planId;
-    }
+	public Plan(String content, Long startDate, Long endDate, long reportUserId, String state, String operState,
+			List<RecordAttachment> recordAttachments) {
+		this.content = content;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.reportUserId = reportUserId;
+		this.state = state;
+		this.recordAttachments = recordAttachments;
+	}
 
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
+	public Long getPlanId() {
+		return planId;
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public void setPlanId(Long planId) {
+		this.planId = planId;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public Long getStartDate() {
-        return startDate;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public void setStartDate(Long startDate) {
-        this.startDate = startDate;
-    }
+	public Long getStartDate() {
+		return startDate;
+	}
 
-    public Long getEndDate() {
-        return endDate;
-    }
+	public void setStartDate(Long startDate) {
+		this.startDate = startDate;
+	}
 
-    public void setEndDate(Long endDate) {
-        this.endDate = endDate;
-    }
+	public Long getEndDate() {
+		return endDate;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setEndDate(Long endDate) {
+		this.endDate = endDate;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public List<RecordAttachment> getRecordAttachments() {
-        return recordAttachments;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public void setRecordAttachments(List<RecordAttachment> recordAttachments) {
-        this.recordAttachments = recordAttachments;
-    }
+	public List<RecordAttachment> getRecordAttachments() {
+		return recordAttachments;
+	}
+
+	public void setRecordAttachments(List<RecordAttachment> recordAttachments) {
+		this.recordAttachments = recordAttachments;
+	}
 }
