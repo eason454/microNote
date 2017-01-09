@@ -7,7 +7,6 @@ import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
-import com.asiainfo.util.consts.CommonConst.RecordType;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
 
@@ -61,11 +60,11 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		// TODO 延遲計劃
 		ReportRecord planRecord = reportRecordRepository.findOne(planRecordId);
 		//取得下周五的日期
-		long nextFriday = TimeUtil.getNextFridayDate();
+		long nextWeekEndDate = TimeUtil.getNextWeekEndDate();
 		//判断一下现在的结束时间是否大于下周五的时间
-		if(planRecord.getEndDate() < nextFriday){
+		if(planRecord.getEndDate() < nextWeekEndDate){
 			//修改结束日期到下周五
-			planRecord.setEndDate(nextFriday);
+			planRecord.setEndDate(nextWeekEndDate);
 			reportRecordRepository.save(planRecord);
 		}
 		
