@@ -18,7 +18,7 @@ import com.asiainfo.util.time.TimeUtil;
  *
  */
 @Component
-public class PlanRecordServerImpl implements IPlanRecordService {
+public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Autowired
 	ReportRecordRepository reportRecordRepository;
@@ -44,7 +44,7 @@ public class PlanRecordServerImpl implements IPlanRecordService {
 		//TODO 复制一个条目为新的完成工作
 		ReportRecord workRecord = planRecord.cloneReportRecord();
 		workRecord.setReportRecordId(null);
-		workRecord.setRecordType(RecordType.WORK);
+//		workRecord.setRecordType(RecordType.WORK);
 		workRecord.setState(WorkRecordState.WORKED);
 		workRecord.setCreateDate(System.currentTimeMillis());
 		

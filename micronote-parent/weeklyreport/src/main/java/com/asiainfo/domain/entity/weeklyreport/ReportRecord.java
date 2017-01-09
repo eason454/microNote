@@ -18,7 +18,6 @@ public class ReportRecord {
 	@Column(name = "create_date")
 	private long createDate = System.currentTimeMillis();
 	
-
 	@Column(name = "start_date")
 	private long startDate;
 
@@ -49,7 +48,12 @@ public class ReportRecord {
 		this.content = content;
 	}
 
-
+	/**
+	 *
+	 * 2、work
+	 */
+	@Column(name = "record_type")
+	private String recordType;
 
 
 	public ReportRecord(long startDate, long endDate, String content, String recordType) {

@@ -14,15 +14,19 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "plan_id")
     private Long planId;
+    
+    @Column
     private String content;
+    
     @Column(name="start_date")
     private Long startDate;
+    
     @Column(name="end_date")
     private Long endDate;
-    /**
-     * 操作状态
-     */
+  
+    @Column
     private String state;
+    
     @OneToMany(targetEntity = RecordAttachment.class)
     private List<RecordAttachment> recordAttachments;
 
