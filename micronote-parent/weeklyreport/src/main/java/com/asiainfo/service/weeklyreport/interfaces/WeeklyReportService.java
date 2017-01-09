@@ -7,4 +7,5 @@ import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
  */
 public interface WeeklyReportService {
     public WeeklyReport createWeeklyReport(long reportUserId);
+    public WeeklyReport queryWeeklyReportByUserId(long userId);
 }

@@ -18,9 +18,7 @@ public class ReportRecord {
 	@Column(name = "create_date")
 	private long createDate = System.currentTimeMillis();
 	
-	@Column(name = "micro_record_id")
-	private long microRecordId;
-	
+
 	@Column(name = "start_date")
 	private long startDate;
 
@@ -66,12 +64,16 @@ public class ReportRecord {
 	@Column(name = "record_type")
 	private String recordType;
 
-	public ReportRecord(Long reportRecordId, long microRecordId) {
-		super();
-		this.reportRecordId = reportRecordId;
-		this.microRecordId = microRecordId;
+
+	public ReportRecord(long startDate, long endDate, String content, String recordType) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.content = content;
+		this.recordType = recordType;
 	}
 
+	public ReportRecord() {
+	}
 
 	public Long getReportRecordId() {
 		return reportRecordId;
@@ -89,13 +91,6 @@ public class ReportRecord {
 		this.createDate = createDate;
 	}
 
-	public long getMicroRecordId() {
-		return microRecordId;
-	}
-
-	public void setMicroRecordId(long microRecordId) {
-		this.microRecordId = microRecordId;
-	}
 
 
 	public long getStartDate() {
