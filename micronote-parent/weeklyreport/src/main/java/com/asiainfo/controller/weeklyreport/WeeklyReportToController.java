@@ -26,7 +26,6 @@ public class WeeklyReportToController {
 			weeklyReportToRepository.delete(weeklyReportToExist);
 		}
 		weeklyReportToRepository.save(weeklyReportTo);
-		return "Ok";
+		return "OK";
 	}
-	
 }
