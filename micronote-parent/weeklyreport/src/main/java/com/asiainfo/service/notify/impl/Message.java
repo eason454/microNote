@@ -1,4 +1,4 @@
-package com.asiainfo.service.notify;
+package com.asiainfo.service.notify.impl;
 
 public class Message {
 

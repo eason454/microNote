@@ -1,16 +1,21 @@
 package com.asiainfo.service.weeklyreport.impl;
 
+import java.util.Calendar;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
+import com.asiainfo.service.notify.impl.Message;
+import com.asiainfo.service.notify.interfaces.INotifyService;
 import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import sun.util.resources.cldr.aa.CalendarData_aa_DJ;
-
-import java.util.Calendar;
-import java.util.List;
+import com.asiainfo.util.consts.CommonConst.NotificationType;
+import com.asiainfo.util.consts.CommonConst.WeeklyReportReport;
 
 /**
  * Created by eason on 2017/1/6.
@@ -21,6 +26,11 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	private ReportRecordRepository reportRecordRepository;
 	@Autowired
 	private WeeklyReportRepository weeklyReportRepository;
+	@Autowired
+	private INotifyService notifyService;
+	@Value("${weeklyReport.notify.information}")
+	private String notifyMessage;
+
 	@Override
 	public WeeklyReport createWeeklyReport(long reportUserId) {
 		// 构造WeeklyReport对象
@@ -31,13 +41,13 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	@Override
 	public List<ReportRecord> findByCreateDateBetween(long currentTime) {
 		long startDate = getDayInWeek(currentTime, "MONDAY");
-		long endDate = getDayInWeek(currentTime,"SUNDAY");
-		return reportRecordRepository.findByCreateDateBetweenOrderByCreateDateDesc(startDate,endDate);
+		long endDate = getDayInWeek(currentTime, "SUNDAY");
+		return reportRecordRepository.findByCreateDateBetweenOrderByCreateDateDesc(startDate, endDate);
 	}
 
 	private long getDayInWeek(long currentTime, String day) {
-		/*获取输入时间所在周的某一天
-		day取值：MONDAY,SUNDAY 暂时只取每周的首与尾，不作其它考虑
+		/*
+		 * 获取输入时间所在周的某一天 day取值：MONDAY,SUNDAY 暂时只取每周的首与尾，不作其它考虑
 		 */
 		int daySequence = 0;
 		Calendar calendar = Calendar.getInstance();
@@ -57,16 +67,26 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 		}
 		return calendar.getTimeInMillis();
 	}
+
 	public WeeklyReport queryWeeklyReportByUserId(long userId) {
 		return weeklyReportRepository.findByReportUserId(userId);
 	}
 
+	/**
+	 * 提交周報<br>
+	 * 提醒審核人查看周報
+	 */
 	@Override
 	public boolean submitWeeklyReport(long weeklyReportId) throws Exception {
-		//TODO 提交周報
-		
-		//TODO 生成推送信息
-		
-		return false;
+		// TODO 提交周報
+		WeeklyReport weeklyReport = weeklyReportRepository.findOne(weeklyReportId);
+		weeklyReport.setState(WeeklyReportReport.SUBMMITED);
+		weeklyReportRepository.save(weeklyReport);
+
+		// TODO 生成推送信息
+		notifyService.notify(new Message(weeklyReport.getAuditingUserId() + "", notifyMessage,
+				NotificationType.WEEKLY_REPORT_CHECK_NOTIFY));
+
+		return true;
 	}
 }

@@ -14,22 +14,27 @@ import java.util.List;
 public class PlanController {
     @Autowired
     private IPlanRecordService planRecordService;
+    
     @PostMapping(path = "/createWeeklyPlan")
     public Plan createWeeklyPlan(@RequestBody Plan plan) {
         return planRecordService.createWeeklyPlan(plan);
     }
+    
     @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.modifyWeeklyPlan(plan);
     }
+    
     @DeleteMapping(path="/deleteWeeklyPlan")
     public boolean deleteWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
+    
     @GetMapping(path="/queryNextWeekPlan")
     public List<Plan> queryNextWeekPlan(@RequestHeader(value = "userId") long userId){
         return planRecordService.queryNextWeekPlan(userId);
     }
+    
     @PostMapping(path = "/cancelPlan")
     public boolean cancelPlan(@RequestParam(value = "planId") long planId) {
         try {
