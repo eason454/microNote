@@ -91,7 +91,10 @@ public class TimeUtil {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 	}
-
+	public static int getWeekOfYear(){
+		Calendar calendar=Calendar.getInstance();
+		return calendar.get(Calendar.WEEK_OF_YEAR);
+	}
 	public static void main(String[] args) {
 		logger.debug(getWeekStartDateByWeek(2017, 1));
 		logger.debug(getWeekEndDateByWeek(2017, 1));
@@ -99,6 +102,7 @@ public class TimeUtil {
 		logger.debug(getWeekEndDate());
 		logger.debug(getNextWeekStartDate());
 		logger.debug(getNextWeekEndDate());
+		logger.debug(getWeekOfYear());
 	}
 
 }
