@@ -26,8 +26,10 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	private ReportRecordRepository reportRecordRepository;
 	@Autowired
 	private WeeklyReportRepository weeklyReportRepository;
+	//注入推送服務
 	@Autowired
 	private INotifyService notifyService;
+	//讀取配置的推送信息
 	@Value("${weeklyReport.notify.information}")
 	private String notifyMessage;
 
