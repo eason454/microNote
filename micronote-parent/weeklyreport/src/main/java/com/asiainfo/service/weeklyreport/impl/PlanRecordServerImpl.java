@@ -26,8 +26,6 @@ public class PlanRecordServerImpl implements IPlanRecordServer {
 
 	@Autowired
 	ReportRecordRepository reportRecordRepository;
-	@Autowired
-	WeeklyReportRepository weeklyReportRepository;
 
 	@Override
 	public boolean canelPlan(long planRecordId) throws Exception{
@@ -57,14 +55,7 @@ public class PlanRecordServerImpl implements IPlanRecordServer {
 		//TODO 保存計劃工作和工作的修改
 		reportRecordRepository.save(planRecord);
 		workRecord = reportRecordRepository.save(workRecord);
-		
-		//TODO 保存完成工作到周報
-		WeeklyReport weeklyReport = weeklyReportRepository.findOne(worklyReportId);
-		Set<ReportRecord> records = weeklyReport.getReportRecord();
-		records.add(workRecord);
-		weeklyReport.setReportRecord(records);
-		weeklyReportRepository.save(weeklyReport);
-		
+			
 		return true;
 	}
 
