@@ -1,7 +1,6 @@
 package com.asiainfo.util.time;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -32,7 +31,7 @@ public  class TimeUtil {
 		calendar.setWeekDate(weekYear, weekOfYear, 6);
 //		calendar.
 		logger.debug("getMondayDate:"+calendar.getTime());
-		return new Date( calendar.getTime().getTime()).;
+		return calendar.getTime().getTime();
 	}
 	
 	/**
