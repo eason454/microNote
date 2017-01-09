@@ -14,7 +14,12 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "plan",path = "plan")
 public interface PlanRepository extends JpaRepository<Plan,Long> {
     List<Plan> findByEndDateGreaterThanAndStartDateLessThan(@Param("beginDate") long beginDate, @Param("endDate") long endDate);
-    @Query
-    List<Plan> findByNextWeeklyPlan();
+
+    /**
+     * 获取下周计划
+     * @param time
+     * @return
+     */
+    List<Plan> findByReportUserIdAndStartDateGreaterThan(long userId,long lastTimeThisWeek);
 
 }

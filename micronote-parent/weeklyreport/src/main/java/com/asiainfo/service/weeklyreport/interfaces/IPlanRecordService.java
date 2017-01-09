@@ -2,6 +2,8 @@ package com.asiainfo.service.weeklyreport.interfaces;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 
+import java.util.List;
+
 /**
  * 处理工作计划条目的业务逻辑
  * @author yi
@@ -50,5 +52,12 @@ public interface IPlanRecordService{
 	 * @return
 	 */
 	public boolean deleteWeeklyPlan(long planId);
+
+	/**
+	 * 获取下周计划
+	 * @param lastTimeThisWeek
+	 * @return
+	 */
+	public List<Plan> queryNextWeekPlan(long userId);
 	
 }

@@ -90,6 +90,11 @@ public class TimeUtil {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
 	}
+
+	/**
+	 * 获取当前时间所属的周
+	 * @return
+	 */
 	public static int getWeekOfYear(){
 		Calendar calendar=Calendar.getInstance();
 		return calendar.get(Calendar.WEEK_OF_YEAR);

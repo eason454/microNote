@@ -110,4 +110,10 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		planRepository.delete(planId);
 		return true;
 	}
+
+	@Override
+	public List<Plan> queryNextWeekPlan(long userId) {
+		long lastTimeThisWeek=TimeUtil.getWeekEndDate();
+		return planRepository.findByReportUserIdAndStartDateGreaterThan(userId,lastTimeThisWeek);
+	}
 }
