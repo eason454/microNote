@@ -1,5 +1,7 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
+import com.asiainfo.util.consts.CommonConst;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +23,7 @@ public class WeeklyReport {
 	@Id
 	@Column(name="weekly_report_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	
 	/**
 	 * 1、submitted 已提交<br>
@@ -34,13 +36,13 @@ public class WeeklyReport {
 	 * 汇报人Id
 	 */
 	@Column(name="report_user_id")
-	private long report_user_id;
+	private long reportUserId;
 	
 	/**
 	 * 审核人Id
 	 */
-	@Column(name="auditing_user_id")
-	private long auditingUserId;
+	@Column(name="auditing_user_id",nullable = true)
+	private Long auditingUserId;
 	
 	@Column(name="create_date")
 	private long createDate=System.currentTimeMillis();
@@ -54,11 +56,11 @@ public class WeeklyReport {
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="reportRecordId")
 	private Set<ReportRecord> reportRecord = new HashSet<ReportRecord>();
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -70,19 +72,19 @@ public class WeeklyReport {
 		this.state = state;
 	}
 
-	public long getReport_user_id() {
-		return report_user_id;
+	public long getReportUserId() {
+		return reportUserId;
 	}
 
-	public void setReport_user_id(long report_user_id) {
-		this.report_user_id = report_user_id;
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
 	}
 
-	public long getAuditingUserId() {
+	public Long getAuditingUserId() {
 		return auditingUserId;
 	}
 
-	public void setAuditingUserId(long auditingUserId) {
+	public void setAuditingUserId(Long auditingUserId) {
 		this.auditingUserId = auditingUserId;
 	}
 
@@ -109,5 +111,12 @@ public class WeeklyReport {
 	public void setReportRecord(Set<ReportRecord> reportRecord) {
 		this.reportRecord = reportRecord;
 	}
-	
+
+	public WeeklyReport(long reportUserId) {
+		this.reportUserId = reportUserId;
+		this.state= CommonConst.WeeklyReportReport.READY;
+	}
+
+	public WeeklyReport() {
+	}
 }

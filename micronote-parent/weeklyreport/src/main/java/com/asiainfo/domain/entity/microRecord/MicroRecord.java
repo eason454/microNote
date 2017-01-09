@@ -22,9 +22,6 @@ public class MicroRecord {
 	@Column(name="micro_record_id")
 	private long id;
 	
-	@Column(name="content", nullable=false)
-	private String content;
-	
 	@Column(name="create_date", nullable=false)
 	private long createDate = System.currentTimeMillis();
 	
@@ -51,13 +48,6 @@ public class MicroRecord {
 		this.id = id;
 	}
 
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 
 	public Set<RecordAttachment> getRecordAttachments() {
 		return recordAttachments;
