@@ -13,4 +13,5 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "microRecords",path = "microRecords")
 public interface MicroRecordRepository extends JpaRepository<MicroRecord,Long> {
     public List<MicroRecord> findByCreateDateBetweenOrderByCreateDateDesc(@Param("startDate") long startDate, @Param("endDate") long endDate);
+
 }
