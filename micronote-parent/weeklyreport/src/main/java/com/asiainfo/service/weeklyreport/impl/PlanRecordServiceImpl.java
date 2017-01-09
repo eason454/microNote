@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
@@ -17,6 +16,7 @@ import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+import org.springframework.stereotype.Service;
 
 /**
  * 简单的计划操作实现
@@ -24,7 +24,7 @@ import com.asiainfo.util.time.TimeUtil;
  * @author yi
  *
  */
-@Component
+@Service
 public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Autowired
@@ -101,6 +101,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		Plan oldPlan=planRepository.findOne(plan.getPlanId());
 		String[] nullProperties=CommonUtils.getNullPropertyNames(plan);
 		BeanUtils.copyProperties(plan,oldPlan,nullProperties);
+		planRepository.save(plan);
 		return true;
 	}
 
