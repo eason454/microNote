@@ -4,7 +4,6 @@ import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
-import com.netflix.governator.annotations.binding.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
