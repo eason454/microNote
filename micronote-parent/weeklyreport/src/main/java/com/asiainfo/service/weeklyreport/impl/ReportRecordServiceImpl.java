@@ -6,6 +6,7 @@ import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
 import com.asiainfo.util.CommonUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.AutoConfigurationReportEndpoint;
 import org.springframework.stereotype.Service;
 
 /**
