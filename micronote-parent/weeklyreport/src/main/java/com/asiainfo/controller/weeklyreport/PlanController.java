@@ -38,35 +38,31 @@ public class PlanController {
 	@PostMapping(path = "/cancelPlan")
 	public boolean cancelPlan(@RequestParam(value = "planId") long planId) {
 		try {
-			planRecordService.canelPlan(planId);
+			return planRecordService.canelPlan(planId);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		}
-
-		return true;
 	}
 
 	@PostMapping(path = "/confirmedPlan")
 	public boolean confirmedPlan(@RequestParam(value = "planId") long planId,
 			@RequestParam(value = "planId") long worklyReportId) {
 		try {
-			planRecordService.confirmePlan(planId, worklyReportId);
+			return planRecordService.confirmePlan(planId, worklyReportId);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 	
 	@PostMapping(path = "/delayPlan")
 	public boolean confirmedPlan(@RequestParam(value = "planId") long planId) {
 		try {
-			planRecordService.delayPlan(planId);
+			return planRecordService.delayPlan(planId);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 }

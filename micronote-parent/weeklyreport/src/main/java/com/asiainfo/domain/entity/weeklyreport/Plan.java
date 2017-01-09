@@ -17,97 +17,98 @@ import com.asiainfo.util.consts.CommonConst.PlanRecordState;
  */
 @Entity
 public class Plan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "plan_id")
-    private Long planId;
-    
-    @Column
-    private String content;
-    
-    @Column(name="start_date")
-    private Long startDate;
-    
-    @Column(name="end_date")
-    private Long endDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "plan_id")
+	private Long planId;
 
-    @Column(name="report_user_id")
-    private long reportUserId;
+	@Column
+	private String content;
 
-    public long getReportUserId() {
-        return reportUserId;
-    }
+	@Column(name = "start_date")
+	private Long startDate;
 
-    public void setReportUserId(long reportUserId) {
-        this.reportUserId = reportUserId;
-    }
+	@Column(name = "end_date")
+	private Long endDate;
 
-    /**
-     * 状态
-     */
-    @Column
-    private String state = PlanRecordState.PLANNING;
+	@Column(name = "report_user_id")
+	private long reportUserId;
 
-    @OneToMany(targetEntity = RecordAttachment.class)
-    private List<RecordAttachment> recordAttachments;
+	public long getReportUserId() {
+		return reportUserId;
+	}
 
-    public Plan() {
-    }
+	public void setReportUserId(long reportUserId) {
+		this.reportUserId = reportUserId;
+	}
 
-    public Plan(String content, Long startDate, Long endDate, long reportUserId, String state, String operState, List<RecordAttachment> recordAttachments) {
-        this.content = content;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.reportUserId = reportUserId;
-        this.state = state;
-        this.recordAttachments = recordAttachments;
-    }
+	/**
+	 * 状态
+	 */
+	@Column
+	private String state = PlanRecordState.PLANNING;
 
-    public Long getPlanId() {
-        return planId;
-    }
+	@OneToMany(targetEntity = RecordAttachment.class)
+	private List<RecordAttachment> recordAttachments;
 
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
+	public Plan() {
+	}
 
-    public String getContent() {
-        return content;
-    }
+	public Plan(String content, Long startDate, Long endDate, long reportUserId, String state, String operState,
+			List<RecordAttachment> recordAttachments) {
+		this.content = content;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.reportUserId = reportUserId;
+		this.state = state;
+		this.recordAttachments = recordAttachments;
+	}
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public Long getPlanId() {
+		return planId;
+	}
 
-    public Long getStartDate() {
-        return startDate;
-    }
+	public void setPlanId(Long planId) {
+		this.planId = planId;
+	}
 
-    public void setStartDate(Long startDate) {
-        this.startDate = startDate;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public Long getEndDate() {
-        return endDate;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public void setEndDate(Long endDate) {
-        this.endDate = endDate;
-    }
+	public Long getStartDate() {
+		return startDate;
+	}
 
-    public String getState() {
-        return state;
-    }
+	public void setStartDate(Long startDate) {
+		this.startDate = startDate;
+	}
 
-    public void setState(String state) {
-        this.state = state;
-    }
+	public Long getEndDate() {
+		return endDate;
+	}
 
-    public List<RecordAttachment> getRecordAttachments() {
-        return recordAttachments;
-    }
+	public void setEndDate(Long endDate) {
+		this.endDate = endDate;
+	}
 
-    public void setRecordAttachments(List<RecordAttachment> recordAttachments) {
-        this.recordAttachments = recordAttachments;
-    }
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public List<RecordAttachment> getRecordAttachments() {
+		return recordAttachments;
+	}
+
+	public void setRecordAttachments(List<RecordAttachment> recordAttachments) {
+		this.recordAttachments = recordAttachments;
+	}
 }
