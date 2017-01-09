@@ -48,19 +48,22 @@ public class ReportRecord {
 		this.content = content;
 	}
 
+<<<<<<< HEAD
 	/**
 	 *
 	 * 2、work
 	 */
 	@Column(name = "record_type")
 	private String recordType;
+=======
+
+>>>>>>> 25157e60f75a17b165bbf1ebcb3ee3f10507c8cb
 
 
 	public ReportRecord(long startDate, long endDate, String content, String recordType) {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.content = content;
-		this.recordType = recordType;
 	}
 
 	public ReportRecord() {

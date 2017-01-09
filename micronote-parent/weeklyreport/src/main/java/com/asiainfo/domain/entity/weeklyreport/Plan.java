@@ -23,8 +23,14 @@ public class Plan {
     
     @Column(name="end_date")
     private Long endDate;
+<<<<<<< HEAD
     
     @Column
+=======
+    /**
+     * 操作状态
+     */
+>>>>>>> 25157e60f75a17b165bbf1ebcb3ee3f10507c8cb
     private String state;
     
     @OneToMany(targetEntity = RecordAttachment.class)

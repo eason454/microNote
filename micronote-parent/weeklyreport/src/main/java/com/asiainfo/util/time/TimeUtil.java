@@ -1,6 +1,7 @@
 package com.asiainfo.util.time;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -22,14 +23,16 @@ public  class TimeUtil {
 		logger.debug("getMondayDate:"+calendar.getTime());
 		return calendar.getTime().getTime();
 	}
+	
 	/**
 	 * 用一个周号获取周五时间
 	 */
 	public static long getFridayDateByWeek(int weekYear,int weekOfYear){
 		Calendar  calendar = Calendar.getInstance();
 		calendar.setWeekDate(weekYear, weekOfYear, 6);
+//		calendar.
 		logger.debug("getMondayDate:"+calendar.getTime());
-		return calendar.getTime().getTime();
+		return new Date( calendar.getTime().getTime()).;
 	}
 	
 	/**
