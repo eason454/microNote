@@ -1,5 +1,7 @@
 package com.asiainfo.service.weeklyreport.impl;
 
+import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.repository.weeklyreport.PlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +23,8 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Autowired
 	ReportRecordRepository reportRecordRepository;
-
+	@Autowired
+	private PlanRepository planRepository;
 	@Override
 	public boolean canelPlan(long planRecordId) throws Exception{
 		// TODO 修改计划状态到取消 (canceled)
@@ -70,5 +73,20 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		
 		return true;
 	}
+	@Override
+	public Plan createWeeklyPlan(Plan plan) {
+		return planRepository.save(plan);
+	}
 
+	@Override
+	public boolean modifyWeeklyPlan(Plan plan) {
+		planRepository.fin
+		return true;
+	}
+
+	@Override
+	public boolean deleteWeeklyPlan(long reportRecordId) {
+		reportRecordRepository.delete(reportRecordId);
+		return true;
+	}
 }

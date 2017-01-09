@@ -38,7 +38,7 @@ public class ReportRecord {
 		this.recordAttachments = recordAttachments;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY, mappedBy="id")
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY, targetEntity = RecordAttachment.class)
 	private List<RecordAttachment> recordAttachments = new ArrayList<RecordAttachment>();
 	public String getContent() {
 		return content;
