@@ -1,13 +1,17 @@
 package com.asiainfo.service.weeklyreport.impl;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
+import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.repository.weeklyreport.PlanRepository;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
+import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
@@ -24,13 +28,16 @@ import com.asiainfo.util.time.TimeUtil;
 public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Autowired
-	ReportRecordRepository reportRecordRepository;
+	private ReportRecordRepository reportRecordRepository;
 	@Autowired
 	private PlanRepository planRepository;
+	@Autowired
+	private WeeklyReportRepository weeklyReportRepository;
+	
 	@Override
-	public boolean canelPlan(long planRecordId) throws Exception{
+	public boolean canelPlan(long planId) throws Exception{
 		// TODO 修改计划状态到取消 (canceled)
-		Plan plan = planRepository.findOne(planRecordId);
+		Plan plan = planRepository.findOne(planId);
 		plan.setState(PlanRecordState.CANCELED);
 		plan.setStartDate(System.currentTimeMillis());
 		planRepository.save(plan);
@@ -38,10 +45,10 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public boolean confirmePlan(long planRecordId, long worklyReportId) throws Exception {
+	public boolean confirmePlan(long planId, long worklyReportId) throws Exception {
 		 //  TODO 确认计划完成
 		 //  查询现在要完成的计划 变成确认状态confirmed
-		Plan plan = planRepository.findOne(planRecordId);
+		Plan plan = planRepository.findOne(planId);
 		plan.setState(PlanRecordState.CONFIRMED);
 		plan.setStartDate(System.currentTimeMillis());
 		
@@ -54,15 +61,22 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		
 		//TODO 保存計劃工作和工作的修改
 		planRepository.save(plan);
-		reportRecordRepository.save(workRecord);
-			
+		workRecord = reportRecordRepository.save(workRecord);
+		
+		//添加周報外鍵關系
+		WeeklyReport weeklyReport = weeklyReportRepository.findOne(worklyReportId);
+		List<ReportRecord> reportRecords = weeklyReport.getReportRecord();
+		reportRecords.add(workRecord);
+		weeklyReport.setReportRecord(reportRecords);
+		weeklyReportRepository.save(weeklyReport);
+		
 		return true;
 	}
 
 	@Override
 	public boolean delayPlan(long planRecordId) throws Exception{
 		
-		// TODO 延遲計劃
+		//TODO 延遲計劃
 		Plan plan = planRepository.findOne(planRecordId);
 		//取得下周五的日期
 		long nextWeekEndDate = TimeUtil.getNextWeekEndDate();
