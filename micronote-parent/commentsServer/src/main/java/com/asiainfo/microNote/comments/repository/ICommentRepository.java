@@ -1,11 +1,16 @@
-package com.asiainfo.repository.comments;
+package com.asiainfo.microNote.comments.repository;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.asiainfo.domain.entity.comments.Comment;
+import com.asiainfo.microNote.comments.domain.entity.Comment;
 
 
+/**
+ * 
+ * @author yi
+ *
+ */
 public interface ICommentRepository extends PagingAndSortingRepository<Comment, Long>{
 
-	public Comment findByCommentTargetId(long commentTargetId);
+	Comment findByCommentTargetIdAndTargetType(long targetId, String targetType);
 }

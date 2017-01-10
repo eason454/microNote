@@ -43,8 +43,6 @@ public class SimpleCommentService implements ICommentsService{
 
 	@Override
 	public boolean deleteComment(long commentRecordId) {
-//		Comment comment = commentRepository.findByCommentRecordId(commentRecordId);
-//		comment.getRecords().remove(o)
 		commentRecordRepository.delete(commentRecordId);
 		return true;
 	}
