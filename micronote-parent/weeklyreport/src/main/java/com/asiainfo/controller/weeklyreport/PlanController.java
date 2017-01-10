@@ -30,6 +30,11 @@ public class PlanController {
     public List<Plan> queryNextWeekPlan(@RequestHeader(value = "userId") long userId){
         return planRecordService.queryNextWeekPlan(userId);
     }
+    @GetMapping(path="/queryThisWeekPlan")
+    public List<Plan> queryThisWeekPlan(@RequestHeader(value = "userId") long userId){
+        return planRecordService.queryThisWeekPlan(userId);
+    }
+
     @PostMapping(path = "/cancelPlan")
     public boolean cancelPlan(@RequestParam(value = "planId") long planId) {
         try {
