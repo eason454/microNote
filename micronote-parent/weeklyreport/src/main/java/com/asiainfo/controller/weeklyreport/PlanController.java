@@ -1,5 +1,7 @@
-package com.asiainfo.controller.weeklyreport;
 
+package com.asiainfo.controller.weeklyreport;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import org.springframework.beans.factory.annotation.Autowired;

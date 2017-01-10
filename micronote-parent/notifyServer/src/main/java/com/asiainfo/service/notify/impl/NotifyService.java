@@ -1,16 +1,19 @@
-package com.asiainfo.service.notify;
+package com.asiainfo.service.notify.impl;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import ch.qos.logback.core.util.ExecutorServiceUtil;
 
 @Component
-public class NotifyServer {
+public class NotifyService {
+	
+	Logger logger = Logger.getLogger(NotifyService.class);
 
 	private static final BlockingQueue<Message> notifyOnTimeQueen = new LinkedBlockingQueue<Message>();
 
@@ -24,7 +27,7 @@ public class NotifyServer {
 		notifyOnTimeQueen.add(message);
 	}
 
-	public NotifyServer() {
+	public NotifyService() {
 		Executor executor = ExecutorServiceUtil.newExecutorService();
 		for (int i = 0; i < 5; i++) {
 			executor.execute(new Runnable() {

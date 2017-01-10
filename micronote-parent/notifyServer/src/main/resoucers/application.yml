@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: notifyServer
+#  jpa:
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    database: mysql
+#  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss
+#  datasource:
+##    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://10.5.5.60:3306/micro_note?characterEncoding=utf8&useSSL=false
+#    username: mnote
+#    password: 12345
+#    type: com.zaxxer.hikari.HikariDataSource
+
+server:
+  port: 9020
+  context-path: /notify
+eureka:
+  client:
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+      
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: debug
+        
+#weeklyReport:
+#  notify:
+#    information: 您有%count%周報待查看請訪問鏈接 http://localhost:8020/queryWeeklyReportTo/%userId%/%week%
+    

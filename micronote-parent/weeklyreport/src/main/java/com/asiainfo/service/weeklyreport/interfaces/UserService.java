@@ -8,5 +8,5 @@ import com.asiainfo.domain.entity.user.User;
  * Created by eason on 2017/1/6.
  */
 public interface UserService {
-    List<User> queryUsers();
+    public List<User> queryUsers();
 }

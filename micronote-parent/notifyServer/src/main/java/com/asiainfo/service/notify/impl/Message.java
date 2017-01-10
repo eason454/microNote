@@ -1,8 +1,8 @@
-package com.asiainfo.service.notify;
+package com.asiainfo.service.notify.impl;
 
 public class Message {
 
-	private String[] users;
+	private String userId;
 	private String content;
 	private String notifyType;
 
@@ -12,7 +12,7 @@ public class Message {
 
 	public Message(String users, String content, String notifyType) {
 		super();
-		this.users = users.split(" ");
+//		this.users = users.split(" ");
 		this.content = content;
 		this.notifyType = notifyType;
 	}
@@ -33,12 +33,14 @@ public class Message {
 		this.notifyType = notifyType;
 	}
 
-	public String[] getUsers() {
-		return users;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUsers(String users) {
-		this.users = users.split(" ");
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	
 
 }

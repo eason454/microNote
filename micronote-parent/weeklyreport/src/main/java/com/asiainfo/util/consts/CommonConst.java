@@ -12,6 +12,11 @@ public interface CommonConst {
 
 	}
 
+	public interface NotificationType {
+		public static final String WEEKLY_REPORT_CHECK_NOTIFY  = "weekly_report_check_notify";
+		public static final String WEEKLY_REPORT_REPORT_NOTIFY  = "weekly_report_report_notify";
+	}
+	
 	/**
 	 * <B>周报条目是计划(plan)状态为:</B> <br>
 	 * new 新建未生效<br>
