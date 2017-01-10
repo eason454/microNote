@@ -35,7 +35,7 @@ public class SimpleCommentService implements ICommentsService{
 		if(comment == null)
 			comment = commentRepository.save(new Comment(targetId, targetType));
 		//TODO 对评论进行增加评论项目
-		commentRecord = commentRecordRepository.save(commentRecord);
+		commentRecord.setComment(comment);
 		comment.getRecords().add(commentRecord);
 		commentRepository.save(comment);
 		return true;
@@ -43,6 +43,8 @@ public class SimpleCommentService implements ICommentsService{
 
 	@Override
 	public boolean deleteComment(long commentRecordId) {
+//		Comment comment = commentRepository.findByCommentRecordId(commentRecordId);
+//		comment.getRecords().remove(o)
 		commentRecordRepository.delete(commentRecordId);
 		return true;
 	}

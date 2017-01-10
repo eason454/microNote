@@ -1,6 +1,7 @@
-package com.asiainfo.domain.entity.comments;
+package com.asiainfo.microNote.comments.domain.entity;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +26,11 @@ public class Comment {
 	@Column(name = "comment_id")
 	private long id;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, targetEntity = CommentRecord.class)
-	private List<CommentRecord> records ;
+	/**
+	 * mappedBy 被关联的表的列
+	 */
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "comment")
+	private Set<CommentRecord> records ;
 	
 	@Column(name = "create_date")
 	private long createDate;
@@ -37,6 +41,17 @@ public class Comment {
 	@Column(name = "target_type")
 	private String targetType;
 
+	public Comment(long commentTargetId, String targetType){
+		super();
+		this.commentTargetId = commentTargetId;
+		this.targetType = targetType;
+		this.createDate = System.currentTimeMillis();
+	}
+	
+	public Comment(){
+		super();
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -45,11 +60,13 @@ public class Comment {
 		this.id = id;
 	}
 
-	public List<CommentRecord> getRecords() {
+	public Set<CommentRecord> getRecords() {
+		if(this.records == null)
+			this.records = new HashSet<CommentRecord>();
 		return records;
 	}
 
-	public void setRecords(List<CommentRecord> records) {
+	public void setRecords(Set<CommentRecord> records) {
 		this.records = records;
 	}
 

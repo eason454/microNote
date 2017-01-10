@@ -1,10 +1,12 @@
-package com.asiainfo.domain.entity.comments;
+package com.asiainfo.microNote.comments.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 /**
  * 评论条目
@@ -19,7 +21,22 @@ public class CommentRecord {
 	@Column(name = "comment_record_id")
 	long id;
 	
+	@Column(name = "user_id")
+	long userId;
+	
+	/**
+	 * 必须增加set方法否则会报错无法设置
+	 * 不可增加get方法否则会无限循环
+	 */
+	@ManyToOne
+	@JoinColumn(name="comment_id")
+	private Comment comment;
+	
 	String content;
+	
+	@Column(name = "create_date")
+	long createDate = System.currentTimeMillis();
+	
 	
 	public long getId() {
 		return id;
@@ -35,6 +52,26 @@ public class CommentRecord {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public long getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(long createDate) {
+		this.createDate = createDate;
+	}
+
+	public void setComment(Comment comment) {
+		this.comment = comment;
 	}
 	
 }
