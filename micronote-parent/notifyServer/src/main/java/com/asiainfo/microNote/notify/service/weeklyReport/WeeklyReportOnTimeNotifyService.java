@@ -31,13 +31,11 @@ public class WeeklyReportOnTimeNotifyService {
 	 */
 	@Scheduled(cron = "0/5 * * * * ?")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend(){
-		int page = 0;
-		
+		int page = 1;
 		List<NotifyUser> users =  userService.getUserByPageAndSort(page, 2, "id");
 		
 		for(NotifyUser user : users){
 			StringBuffer content = new StringBuffer(notifyContentEveryWeek);
-		
 			notifyAdapter.notify(new Message(user.getId() + "", user.getName() + "", content));
 		}
 	}
