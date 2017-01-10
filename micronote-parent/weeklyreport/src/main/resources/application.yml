@@ -30,7 +30,6 @@ logging:
     org:
       hibernate:
         SQL: debug
-        
 weeklyReport:
   notify:
     information: 您有%count%周報待查看請訪問鏈接 http://localhost:8020/queryWeeklyReportTo/%userId%/%week%
