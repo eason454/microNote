@@ -3,42 +3,43 @@ package com.asiainfo.microNote.notify.pojo;
 public class Message {
 
 	private String userId;
-	private String content;
-	private String notifyType;
+	private String userName;
+	private StringBuffer content;
 
 	public Message() {
 		super();
 	}
 
-	public Message(String users, String content, String notifyType) {
+	public Message(String userId,String userName, StringBuffer content) {
 		super();
-//		this.users = users.split(" ");
+		this.userId = userId;
+		this.userName = userName;
 		this.content = content;
-		this.notifyType = notifyType;
 	}
 
-	public String getContent() {
+	public StringBuffer getContent() {
 		return content;
 	}
 
-	public void setContent(String content) {
+	public void setContent(StringBuffer content) {
 		this.content = content;
 	}
 
-	public String getNotifyType() {
-		return notifyType;
-	}
-
-	public void setNotifyType(String notifyType) {
-		this.notifyType = notifyType;
-	}
-
+	
 	public String getUserId() {
 		return userId;
 	}
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	

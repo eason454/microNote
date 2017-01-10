@@ -14,13 +14,6 @@ import com.asiainfo.microNote.notify.service.RealTimeNotifyService;
 @RestController
 public class NotifyController {
 
-	@RequestMapping(path = "/notifyOnTime", method = RequestMethod.POST)
-	@ResponseBody
-	public String notifyOnTime(@RequestBody Message message) {
-		RealTimeNotifyService.notifyOnTime(message);
-		return "OK";
-	}
-
 	@RequestMapping(path = "/notify", method = RequestMethod.POST)
 	@ResponseBody
 	public String notify(@RequestBody Message message) {

@@ -17,7 +17,6 @@ public class RealTimeNotifyService {
 	
 	Logger logger = Logger.getLogger(RealTimeNotifyService.class);
 
-	private static final BlockingQueue<Message> notifyOnTimeQueen = new LinkedBlockingQueue<Message>();
 
 	private static final BlockingQueue<Message> notifyQueen = new LinkedBlockingQueue<Message>();
 
@@ -25,9 +24,6 @@ public class RealTimeNotifyService {
 		notifyQueen.add(message);
 	}
 
-	public static void notifyOnTime(Message message) {
-		notifyOnTimeQueen.add(message);
-	}
 
 	public RealTimeNotifyService() {
 		Executor executor = ExecutorServiceUtil.newExecutorService();
@@ -37,8 +33,7 @@ public class RealTimeNotifyService {
 				public void run() {
 					while (true) {
 						try {
-//							System.out.println("==========================notify immediately=============================");
-							System.out.println(notifyQueen.take().getContent());
+							logger.info(notifyQueen.take().getContent());
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -46,17 +41,6 @@ public class RealTimeNotifyService {
 					}
 				}
 			});
-		}
-	}
-
-	@Scheduled(cron = "* * 1  * * ? ")
-	public static void notifyQueen() {
-		try {
-//			System.out.println("==========================notify=============================");
-			if (!notifyOnTimeQueen.isEmpty())
-				System.out.println(notifyOnTimeQueen.take().getContent());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 
