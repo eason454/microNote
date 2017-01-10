@@ -4,8 +4,9 @@ import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.repository.user.UserRepository;
 import com.asiainfo.service.weeklyreport.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -15,6 +16,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Override
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Page<User> queryUserByPages(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
     @Override
     public List<User> queryUsers() {
         return userRepository.findAll();
