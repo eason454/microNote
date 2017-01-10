@@ -39,7 +39,7 @@ public class TimeUtil {
 	/**
 	 * 获取本周一的日期
 	 */
-	public static long getStartDate() {
+	public static long getStartDateThisWeek() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.WEEK_OF_YEAR, 0);
 		setZero(calendar);
@@ -50,7 +50,7 @@ public class TimeUtil {
 	/**
 	 * 获取本周末的日期
 	 */
-	public static long getWeekEndDate() {
+	public static long getEndDateThisWeek() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.WEEK_OF_YEAR, 1);
 		setZero(calendar);
@@ -103,8 +103,8 @@ public class TimeUtil {
 	public static void main(String[] args) {
 		logger.debug(getWeekStartDateByWeek(2017, 1));
 		logger.debug(getWeekEndDateByWeek(2017, 1));
-		logger.debug(getStartDate());
-		logger.debug(getWeekEndDate());
+		logger.debug(getStartDateThisWeek());
+		logger.debug(getEndDateThisWeek());
 		logger.debug(getNextWeekStartDate());
 		logger.debug(getNextWeekEndDate());
 		logger.debug(getWeekOfYear());
