@@ -1,4 +1,4 @@
-package com.asiainfo.service.notify.impl;
+package com.asiainfo.microNote.notify.pojo;
 
 public class Message {
 
