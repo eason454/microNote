@@ -16,7 +16,7 @@ public interface PlanRepository extends JpaRepository<Plan,Long> {
 
     /**
      * 获取下周计划
-     * @param 
+     * @param
      * @return
      */
     List<Plan> findByReportUserIdAndStartDateGreaterThan(long userId,long lastTimeThisWeek);

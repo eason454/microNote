@@ -101,7 +101,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		Plan oldPlan=planRepository.findOne(plan.getPlanId());
 		String[] nullProperties=CommonUtils.getNullPropertyNames(plan);
 		BeanUtils.copyProperties(plan,oldPlan,nullProperties);
-		planRepository.save(plan);
+		planRepository.save(oldPlan);
 		return true;
 	}
 
