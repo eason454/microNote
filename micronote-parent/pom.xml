@@ -42,6 +42,7 @@
 		<module>eureka-server</module>
 		<module>gateway</module>
 		<module>weeklyreport</module>
+		<module>notifyServer</module>
 	</modules>
 
 	<repositories>
