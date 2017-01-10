@@ -41,12 +41,7 @@
 		<module>config-server</module>
 		<module>eureka-server</module>
 		<module>gateway</module>
-<<<<<<< HEAD
-		<module>users</module>
-=======
->>>>>>> 089e376c764dc985dd0ccd31c1ce49753d4c1b4b
 		<module>weeklyreport</module>
-		<module>hystrixdashboard</module>
 	</modules>
 
 	<repositories>
