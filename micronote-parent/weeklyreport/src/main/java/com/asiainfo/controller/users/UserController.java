@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/queryusersbypages", method = RequestMethod.GET)
-    public Page<User> queryUsersByPages(Pageable pageable){
-        return userService.queryUserByPages(pageable);
+    public List<User> queryUsersByPages(Pageable pageable){
+        return userService.queryUserByPages(pageable).getContent();
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.asiainfo.microNote.notify.adapter.NotifyAdapter;
 import com.asiainfo.microNote.notify.pojo.Message;
 import com.asiainfo.microNote.notify.pojo.NotifyUser;
-import com.asiainfo.microNote.user.service.IUserService;
+import com.asiainfo.microNote.notify.user.service.IUserService;
 
 /**
  * 周报通知服务

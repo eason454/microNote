@@ -1,4 +1,4 @@
-package com.asiainfo.microNote.user.service;
+package com.asiainfo.microNote.notify.user.service;
 
 import java.util.List;
 
