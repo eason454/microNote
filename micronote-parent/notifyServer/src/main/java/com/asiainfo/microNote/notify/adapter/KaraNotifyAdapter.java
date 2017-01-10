@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.asiainfo.microNote.notify.pojo.Message;
-import com.asiainfo.microNote.notify.pojo.NotifyUser;
 
 /**
  * 

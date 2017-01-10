@@ -38,7 +38,7 @@ public class WeeklyReportOnTimeNotifyService {
 		for(NotifyUser user : users){
 			StringBuffer content = new StringBuffer(notifyContentEveryWeek);
 		
-			notifyAdapter.notify(new Message(user.getId() + "", user.getName() + "", content), user);
+			notifyAdapter.notify(new Message(user.getId() + "", user.getName() + "", content));
 		}
 	}
 	
