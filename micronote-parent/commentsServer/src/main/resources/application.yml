@@ -18,7 +18,7 @@ spring:
 
 server:
   port: 9030
-  context-path: /comments
+#  context-path: /comments
 eureka:
   client:
     fetch-registry: true
