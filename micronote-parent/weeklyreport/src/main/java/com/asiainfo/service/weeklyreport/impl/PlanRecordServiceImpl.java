@@ -101,7 +101,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		Plan oldPlan=planRepository.findOne(plan.getPlanId());
 		String[] nullProperties=CommonUtils.getNullPropertyNames(plan);
 		BeanUtils.copyProperties(plan,oldPlan,nullProperties);
-		planRepository.save(plan);
+		planRepository.save(oldPlan);
 		return true;
 	}
 
@@ -113,7 +113,13 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Override
 	public List<Plan> queryNextWeekPlan(long userId) {
-		long lastTimeThisWeek=TimeUtil.getWeekEndDate();
+		long lastTimeThisWeek=TimeUtil.getEndDateThisWeek();
 		return planRepository.findByReportUserIdAndStartDateGreaterThan(userId,lastTimeThisWeek);
+	}
+	@Override
+	public List<Plan> queryThisWeekPlan(long userId) {
+		long startTimeThisWeek=TimeUtil.getStartDateThisWeek();
+		long endTimeThisWeek=TimeUtil.getEndDateThisWeek();
+		return planRepository.findByReportUserIdAndEndDateGreaterThanAndStartDateLessThan(userId,startTimeThisWeek,endTimeThisWeek);
 	}
 }
