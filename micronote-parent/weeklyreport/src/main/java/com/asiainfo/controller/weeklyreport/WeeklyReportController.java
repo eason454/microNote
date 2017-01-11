@@ -1,6 +1,7 @@
 package com.asiainfo.controller.weeklyreport;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -34,18 +35,27 @@ public class WeeklyReportController {
 
 	@PostMapping(path = "/queryReportRecords")
 	public KaraMessage queryReportRecrodsByWeek(@RequestParam Map<String,String> param,@RequestHeader Map<String,String> header,@RequestBody Map<String,String> body){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
+		//created by zhaojl 2017-1-11
         logger.info("header:" + header.toString());
         logger.info("param:"+param.toString());
         logger.info("body:"+body.toString());
-		List<ReportRecord> reportRecords = weeklyReportService.findByCreateDateBetween(Long.parseLong(body.get("currentTime")));
+		String userId = body.get("userId");
+		long currentTime = Long.parseLong(body.get("currentTime"));
+		//获取数据
+		List<ReportRecord> reportRecords = weeklyReportService.findByCreateDateBetween(userId,currentTime);
+		//构造返回结构
         StringBuffer content=new StringBuffer();
 		KaraField field=new KaraField();
 		List<KaraField> list=new ArrayList<KaraField>();
+		//将数据写入到返回结构中
 		for (ReportRecord reportRecord : reportRecords) {
-			field.setTitle("工作条目:");
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTimeInMillis(reportRecord.getCreateDate());
+			field.setTitle(calendar.getTime().toString() + ":");
 			field.setValue(reportRecord.getContent());
 			list.add(field);
 		}
+		//调公有方法生成返回对象
         KaraMessage message= MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.weeklyWork,list);
         return message;
     }
