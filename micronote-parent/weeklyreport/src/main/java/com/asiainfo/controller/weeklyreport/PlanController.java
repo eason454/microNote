@@ -1,5 +1,9 @@
 
 package com.asiainfo.controller.weeklyreport;
+import com.asiainfo.domain.response.KaraAttachment;
+import com.asiainfo.domain.response.KaraField;
+import com.asiainfo.domain.response.KaraMessage;
+import com.asiainfo.util.consts.CommonConst;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +13,7 @@ import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,11 +38,27 @@ public class PlanController {
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
     @GetMapping(path="/queryNextWeekPlan")
-    public List<Plan> queryNextWeekPlan(@RequestParam("user_id") String userId,@RequestHeader Map<String,String> header){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
+    public KaraMessage queryNextWeekPlan(@RequestParam Map<String,String> param,@RequestHeader Map<String,String> header){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
         logger.error("header:"+header.toString());
-        logger.error("userId:"+userId);
-//        logger.debug("body:"+body);
-        return planRecordService.queryNextWeekPlan(1L);
+        logger.error("param:"+param.toString());
+        List<Plan> plans=planRecordService.queryNextWeekPlan(1L);
+        KaraMessage message=new KaraMessage();
+        message.setChannel(param.get("channel_id"));
+        message.setText(CommonConst.KaraInfo.querySuccess);
+        KaraAttachment attach=new KaraAttachment();
+        attach.setTitle(CommonConst.KaraInfo.nextWeeklyInfo);
+//        attach.setCallbackId();  回调id填什么呢
+        List<KaraField> fieldList=new ArrayList<KaraField>();
+        for (Plan plan :
+                plans) {
+            KaraField field=new KaraField();
+            field.setValue(plan.getContent());
+            fieldList.add(field);
+        }
+        attach.setFields(fieldList.toArray(new KaraField[0]));
+        //不支持attachments时显示的内容
+        message.setAttachments(attach);
+        return message;
     }
     @GetMapping(path="/queryThisWeekPlan")
     public List<Plan> queryThisWeekPlan(@RequestHeader(value = "userId") long userId){
