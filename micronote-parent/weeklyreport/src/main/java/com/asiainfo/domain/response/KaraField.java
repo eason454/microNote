@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class KaraField {
     private String title;
     private String value;
-    @JsonProperty(value = "short")
-    private boolean karaShort;
+//    @JsonProperty(value = "short",)
+//    private boolean karaShort;
 
     public String getTitle() {
         return title;
@@ -29,11 +29,11 @@ public class KaraField {
         this.value = value;
     }
 
-    public boolean isKaraShort() {
-        return karaShort;
-    }
-
-    public void setKaraShort(boolean karaShort) {
-        this.karaShort = karaShort;
-    }
+//    public boolean isKaraShort() {
+//        return karaShort;
+//    }
+//
+//    public void setKaraShort(boolean karaShort) {
+//        this.karaShort = karaShort;
+//    }
 }

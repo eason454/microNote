@@ -44,21 +44,24 @@ public class PlanController {
         logger.error("body:"+body.toString());
         List<Plan> plans=planRecordService.queryNextWeekPlan(1L);
         KaraMessage message=new KaraMessage();
-        message.setChannel(body.get("channel_id"));
+//        message.setChannel(body.get("channel_id"));
         message.setText(CommonConst.KaraInfo.querySuccess);
         KaraAttachment attach=new KaraAttachment();
         attach.setTitle(CommonConst.KaraInfo.nextWeeklyInfo);
-//        attach.setCallbackId();  回调id填什么呢
+//        attach.setCallbackId("testcallbackId");  //回调id填什么呢
         List<KaraField> fieldList=new ArrayList<KaraField>();
         for (Plan plan :
                 plans) {
             KaraField field=new KaraField();
+           field.setTitle("计划条目");
             field.setValue(plan.getContent());
             fieldList.add(field);
         }
         attach.setFields(fieldList.toArray(new KaraField[fieldList.size()]));
         //不支持attachments时显示的内容
-        message.setAttachments(attach);
+        List<KaraAttachment> attachList=new ArrayList<KaraAttachment>();
+        attachList.add(attach);
+        message.setAttachments(attachList.toArray(new KaraAttachment[0]));
         return message;
     }
     @GetMapping(path="/queryThisWeekPlan")
