@@ -37,8 +37,8 @@ public class WeeklyReportOnTimeNotifyService {
 	String notifyContentEveryWeek;
 
 	// 推送線程數量
-	@Value("weeklyReport.user.noitfy.sendThreadNumber")
-	long notifyThreadNumber;
+//	@Value("weeklyReport.user.noitfy.notifyThreadNumber")
+	int notifyThreadNumber = 4;
 
 	/**
 	 * 每周五通知所有用户填写周报
@@ -60,10 +60,13 @@ public class WeeklyReportOnTimeNotifyService {
 							// 獲取當前頁
 							page = page + handlePage;
 							// 查询当前线程负责分页
+							logger.info("線程["+handlePage+"]正在處理分頁["+ page +"]的數據...");
 							List<NotifyUser> users = userService.getUserByPageAndSort(page, 2, "id");
 							// 如果查询当前页已经为空退出线程
-							if (users.isEmpty())
+							if (users.isEmpty()){
+								logger.info("線程["+handlePage+"]已經完成工作退出...");
 								return;
+							}
 							// 循環向用戶通知填寫周報消息
 							for (NotifyUser user : users) {
 								StringBuffer content = new StringBuffer(notifyContentEveryWeek);
