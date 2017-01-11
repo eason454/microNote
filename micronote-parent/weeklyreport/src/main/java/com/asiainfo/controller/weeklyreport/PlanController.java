@@ -55,7 +55,7 @@ public class PlanController {
             field.setValue(plan.getContent());
             fieldList.add(field);
         }
-        attach.setFields(fieldList.toArray(new KaraField[0]));
+        attach.setFields(fieldList.toArray(new KaraField[fieldList.size()]));
         //不支持attachments时显示的内容
         message.setAttachments(attach);
         return message;
