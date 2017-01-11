@@ -1,9 +1,7 @@
 
 package com.asiainfo.controller.weeklyreport;
-import com.asiainfo.domain.response.KaraAttachment;
 import com.asiainfo.domain.response.KaraField;
 import com.asiainfo.domain.response.KaraMessage;
-import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
