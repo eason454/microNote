@@ -14,7 +14,6 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
 /**
  * 实时推送服务
  * @author yi
- *
  */
 @Service
 public class RealTimeNotifyService {
