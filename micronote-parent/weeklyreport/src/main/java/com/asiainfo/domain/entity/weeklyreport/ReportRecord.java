@@ -13,7 +13,7 @@ public class ReportRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "report_record_id")
-	private String reportRecordId;
+	private Long reportRecordId;
 	
 	@Column(name = "create_date")
 	private long createDate = System.currentTimeMillis();
@@ -87,13 +87,6 @@ public class ReportRecord {
 		this.recordType = recordType;
 	}
 
-	public String getReportRecordId() {
-		return reportRecordId;
-	}
-
-	public void setReportRecordId(String reportRecordId) {
-		this.reportRecordId = reportRecordId;
-	}
 
 	public long getCreateDate() {
 		return createDate;
