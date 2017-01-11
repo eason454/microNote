@@ -1,10 +1,12 @@
 package com.asiainfo.domain.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Created by eason on 2017/1/10.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class KaraMessage {
     private String text;
     private String channel;
