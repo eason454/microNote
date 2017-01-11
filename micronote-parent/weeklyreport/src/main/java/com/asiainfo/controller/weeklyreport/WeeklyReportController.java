@@ -27,7 +27,7 @@ public class WeeklyReportController {
 	private WeeklyReportService weeklyReportService;
 
 	@RequestMapping(path = "/createWeeklyReport", method = RequestMethod.POST)
-	public WeeklyReport createWeeklyReport(@RequestParam("userId") long reportUserId) {
+	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
 		return weeklyReportService.createWeeklyReport(reportUserId);
 	}
 

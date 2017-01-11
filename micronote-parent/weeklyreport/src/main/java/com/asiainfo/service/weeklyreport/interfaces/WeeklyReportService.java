@@ -9,9 +9,9 @@ import java.util.List;
  * Created by eason on 2017/1/6.
  */
 public interface WeeklyReportService {
-    WeeklyReport createWeeklyReport(long reportUserId);
+    WeeklyReport createWeeklyReport(String reportUserId);
     List<ReportRecord> findByCreateDateBetween(long currentTime);
-    WeeklyReport queryWeeklyReportByUserId(long userId);
+    WeeklyReport queryWeeklyReportByUserId(String userId);
     
     boolean submitWeeklyReport(long weeklyReportId) throws Exception;
 }

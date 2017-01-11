@@ -34,7 +34,7 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	private String notifyMessage;
 
 	@Override
-	public WeeklyReport createWeeklyReport(long reportUserId) {
+	public WeeklyReport createWeeklyReport(String reportUserId) {
 		// 构造WeeklyReport对象
 		WeeklyReport weeklyReport = new WeeklyReport(reportUserId);
 		return weeklyReportRepository.save(weeklyReport);
@@ -70,7 +70,7 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 		return calendar.getTimeInMillis();
 	}
 
-	public WeeklyReport queryWeeklyReportByUserId(long userId) {
+	public WeeklyReport queryWeeklyReportByUserId(String userId) {
 		return weeklyReportRepository.findByReportUserId(userId);
 	}
 
