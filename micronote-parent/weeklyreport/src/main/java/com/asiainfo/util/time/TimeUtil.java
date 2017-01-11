@@ -41,9 +41,11 @@ public class TimeUtil {
 	 */
 	public static long getStartDateThisWeek() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.WEEK_OF_YEAR, 0);
-		setZero(calendar);
-		logger.debug("getStartDate:" + calendar.getTime());
+		int day_of_week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		if (day_of_week == 0)
+			day_of_week = 7;
+		calendar.add(Calendar.DATE, -day_of_week + 1);
+		logger.debug("getStartDateThisWeek:" + calendar.getTime());
 		return calendar.getTime().getTime();
 	}
 
@@ -52,10 +54,11 @@ public class TimeUtil {
 	 */
 	public static long getEndDateThisWeek() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.WEEK_OF_YEAR, 1);
-		setZero(calendar);
-		calendar.setTimeInMillis(calendar.getTime().getTime() - 1);
-		logger.debug("getWeekEndDate:" + calendar.getTime());
+		int day_of_week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		if (day_of_week == 0)
+			day_of_week = 7;
+		calendar.add(Calendar.DATE, -day_of_week + 7);
+		logger.debug("getEndDateThisWeek:" + calendar.getTime());
 		return calendar.getTime().getTime();
 	}
 
@@ -93,13 +96,14 @@ public class TimeUtil {
 
 	/**
 	 * 获取当前时间所属的周
+	 * 
 	 * @return
 	 */
-	public static int getWeekOfYear(){
-		Calendar calendar=Calendar.getInstance();
+	public static int getWeekOfYear() {
+		Calendar calendar = Calendar.getInstance();
 		return calendar.get(Calendar.WEEK_OF_YEAR);
 	}
-	
+
 	public static void main(String[] args) {
 		logger.debug(getWeekStartDateByWeek(2017, 1));
 		logger.debug(getWeekEndDateByWeek(2017, 1));
