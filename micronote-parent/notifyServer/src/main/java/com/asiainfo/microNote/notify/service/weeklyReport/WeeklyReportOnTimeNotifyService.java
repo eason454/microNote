@@ -18,6 +18,7 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
 
 /**
  * 周报通知服务，定时每周五推送
+ * 
  * @author yi
  */
 @Service
@@ -44,7 +45,7 @@ public class WeeklyReportOnTimeNotifyService {
 	 */
 	@Scheduled(cron = "0/30 * * * * ?")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend() {
-		// TODO 每周五通知所有用户填写周报代碼
+		// 每周五通知所有用户填写周报代碼
 		Executor executor = ExecutorServiceUtil.newExecutorService();
 		// 定义工作线程数量是sendThreadNumber
 		for (int i = 0; i < notifyThreadNumber; i++) {
@@ -57,11 +58,11 @@ public class WeeklyReportOnTimeNotifyService {
 					while (true) {
 						try {
 							// 查询当前线程负责分页
-							logger.info("線程["+handlePage+"]正在處理分頁["+ page +"]的數據...");
-							List<NotifyUser> users = userService.getUserByPageAndSort(page, 2, "id");
+							logger.info("線程[" + handlePage + "]正在處理分頁[" + page + "]的數據...");
+							List<NotifyUser> users = userService.getUserByPageAndSort(page, 5, "id");
 							// 如果查询当前页已经为空退出线程
-							if (users.isEmpty()){
-								logger.info("線程["+handlePage+"]已經完成工作退出...");
+							if (users.isEmpty()) {
+								logger.info("線程[" + handlePage + "]已經完成工作退出...");
 								return;
 							}
 							// 循環向用戶通知填寫周報消息

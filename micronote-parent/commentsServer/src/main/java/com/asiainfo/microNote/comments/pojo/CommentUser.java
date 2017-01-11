@@ -26,5 +26,4 @@ public class CommentUser {
 		this.name = name;
 	}
 	
-	
 }
