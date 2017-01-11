@@ -1,16 +1,22 @@
 package com.asiainfo.microNote.notify.pojo;
 
+/**
+ * 通知用户
+ * @author yi
+ *
+ */
 public class NotifyUser {
 
-	long id;
+	String id;
 	String name;
 	String account;
 
-	public long getId() {
+	
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

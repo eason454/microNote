@@ -12,12 +12,12 @@ import java.util.List;
  * Created by eason on 2017/1/11.
  */
 public class MessageConstructor {
-    public static KaraMessage constructMessageWithFields(List<KaraField> karaFields){
+    public static KaraMessage constructMessageWithFields(String attachTitle,List<KaraField> karaFields){
         KaraMessage message=new KaraMessage();
 //        message.setChannel(body.get("channel_id"));
         message.setText(CommonConst.KaraInfo.querySuccess);
         KaraAttachment attach=new KaraAttachment();
-        attach.setTitle(CommonConst.KaraInfo.nextWeeklyInfo);
+        attach.setTitle(attachTitle);
 //        attach.setCallbackId("testcallbackId");  //回调id填什么呢
         List<KaraField> fieldList=new ArrayList<KaraField>();
         for (KaraField karaField :

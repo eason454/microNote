@@ -1,11 +1,17 @@
 package com.asiainfo.microNote.notify.pojo;
 
+/**
+ * 通知信息
+ * @author yi
+ *
+ */
 public class Message {
 
 	private String userId;
 	private String userName;
 	private StringBuffer content;
-
+	private String notifyType;
+	
 	public Message() {
 		super();
 	}
@@ -42,6 +48,12 @@ public class Message {
 		this.userName = userName;
 	}
 
-	
+	public String getNotifyType() {
+		return notifyType;
+	}
+
+	public void setNotifyType(String notifyType) {
+		this.notifyType = notifyType;
+	}
 
 }

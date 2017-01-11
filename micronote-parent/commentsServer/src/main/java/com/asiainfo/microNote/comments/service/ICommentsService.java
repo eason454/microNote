@@ -1,7 +1,7 @@
 package com.asiainfo.microNote.comments.service;
 
-import com.asiainfo.microNote.comments.domain.entity.Comment;
 import com.asiainfo.microNote.comments.domain.entity.CommentRecord;
+import com.asiainfo.microNote.comments.pojo.CommentInfo;
 
 /**
  * 評論服務接口
@@ -16,7 +16,7 @@ public interface ICommentsService {
 	 * @param targetType
 	 * @return
 	 */
-	public Comment getComment(long targetId,String targetType); 
+	public CommentInfo getComment(long targetId,String targetType); 
 	
 	/**
 	 * 添加評論
