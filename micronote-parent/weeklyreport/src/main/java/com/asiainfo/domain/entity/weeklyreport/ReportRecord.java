@@ -87,13 +87,6 @@ public class ReportRecord {
 		this.recordType = recordType;
 	}
 
-	public Long getReportRecordId() {
-		return reportRecordId;
-	}
-
-	public void setReportRecordId(Long reportRecordId) {
-		this.reportRecordId = reportRecordId;
-	}
 
 	public long getCreateDate() {
 		return createDate;

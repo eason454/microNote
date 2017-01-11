@@ -1,5 +1,9 @@
 package com.asiainfo.controller.weeklyreport;
 
+import com.asiainfo.domain.entity.user.User;
+import com.asiainfo.domain.kara.KaraRequestObject;
+import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
+import com.asiainfo.service.weeklyreport.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,19 +17,24 @@ import com.asiainfo.repository.weeklyreport.WeeklyReportToRepository;
 public class WeeklyReportToController {
 	
 	@Autowired
-	WeeklyReportToRepository weeklyReportToRepository;
-	
-	@RequestMapping(path = "/weeklyReportTos/setWeeklyReportTo", method = RequestMethod.POST)
-	public String setWeeklyReportTo(@RequestBody WeeklyReportTo weeklyReportTo){
-		WeeklyReportTo weeklyReportToExist = weeklyReportToRepository.findByReportUserId(weeklyReportTo.getReportUserId());
-		/**
-		 * 如果有汇报人就删除已有的关系
-		 * 没有汇报人就添加汇报人
-		 */
-		if(weeklyReportToExist != null){
-			weeklyReportToRepository.delete(weeklyReportToExist);
+	private IWeeklyReportToService weeklyReportToService;
+	@Autowired
+	private UserService userService;
+	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
+	public String setWeeklyReportTo(@RequestBody KaraRequestObject request){
+		String userId=request.getUserId();
+		String auditUserId=request.getText();
+		WeeklyReportTo weeklyReportTo = weeklyReportToService.findByReportUserId(userId);
+		weeklyReportTo.setAuditingUserId(auditUserId);
+		//查询汇报对象是否已经在微记用户中存在
+		User user=userService.queryUserById(auditUserId);
+		if(user==null){
+			//调用kara查询用户信息
 		}
-		weeklyReportToRepository.save(weeklyReportTo);
+		boolean flag=weeklyReportToService.saveWeeklyReportTo(weeklyReportTo);
+		if(flag){
+
+		}
 		return "OK";
 	}
 }

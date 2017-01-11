@@ -1,4 +1,4 @@
-package com.asiainfo.domain.response;
+package com.asiainfo.domain.kara.response;
 
 /**
  * Created by eason on 2017/1/10.

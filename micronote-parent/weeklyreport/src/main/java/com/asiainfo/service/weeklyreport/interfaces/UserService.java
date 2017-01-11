@@ -13,4 +13,5 @@ public interface UserService {
     List<User> queryUsers();
     User createUser(User user);
     Page<User> queryUserByPages(Pageable pageable);
+    User queryUserById(String id);
 }

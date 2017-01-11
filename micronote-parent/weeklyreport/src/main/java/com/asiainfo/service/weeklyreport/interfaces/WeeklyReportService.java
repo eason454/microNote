@@ -10,8 +10,10 @@ import java.util.List;
  */
 public interface WeeklyReportService {
     WeeklyReport createWeeklyReport(String reportUserId);
-    List<ReportRecord> findByCreateDateBetween(long currentTime);
+    List<ReportRecord> findByCreateDateBetween(String reportUserId,long currentTime);
     WeeklyReport queryWeeklyReportByUserId(String userId);
     
     boolean submitWeeklyReport(long weeklyReportId) throws Exception;
+    WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId,int weekly);
+    WeeklyReport modifyWeeklyReport(WeeklyReport weeklyReport);
 }

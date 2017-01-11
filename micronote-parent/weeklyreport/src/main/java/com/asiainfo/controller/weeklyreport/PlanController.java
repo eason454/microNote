@@ -1,7 +1,8 @@
 
 package com.asiainfo.controller.weeklyreport;
-import com.asiainfo.domain.response.KaraField;
-import com.asiainfo.domain.response.KaraMessage;
+import com.asiainfo.domain.kara.response.KaraField;
+import com.asiainfo.domain.kara.response.KaraMessage;
+import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,7 +53,7 @@ public class PlanController {
         field.setValue(content.toString());
         List<KaraField> list=new ArrayList<KaraField>();
         list.add(field);
-        KaraMessage message=MessageConstructor.constructMessageWithFields(list);
+        KaraMessage message=MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.nextWeeklyInfo,list);
         return message;
     }
     @GetMapping(path="/queryThisWeekPlan")

@@ -1,8 +1,8 @@
 package com.asiainfo.service.weeklyreport.impl;
 
-import java.util.Calendar;
 import java.util.List;
 
+import com.asiainfo.util.time.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -41,34 +41,12 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 	}
 
 	@Override
-	public List<ReportRecord> findByCreateDateBetween(long currentTime) {
-		long startDate = getDayInWeek(currentTime, "MONDAY");
-		long endDate = getDayInWeek(currentTime, "SUNDAY");
-		return reportRecordRepository.findByCreateDateBetweenOrderByCreateDateDesc(startDate, endDate);
+	public List<ReportRecord> findByCreateDateBetween(String reportUserId,long currentTime) {
+		long startDate = TimeUtil.getDayInWeek(currentTime, "MONDAY");
+		long endDate = TimeUtil.getDayInWeek(currentTime, "SUNDAY");
+		return reportRecordRepository.findByReportUserIdAndCreateDateBetweenOrderByCreateDateDesc(reportUserId, startDate, endDate);
 	}
 
-	private long getDayInWeek(long currentTime, String day) {
-		/*
-		 * 获取输入时间所在周的某一天 day取值：MONDAY,SUNDAY 暂时只取每周的首与尾，不作其它考虑
-		 */
-//		int daySequence = 0;
-		Calendar calendar = Calendar.getInstance();
-		if (calendar.getFirstDayOfWeek() == Calendar.SUNDAY) {
-			calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		}
-		if (day == "MONDAY") {
-			calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-			calendar.set(Calendar.HOUR_OF_DAY, 0);
-			calendar.set(Calendar.MINUTE, 0);
-			calendar.set(Calendar.SECOND, 0);
-		} else if (day == "SUNDAY") {
-			calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-			calendar.set(Calendar.HOUR_OF_DAY, 23);
-			calendar.set(Calendar.MINUTE, 59);
-			calendar.set(Calendar.SECOND, 59);
-		}
-		return calendar.getTimeInMillis();
-	}
 
 	public WeeklyReport queryWeeklyReportByUserId(String userId) {
 		return weeklyReportRepository.findByReportUserId(userId);
@@ -92,4 +70,14 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 				NotificationType.WEEKLY_REPORT_CHECK_NOTIFY));
 		return true;
 	}
+
+	@Override
+	public WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId, int weekly) {
+		return weeklyReportRepository.findByReportUserIdAndWeekly(userId,weekly);
+	}
+
+    @Override
+    public WeeklyReport modifyWeeklyReport(WeeklyReport weeklyReport) {
+        return weeklyReportRepository.save(weeklyReport);
+    }
 }

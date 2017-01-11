@@ -1,4 +1,4 @@
-package com.asiainfo.domain.response;
+package com.asiainfo.domain.kara.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -107,4 +107,26 @@ public class TimeUtil {
 		logger.debug(getWeekOfYear());
 	}
 
+	public static long getDayInWeek(long currentTime, String day) {
+		/*
+		 * 获取输入时间所在周的某一天 day取值：MONDAY,SUNDAY 暂时只取每周的首与尾，不作其它考虑
+		 */
+		Calendar calendar = Calendar.getInstance();
+		if (calendar.getFirstDayOfWeek() == Calendar.SUNDAY) {
+			calendar.setFirstDayOfWeek(Calendar.MONDAY);
+		}
+		if (day == "MONDAY") {
+			calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+			calendar.set(Calendar.MINUTE, 0);
+			calendar.set(Calendar.SECOND, 0);
+		} else if (day == "SUNDAY") {
+			calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			calendar.set(Calendar.HOUR_OF_DAY, 23);
+			calendar.set(Calendar.MINUTE, 59);
+			calendar.set(Calendar.SECOND, 59);
+		}
+		return calendar.getTimeInMillis();
+	}
+
 }
