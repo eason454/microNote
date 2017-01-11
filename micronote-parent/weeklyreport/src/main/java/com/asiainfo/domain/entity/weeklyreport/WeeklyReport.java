@@ -34,13 +34,13 @@ public class WeeklyReport {
 	 * 汇报人Id
 	 */
 	@Column(name="report_user_id")
-	private long reportUserId;
+	private String reportUserId;
 	
 	/**
 	 * 审核人Id
 	 */
 	@Column(name="auditing_user_id",nullable = true)
-	private Long auditingUserId;
+	private String auditingUserId;
 	
 	@Column(name="create_date")
 	private long createDate=System.currentTimeMillis();
@@ -78,19 +78,20 @@ public class WeeklyReport {
 		this.state = state;
 	}
 
-	public long getReportUserId() {
+
+	public String getReportUserId() {
 		return reportUserId;
 	}
 
-	public void setReportUserId(long reportUserId) {
+	public void setReportUserId(String reportUserId) {
 		this.reportUserId = reportUserId;
 	}
 
-	public Long getAuditingUserId() {
+	public String getAuditingUserId() {
 		return auditingUserId;
 	}
 
-	public void setAuditingUserId(Long auditingUserId) {
+	public void setAuditingUserId(String auditingUserId) {
 		this.auditingUserId = auditingUserId;
 	}
 
@@ -111,7 +112,7 @@ public class WeeklyReport {
 	}
 
 
-	public WeeklyReport(long reportUserId) {
+	public WeeklyReport(String reportUserId) {
 		this.reportUserId = reportUserId;
 		this.state= CommonConst.WeeklyReportReport.READY;
 	}

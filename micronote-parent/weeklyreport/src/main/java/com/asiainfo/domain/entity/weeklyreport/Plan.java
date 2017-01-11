@@ -32,13 +32,13 @@ public class Plan {
 	private Long endDate;
 
 	@Column(name = "report_user_id")
-	private long reportUserId;
+	private String reportUserId;
 
-	public long getReportUserId() {
+	public String getReportUserId() {
 		return reportUserId;
 	}
 
-	public void setReportUserId(long reportUserId) {
+	public void setReportUserId(String reportUserId) {
 		this.reportUserId = reportUserId;
 	}
 
@@ -54,7 +54,7 @@ public class Plan {
 	public Plan() {
 	}
 
-	public Plan(String content, Long startDate, Long endDate, long reportUserId, String state, String operState,
+	public Plan(String content, Long startDate, Long endDate, String reportUserId, String state, String operState,
 			List<RecordAttachment> recordAttachments) {
 		this.content = content;
 		this.startDate = startDate;

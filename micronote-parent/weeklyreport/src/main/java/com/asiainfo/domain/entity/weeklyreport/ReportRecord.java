@@ -31,13 +31,13 @@ public class ReportRecord {
 	private String content;
 
 	@Column(name="report_user_id")
-	private long reportUserId;
+	private String reportUserId;
 
-	public long getReportUserId() {
+	public String getReportUserId() {
 		return reportUserId;
 	}
 
-	public void setReportUserId(long reportUserId) {
+	public void setReportUserId(String reportUserId) {
 		this.reportUserId = reportUserId;
 	}
 
@@ -76,7 +76,7 @@ public class ReportRecord {
 	public ReportRecord() {
 	}
 
-	public ReportRecord(long createDate, long startDate, long endDate, String state, String content, long reportUserId, List<RecordAttachment> recordAttachments, String recordType) {
+	public ReportRecord(long createDate, long startDate, long endDate, String state, String content, String reportUserId, List<RecordAttachment> recordAttachments, String recordType) {
 		this.createDate = createDate;
 		this.startDate = startDate;
 		this.endDate = endDate;

@@ -14,28 +14,40 @@ public class WeeklyReportTo {
 	 * 汇报人Id
 	 */
 	@Column(name="report_user_id")
-	private long reportUserId;
+	private String reportUserId;
 	
 	/**
 	 * 审核人Id
 	 */
 	@Column(name="auditing_user_id")
-	private long auditingUserId;
+	private String auditingUserId;
 
-	public long getReportUserId() {
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getReportUserId() {
 		return reportUserId;
 	}
 
-	public void setReportUserId(long reportUserId) {
+	public void setReportUserId(String reportUserId) {
 		this.reportUserId = reportUserId;
 	}
 
-	public long getAuditingUserId() {
+	public String getAuditingUserId() {
 		return auditingUserId;
 	}
 
-	public void setAuditingUserId(long auditingUserId) {
+	public void setAuditingUserId(String auditingUserId) {
 		this.auditingUserId = auditingUserId;
 	}
-	
+
+	public WeeklyReportTo(String reportUserId, String auditingUserId) {
+		this.reportUserId = reportUserId;
+		this.auditingUserId = auditingUserId;
+	}
 }
