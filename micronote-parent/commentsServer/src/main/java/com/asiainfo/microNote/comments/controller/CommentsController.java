@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asiainfo.microNote.comments.domain.entity.Comment;
 import com.asiainfo.microNote.comments.domain.entity.CommentRecord;
+import com.asiainfo.microNote.comments.pojo.CommentInfo;
 import com.asiainfo.microNote.comments.service.ICommentsService;
 
 /**
@@ -31,7 +32,7 @@ public class CommentsController {
 	 * @return
 	 */
 	@GetMapping(path = "/comment/{targetType}/{targetId}")
-	public Comment getComment(@PathVariable("targetId") long targetId, @PathVariable("targetType") String targetType) {
+	public CommentInfo getComment(@PathVariable("targetId") long targetId, @PathVariable("targetType") String targetType) {
 		return commentsService.getComment(targetId, targetType);
 	}
 
@@ -45,7 +46,7 @@ public class CommentsController {
 	 */
 	@PostMapping(path = "/comment/{targetType}/{targetId}")
 	public boolean addCommentRecord(@PathVariable("targetId") long targetId,
-			@PathVariable("targetType") String targetType, @RequestBody CommentRecord commentRecord, @RequestHeader("userId") Long userId) {
+			@PathVariable("targetType") String targetType, @RequestBody CommentRecord commentRecord, @RequestHeader("userId") String userId) {
 		if(userId != null )
 			commentRecord.setUserId(userId);
 		return commentsService.addComment(targetId, targetType, commentRecord);
