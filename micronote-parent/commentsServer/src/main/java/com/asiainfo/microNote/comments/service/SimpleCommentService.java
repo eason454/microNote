@@ -23,18 +23,21 @@ public class SimpleCommentService implements ICommentsService{
 	
 	@Override
 	public Comment getComment(long targetId, String targetType) {
+		//查詢評論
+		//TODO 查詢用戶信息獲取品論用戶名
 		return commentRepository.findByCommentTargetIdAndTargetType(targetId, targetType);
 	}
+	
 	
 	@Override
 	public boolean addComment(long targetId, String targetType, CommentRecord commentRecord) {
 		Comment comment;
-		//TODO 判断是否已经有的对象的评论
+		// 判断是否已经有的对象的评论
 		comment = commentRepository.findByCommentTargetIdAndTargetType(targetId, targetType);
-		//TODO 没有增加一个评论
+		// 没有增加一个评论
 		if(comment == null)
 			comment = commentRepository.save(new Comment(targetId, targetType));
-		//TODO 对评论进行增加评论项目
+		// 对评论进行增加评论项目
 		commentRecord.setComment(comment);
 		comment.getRecords().add(commentRecord);
 		commentRepository.save(comment);

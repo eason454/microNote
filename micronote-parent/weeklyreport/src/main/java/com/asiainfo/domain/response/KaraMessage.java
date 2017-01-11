@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class KaraMessage {
     private String text;
     private String channel;
-    private KaraAttachment attachments;
+    private KaraAttachment[] attachments;
     @JsonProperty(value = "reponse_type")
     private String reponseType;
-    @JsonProperty(value = "replace_original")
-    private boolean replaceOriginal;
-    @JsonProperty(value = "delete_original")
-    private boolean deleteOriginal;
+//    @JsonProperty(value = "replace_original")
+//    private boolean replaceOriginal;
+//    @JsonProperty(value = "delete_original")
+//    private boolean deleteOriginal;
 
     public String getText() {
         return text;
@@ -34,11 +34,12 @@ public class KaraMessage {
         this.channel = channel;
     }
 
-    public KaraAttachment getAttachments() {
+
+    public KaraAttachment[] getAttachments() {
         return attachments;
     }
 
-    public void setAttachments(KaraAttachment attachments) {
+    public void setAttachments(KaraAttachment[] attachments) {
         this.attachments = attachments;
     }
 
@@ -50,19 +51,19 @@ public class KaraMessage {
         this.reponseType = reponseType;
     }
 
-    public boolean isReplaceOriginal() {
-        return replaceOriginal;
-    }
-
-    public void setReplaceOriginal(boolean replaceOriginal) {
-        this.replaceOriginal = replaceOriginal;
-    }
-
-    public boolean isDeleteOriginal() {
-        return deleteOriginal;
-    }
-
-    public void setDeleteOriginal(boolean deleteOriginal) {
-        this.deleteOriginal = deleteOriginal;
-    }
+//    public boolean isReplaceOriginal() {
+//        return replaceOriginal;
+//    }
+//
+//    public void setReplaceOriginal(boolean replaceOriginal) {
+//        this.replaceOriginal = replaceOriginal;
+//    }
+//
+//    public boolean isDeleteOriginal() {
+//        return deleteOriginal;
+//    }
+//
+//    public void setDeleteOriginal(boolean deleteOriginal) {
+//        this.deleteOriginal = deleteOriginal;
+//    }
 }
