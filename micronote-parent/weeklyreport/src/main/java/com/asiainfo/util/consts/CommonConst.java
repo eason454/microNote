@@ -53,4 +53,12 @@ public interface CommonConst {
 		public static final String PLAN = "plan";
 		public static final String WORK = "wrok";
 	}
+	public static interface KaraInfo{
+		public static final String responseTypeDefault="in_channel";
+		public static final String querySuccess="查询成功";
+		public static final String nextWeeklyInfo="下周计划";
+		public static final String thisWeeklyInfo="本周计划";
+
+	}
+
 }

@@ -15,7 +15,16 @@ public class KaraAttachment {
     private String authorIcon;
     @JsonProperty(value = "image_url")
     private String imageUrl;
-    private KaraField fields;
+
+    public KaraField[] getFields() {
+        return fields;
+    }
+
+    public void setFields(KaraField[] fields) {
+        this.fields = fields;
+    }
+
+    private KaraField[] fields;
     //不支持attachments时显示对内容
     private String fallback;
     //回传id
@@ -24,4 +33,69 @@ public class KaraAttachment {
     private String color;
     //按钮数据
     private KaraAction[] actions;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public String getAuthorIcon() {
+        return authorIcon;
+    }
+
+    public void setAuthorIcon(String authorIcon) {
+        this.authorIcon = authorIcon;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+
+    public String getFallback() {
+        return fallback;
+    }
+
+    public void setFallback(String fallback) {
+        this.fallback = fallback;
+    }
+
+    public String getCallbackId() {
+        return callbackId;
+    }
+
+    public void setCallbackId(String callbackId) {
+        this.callbackId = callbackId;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public KaraAction[] getActions() {
+        return actions;
+    }
+
+    public void setActions(KaraAction[] actions) {
+        this.actions = actions;
+    }
 }

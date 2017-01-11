@@ -19,4 +19,28 @@ public class KaraInput {
      */
     @JsonProperty(value = "type")
     private String karaType;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getKaraType() {
+        return karaType;
+    }
+
+    public void setKaraType(String karaType) {
+        this.karaType = karaType;
+    }
 }
