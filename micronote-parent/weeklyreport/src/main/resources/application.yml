@@ -4,7 +4,7 @@ spring:
   jpa:
     generate-ddl: true
     hibernate:
-      ddl-auto: c
+      ddl-auto: update
     show-sql: true
     database: mysql
   jackson:

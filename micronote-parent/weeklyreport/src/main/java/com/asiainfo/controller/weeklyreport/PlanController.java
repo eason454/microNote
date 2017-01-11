@@ -37,13 +37,14 @@ public class PlanController {
     public boolean deleteWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
-    @GetMapping(path="/queryNextWeekPlan")
-    public KaraMessage queryNextWeekPlan(@RequestParam Map<String,String> param,@RequestHeader Map<String,String> header){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
+    @PostMapping(path="/queryNextWeekPlan")
+    public KaraMessage queryNextWeekPlan(@RequestParam Map<String,String> param,@RequestHeader Map<String,String> header,@RequestBody Map<String,String> body){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
         logger.error("header:"+header.toString());
         logger.error("param:"+param.toString());
+        logger.error("body:"+body.toString());
         List<Plan> plans=planRecordService.queryNextWeekPlan(1L);
         KaraMessage message=new KaraMessage();
-        message.setChannel(param.get("channel_id"));
+        message.setChannel(body.get("channel_id"));
         message.setText(CommonConst.KaraInfo.querySuccess);
         KaraAttachment attach=new KaraAttachment();
         attach.setTitle(CommonConst.KaraInfo.nextWeeklyInfo);
