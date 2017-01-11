@@ -1,39 +1,38 @@
 package com.asiainfo.domain.entity.user;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.UUID;
 
 @Entity
+
 @Table(name="micro_record_user")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(name = "user_id")
-	private UUID id;
+	private String id;
 	@Column(name = "user_name")
 	private String name;
 	@Column(name = "user_account")
 	private String account;
-
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
-	}
 
 	@Column(name = "create_date")
 	private long createDate;
 	
 	public String getName() {
 		return name;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {
@@ -63,5 +62,9 @@ public class User {
 	}
 
 	public User() {
+	}
+
+	public String getId() {
+		return id;
 	}
 }
