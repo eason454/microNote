@@ -5,14 +5,18 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.asiainfo.microNote.notify.pojo.Message;
 
 import ch.qos.logback.core.util.ExecutorServiceUtil;
 
-@Component
+/**
+ * 实时推送服务
+ * @author yi
+ *
+ */
+@Service
 public class RealTimeNotifyService {
 	
 	Logger logger = Logger.getLogger(RealTimeNotifyService.class);

@@ -37,6 +37,7 @@ weeklyReport:
       onSubmit: 亲%userName%向你提交了周报
       #每周人员填写周报的提醒内容
       onEveryWeek: 亲该填周报了 http://localhost:9001/weeklyReport/mnote/%userId%/%week%
+      notifyThreadNumber: 4
       
       
   
