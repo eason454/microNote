@@ -15,14 +15,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private Long id;
-	@Column(name = "user_mame")
+	@Column(name = "user_name")
 	private String name;
 	@Column(name = "user_account")
 	private String account;
-	@Column(name = "user_password")
-	private String password;
-	@Column(name = "state")
-	private String state;
 	@Column(name = "create_date")
 	private long createDate;
 	
@@ -50,22 +46,6 @@ public class User {
 		this.account = account;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
 	public long getCreateDate() {
 		return createDate;
 	}
@@ -77,7 +57,6 @@ public class User {
 	public User(String name, String account, String state, long createDate) {
 		this.name = name;
 		this.account = account;
-		this.state = state;
 		this.createDate = createDate;
 	}
 

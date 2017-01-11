@@ -76,7 +76,9 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 
 	/**
 	 * 提交周報<br>
-	 * 提醒審核人查看周報
+	 * 提醒審核人查看周報<br>
+	 * 第一版本实现实时推送<br>
+	 * 第二版检查提醒频率后考虑是否改造为集中推送
 	 */
 	@Override
 	public boolean submitWeeklyReport(long weeklyReportId) throws Exception {

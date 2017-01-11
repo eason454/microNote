@@ -11,10 +11,6 @@ import com.asiainfo.service.notify.impl.Message;
 @FeignClient("notifyServer")
 public interface INotifyService {
 	
-	@RequestMapping(path = "/notify/notifyOnTime", method = RequestMethod.POST)
-	@ResponseBody
-	public String notifyOnTime(@RequestBody Message message);
-	
 	@RequestMapping(path = "/notify/notify", method = RequestMethod.POST)
 	@ResponseBody
 	public String notify(@RequestBody Message message);
