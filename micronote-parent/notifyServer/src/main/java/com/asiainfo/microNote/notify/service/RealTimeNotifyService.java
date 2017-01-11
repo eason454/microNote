@@ -14,20 +14,17 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
 /**
  * 实时推送服务
  * @author yi
- *
  */
 @Service
 public class RealTimeNotifyService {
 	
 	Logger logger = Logger.getLogger(RealTimeNotifyService.class);
-
-
+	
 	private static final BlockingQueue<Message> notifyQueen = new LinkedBlockingQueue<Message>();
 
 	public static void notify(Message message) {
 		notifyQueen.add(message);
 	}
-
 
 	public RealTimeNotifyService() {
 		Executor executor = ExecutorServiceUtil.newExecutorService();
@@ -39,7 +36,7 @@ public class RealTimeNotifyService {
 						try {
 							logger.info(notifyQueen.take().getContent());
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
+							// TODO 添加容錯代碼
 							e.printStackTrace();
 						}
 					}

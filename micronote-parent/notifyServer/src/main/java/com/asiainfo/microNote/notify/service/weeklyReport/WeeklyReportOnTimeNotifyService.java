@@ -18,7 +18,6 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
 
 /**
  * 周报通知服务，定时每周五推送
- * 
  * @author yi
  */
 @Service
@@ -33,17 +32,17 @@ public class WeeklyReportOnTimeNotifyService {
 	NotifyAdapter notifyAdapter;
 
 	// 推送消息定義
-	@Value("weeklyReport.user.noitfy.onEveryWeek")
+	@Value("${weeklyReport.user.noitfy.onEveryWeek}")
 	String notifyContentEveryWeek;
 
 	// 推送線程數量
-//	@Value("weeklyReport.user.noitfy.notifyThreadNumber")
-	int notifyThreadNumber = 4;
+	@Value("${weeklyReport.user.noitfy.notifyThreadNumber}")
+	int notifyThreadNumber;
 
 	/**
 	 * 每周五通知所有用户填写周报
 	 */
-	@Scheduled(cron = "0/5 * * * * ?")
+	@Scheduled(cron = "0/30 * * * * ?")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend() {
 		// TODO 每周五通知所有用户填写周报代碼
 		Executor executor = ExecutorServiceUtil.newExecutorService();
@@ -54,11 +53,9 @@ public class WeeklyReportOnTimeNotifyService {
 			executor.execute(new Runnable() {
 				@Override
 				public void run() {
-					int page = 0;
+					int page = handlePage;
 					while (true) {
 						try {
-							// 獲取當前頁
-							page = page + handlePage;
 							// 查询当前线程负责分页
 							logger.info("線程["+handlePage+"]正在處理分頁["+ page +"]的數據...");
 							List<NotifyUser> users = userService.getUserByPageAndSort(page, 2, "id");
@@ -80,6 +77,8 @@ public class WeeklyReportOnTimeNotifyService {
 								}
 							}
 							Thread.sleep(100);
+							// 獲取當前頁
+							page = page + notifyThreadNumber;
 						} catch (Exception ex) {
 							// TODO 添加分頁查詢錯誤處理代碼
 							logger.error("查询分页[" + page + "]遇到错误：" + ex.getCause());
