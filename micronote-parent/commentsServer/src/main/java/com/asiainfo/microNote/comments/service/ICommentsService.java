@@ -1,7 +1,9 @@
 package com.asiainfo.microNote.comments.service;
 
+import org.springframework.data.domain.Page;
+
 import com.asiainfo.microNote.comments.domain.entity.CommentRecord;
-import com.asiainfo.microNote.comments.pojo.CommentInfo;
+import com.asiainfo.microNote.comments.pojo.CommentRecordInfo;
 
 /**
  * 評論服務接口
@@ -16,7 +18,7 @@ public interface ICommentsService {
 	 * @param targetType
 	 * @return
 	 */
-	public CommentInfo getComment(long targetId,String targetType); 
+	public Page<CommentRecordInfo> getComment(long targetId, String targetType,int page, int size); 
 	
 	/**
 	 * 添加評論

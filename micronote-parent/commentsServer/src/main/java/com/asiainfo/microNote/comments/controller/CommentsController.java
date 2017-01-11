@@ -1,17 +1,18 @@
 package com.asiainfo.microNote.comments.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.asiainfo.microNote.comments.domain.entity.Comment;
 import com.asiainfo.microNote.comments.domain.entity.CommentRecord;
-import com.asiainfo.microNote.comments.pojo.CommentInfo;
+import com.asiainfo.microNote.comments.pojo.CommentRecordInfo;
 import com.asiainfo.microNote.comments.service.ICommentsService;
 
 /**
@@ -21,23 +22,28 @@ import com.asiainfo.microNote.comments.service.ICommentsService;
  */
 @RestController
 public class CommentsController {
-	
+
 	@Autowired
 	ICommentsService commentsService;
-	
+
 	/**
 	 * 獲取品論，因爲可能評論對象ID在不同的服務可能衝突所以要提交評論類型
-	 * @param targetId 評論對象ID
-	 * @param targetType 評論對象類型
+	 * 
+	 * @param targetId
+	 *            評論對象ID
+	 * @param targetType
+	 *            評論對象類型
 	 * @return
 	 */
 	@GetMapping(path = "/comment/{targetType}/{targetId}")
-	public CommentInfo getComment(@PathVariable("targetId") long targetId, @PathVariable("targetType") String targetType) {
-		return commentsService.getComment(targetId, targetType);
+	public Page<CommentRecordInfo> getComment(@PathVariable("targetId") long targetId, @RequestParam("page") int page,
+			@RequestParam("size") int size, @PathVariable("targetType") String targetType) {
+		return commentsService.getComment(targetId, targetType, page, size);
 	}
 
 	/**
 	 * 添加品論
+	 * 
 	 * @param targetId
 	 * @param targetType
 	 * @param commentRecord
@@ -46,14 +52,16 @@ public class CommentsController {
 	 */
 	@PostMapping(path = "/comment/{targetType}/{targetId}")
 	public boolean addCommentRecord(@PathVariable("targetId") long targetId,
-			@PathVariable("targetType") String targetType, @RequestBody CommentRecord commentRecord, @RequestHeader("userId") String userId) {
-		if(userId != null )
+			@PathVariable("targetType") String targetType, @RequestBody CommentRecord commentRecord,
+			@RequestHeader("userId") String userId) {
+		if (userId != null)
 			commentRecord.setUserId(userId);
 		return commentsService.addComment(targetId, targetType, commentRecord);
 	}
 
 	/**
 	 * 刪除品論
+	 * 
 	 * @param commentRecordId
 	 * @return
 	 */

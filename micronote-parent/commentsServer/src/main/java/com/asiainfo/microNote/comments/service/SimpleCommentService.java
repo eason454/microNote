@@ -1,11 +1,22 @@
 package com.asiainfo.microNote.comments.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import com.asiainfo.microNote.comments.domain.entity.Comment;
 import com.asiainfo.microNote.comments.domain.entity.CommentRecord;
-import com.asiainfo.microNote.comments.pojo.CommentInfo;
+import com.asiainfo.microNote.comments.pojo.CommentRecordInfo;
+import com.asiainfo.microNote.comments.pojo.CommentUser;
 import com.asiainfo.microNote.comments.repository.ICommentRecordRepository;
 import com.asiainfo.microNote.comments.repository.ICommentRepository;
 import com.asiainfo.microNote.comments.service.user.IUserService;
@@ -16,37 +27,55 @@ import com.asiainfo.microNote.comments.service.user.IUserService;
  *
  */
 @Component
-public class SimpleCommentService implements ICommentsService{
+public class SimpleCommentService implements ICommentsService {
 	@Autowired
 	ICommentRecordRepository commentRecordRepository;
-	
+
 	@Autowired
 	ICommentRepository commentRepository;
-	
+
 	@Autowired
 	IUserService userService;
-	
+
+	// 用户信息弱引用
+	public static final Map<String, CommentUser> userMap = new HashMap<String, CommentUser>();
+
 	@Override
-	public CommentInfo getComment(long targetId, String targetType) {
-		//查詢評論
-		Comment comment = commentRepository.findByCommentTargetIdAndTargetType(targetId, targetType);
-		CommentInfo commentInfo = new CommentInfo();
+	public Page<CommentRecordInfo> getComment(long targetId, String targetType, int page, int size) {
+		// 查詢評論
+		Comment comment = commentRepository.findByCommentTargetIdAndTargetTypeOrderByCreateDateDesc(targetId,
+				targetType);
 		
-		for(CommentRecord commentRecord : comment.getRecords() ){
-			commentRecord.getUserId()
+		Page<CommentRecord> recordsPage = commentRecordRepository.findByCommentOrderByCreateDateDesc(comment,
+				new PageRequest(page, size, new Sort("createDate")));
+		
+		if (comment == null)
+			return null;
+		
+		List<CommentRecordInfo> commentRecordInfoList = new ArrayList<CommentRecordInfo>();
+
+		for (CommentRecord commentRecord : recordsPage.getContent()) {
+			CommentRecordInfo commentRecordInfo = new CommentRecordInfo();
+			// 获取用户信息
+			CommentUser commentUser = getUser(commentRecord.getUserId());
+			// 生成评论信息
+			BeanUtils.copyProperties(commentRecord, commentRecordInfo);
+			commentRecordInfo.setUserName(commentUser.getName());
+			commentRecordInfoList.add(commentRecordInfo);
 		}
+		Page<CommentRecordInfo> pageCommentRecordInfo = new PageImpl<CommentRecordInfo>(commentRecordInfoList);
+		BeanUtils.copyProperties(recordsPage, pageCommentRecordInfo);
 		// 查詢用戶信息獲取品論用戶名
-		return commentInfo;
+		return pageCommentRecordInfo;
 	}
-	
-	
+
 	@Override
 	public boolean addComment(long targetId, String targetType, CommentRecord commentRecord) {
 		Comment comment;
 		// 判断是否已经有的对象的评论
-		comment = commentRepository.findByCommentTargetIdAndTargetType(targetId, targetType);
+		comment = commentRepository.findByCommentTargetIdAndTargetTypeOrderByCreateDateDesc(targetId, targetType);
 		// 没有增加一个评论
-		if(comment == null)
+		if (comment == null)
 			comment = commentRepository.save(new Comment(targetId, targetType));
 		// 对评论进行增加评论项目
 		commentRecord.setComment(comment);
@@ -61,5 +90,22 @@ public class SimpleCommentService implements ICommentsService{
 		return true;
 	}
 
+	/**
+	 * 获取user的信息
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	private CommentUser getUser(String userId) {
+
+		CommentUser commentUser;
+		if (userMap.containsKey(userId))
+			commentUser = userMap.get(userId);
+		else {
+			commentUser = userService.getUserById(userId);
+			userMap.put(userId, commentUser);
+		}
+		return commentUser;
+	}
 
 }
