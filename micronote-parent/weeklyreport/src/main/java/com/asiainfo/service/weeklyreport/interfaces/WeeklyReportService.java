@@ -14,4 +14,6 @@ public interface WeeklyReportService {
     WeeklyReport queryWeeklyReportByUserId(String userId);
     
     boolean submitWeeklyReport(long weeklyReportId) throws Exception;
+    WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId,int weekly);
+    WeeklyReport modifyWeeklyReport(WeeklyReport weeklyReport);
 }

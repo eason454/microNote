@@ -92,4 +92,14 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 				NotificationType.WEEKLY_REPORT_CHECK_NOTIFY));
 		return true;
 	}
+
+	@Override
+	public WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId, int weekly) {
+		return weeklyReportRepository.findByReportUserIdAndWeekly(userId,weekly);
+	}
+
+    @Override
+    public WeeklyReport modifyWeeklyReport(WeeklyReport weeklyReport) {
+        return weeklyReportRepository.save(weeklyReport);
+    }
 }

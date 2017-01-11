@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User queryUserById(String id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
     public List<User> queryUsers() {
         return userRepository.findAll();
     }

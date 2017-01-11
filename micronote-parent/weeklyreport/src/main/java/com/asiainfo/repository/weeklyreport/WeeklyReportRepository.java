@@ -11,4 +11,5 @@ import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 @RepositoryRestResource(collectionResourceRel = "weeklyReports",path = "weeklyReports")
 public interface WeeklyReportRepository extends JpaRepository<WeeklyReport,Long> {
     WeeklyReport findByReportUserId(String reportUserId);
+    WeeklyReport findByReportUserIdAndWeekly(String userId,int weekly);
 }

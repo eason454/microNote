@@ -1,8 +1,8 @@
 package com.asiainfo.util.kara;
 
-import com.asiainfo.domain.response.KaraAttachment;
-import com.asiainfo.domain.response.KaraField;
-import com.asiainfo.domain.response.KaraMessage;
+import com.asiainfo.domain.kara.response.KaraAttachment;
+import com.asiainfo.domain.kara.response.KaraField;
+import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.util.consts.CommonConst;
 
 import java.util.ArrayList;
