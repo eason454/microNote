@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 
 import com.asiainfo.microNote.comments.domain.entity.Comment;
 import com.asiainfo.microNote.comments.domain.entity.CommentRecord;
+import com.asiainfo.microNote.comments.pojo.CommentInfo;
 import com.asiainfo.microNote.comments.repository.ICommentRecordRepository;
 import com.asiainfo.microNote.comments.repository.ICommentRepository;
+import com.asiainfo.microNote.comments.service.user.IUserService;
 
 /**
  * 
@@ -21,11 +23,20 @@ public class SimpleCommentService implements ICommentsService{
 	@Autowired
 	ICommentRepository commentRepository;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Override
-	public Comment getComment(long targetId, String targetType) {
+	public CommentInfo getComment(long targetId, String targetType) {
 		//查詢評論
-		//TODO 查詢用戶信息獲取品論用戶名
-		return commentRepository.findByCommentTargetIdAndTargetType(targetId, targetType);
+		Comment comment = commentRepository.findByCommentTargetIdAndTargetType(targetId, targetType);
+		CommentInfo commentInfo = new CommentInfo();
+		
+		for(CommentRecord commentRecord : comment.getRecords() ){
+			commentRecord.getUserId()
+		}
+		// 查詢用戶信息獲取品論用戶名
+		return commentInfo;
 	}
 	
 	

@@ -21,8 +21,8 @@ public class CommentRecord {
 	@Column(name = "comment_record_id")
 	long id;
 	
-	@Column(name = "user_id")
-	long userId;
+	@Column(name = "user_id",length=40)
+	String userId;
 	
 	/**
 	 * 必须增加set方法否则会报错无法设置
@@ -54,11 +54,11 @@ public class CommentRecord {
 		this.content = content;
 	}
 
-	public long getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
