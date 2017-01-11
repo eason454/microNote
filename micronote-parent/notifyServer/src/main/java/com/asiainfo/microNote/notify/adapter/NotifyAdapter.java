@@ -5,7 +5,6 @@ import com.asiainfo.microNote.notify.pojo.Message;
 /**
  * 推送适配器接口
  * @author yi
- *
  */
 public interface NotifyAdapter {
 
