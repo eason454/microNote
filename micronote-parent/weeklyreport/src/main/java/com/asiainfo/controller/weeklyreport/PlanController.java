@@ -4,6 +4,7 @@ import com.asiainfo.domain.response.KaraAttachment;
 import com.asiainfo.domain.response.KaraField;
 import com.asiainfo.domain.response.KaraMessage;
 import com.asiainfo.util.consts.CommonConst;
+import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,25 +44,17 @@ public class PlanController {
         logger.error("param:"+param.toString());
         logger.error("body:"+body.toString());
         List<Plan> plans=planRecordService.queryNextWeekPlan(1L);
-        KaraMessage message=new KaraMessage();
-//        message.setChannel(body.get("channel_id"));
-        message.setText(CommonConst.KaraInfo.querySuccess);
-        KaraAttachment attach=new KaraAttachment();
-        attach.setTitle(CommonConst.KaraInfo.nextWeeklyInfo);
-//        attach.setCallbackId("testcallbackId");  //回调id填什么呢
-        List<KaraField> fieldList=new ArrayList<KaraField>();
+        StringBuffer content=new StringBuffer();
         for (Plan plan :
                 plans) {
-            KaraField field=new KaraField();
-           field.setTitle("计划条目");
-            field.setValue(plan.getContent());
-            fieldList.add(field);
+            content.append(plan.getContent()+"\\n");
         }
-        attach.setFields(fieldList.toArray(new KaraField[fieldList.size()]));
-        //不支持attachments时显示的内容
-        List<KaraAttachment> attachList=new ArrayList<KaraAttachment>();
-        attachList.add(attach);
-        message.setAttachments(attachList.toArray(new KaraAttachment[0]));
+        KaraField field=new KaraField();
+        field.setTitle("下周计划");
+        field.setValue(content.toString());
+        List<KaraField> list=new ArrayList<KaraField>();
+        list.add(field);
+        KaraMessage message=MessageConstructor.constructMessageWithFields(list);
         return message;
     }
     @GetMapping(path="/queryThisWeekPlan")
