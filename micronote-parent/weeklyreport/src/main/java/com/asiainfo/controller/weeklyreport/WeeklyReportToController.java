@@ -39,7 +39,7 @@ public class WeeklyReportToController {
 		String auditStaffNumber=request.getText();
         String auditUserId="";
         List<KaraField> karaFieldList=new ArrayList<KaraField>();
-        KaraUserResponseInfo userResponseInfo=restTemplate.getForObject(RestKaraUrl.StaffInfoByStaffId,KaraUserResponseInfo.class,auditStaffNumber);
+        KaraUserResponseInfo userResponseInfo=restTemplate.getForObject("http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}",KaraUserResponseInfo.class,auditStaffNumber);
         if(!userResponseInfo.getResponseCode().equals(CommonConst.KaraInfo.responseSuccessCode) || StringUtils.isEmpty(userResponseInfo.getStaffResponseInfo().getAccountId())){
             resultMessage=CommonConst.KaraInfo.userNotExists;
             //// TODO: 2017/1/11 需要拼装karaMessage
