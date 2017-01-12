@@ -4,9 +4,7 @@ import com.asiainfo.microNote.notify.pojo.NotifyUser;
 
 /**
  * 提交周报发送通知消息格式
- * 
  * @author yi
- *
  */
 public class WeeklyReportSubmitReportMessage {
 
@@ -32,9 +30,7 @@ public class WeeklyReportSubmitReportMessage {
 
 	/**
 	 * 通知需要的周报信息
-	 * 
 	 * @author yi
-	 *
 	 */
 	class WeeklyReportInfo {
 		// 提交人

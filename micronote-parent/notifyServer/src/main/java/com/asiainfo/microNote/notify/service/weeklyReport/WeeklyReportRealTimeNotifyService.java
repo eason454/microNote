@@ -56,16 +56,18 @@ public class WeeklyReportRealTimeNotifyService {
 	/**
 	 * 处理提交的周报生成综合周报提交信息
 	 */
-	@Scheduled(cron = "0 */1 * * * ?")
+	@Scheduled(cron = "0/30 * * * * ?")
 	public void onWeeklyReportSubmit() {
 
 		for (int i = 0; i < 5; i++) {
 			onWeeklyReportSubmitExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
-					while (!submitNotifyQueen.isEmpty()) {
+					while (true) {
 						try {
 							WeeklyReportSubmitReportMessage message = submitNotifyQueen.poll();
+							if(message == null)
+								break;
 							String key = message.getNotifyUser().getId().toString();
 							List<WeeklyReportSubmitReportMessage> reportMessages = userNotifyMap
 									.containsKey(key)
@@ -86,6 +88,7 @@ public class WeeklyReportRealTimeNotifyService {
 		try {
 			startSingle.await();
 			notifyQueen.addAll(userNotifyMap.values());
+			userNotifyMap.clear();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,14 +99,16 @@ public class WeeklyReportRealTimeNotifyService {
 	/**
 	 * 处理提交的周报生成综合周报提交信息
 	 */
-	@Scheduled(cron = "0 */1 * * * ?")
+	@Scheduled(cron = "0/15 * * * * ?")
 	public void notifyAuditingUser() {
 		for (int i = 0; i < 1; i++) {
 			notifyAuditingUserExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
-					while (!notifyQueen.isEmpty()) {
+					while (true) {
 						List<WeeklyReportSubmitReportMessage> messages = notifyQueen.poll();
+						if(messages == null )
+							break;
 						notifyAdapter.weeklyReportNotifyAuditing(messages);
 					}
 				}
