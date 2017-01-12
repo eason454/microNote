@@ -4,15 +4,12 @@ import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
-import com.asiainfo.domain.kara.response.KaraUserInfo;
 import com.asiainfo.domain.kara.response.KaraUserResponseInfo;
 import com.asiainfo.restclient.RestKaraUrl;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
 import com.asiainfo.service.weeklyreport.interfaces.IUserService;
-import com.asiainfo.service.weeklyreport.interfaces.UserService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
->>>>>>> 885d97f64fb8c980ab2fd04235deabf37c16e78c
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReportTo;
-import com.asiainfo.repository.weeklyreport.WeeklyReportToRepository;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -34,7 +30,6 @@ public class WeeklyReportToController {
 	private IWeeklyReportToService weeklyReportToService;
 	@Autowired
 	private IUserService userService;
-	private UserService userService;
 	@Autowired
 	private RestTemplate restTemplate;
 	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
