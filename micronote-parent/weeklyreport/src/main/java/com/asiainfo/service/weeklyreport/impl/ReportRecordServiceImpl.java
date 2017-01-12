@@ -1,12 +1,9 @@
 package com.asiainfo.service.weeklyreport.impl;
 
-import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
-import com.asiainfo.util.CommonUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.AutoConfigurationReportEndpoint;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,4 +11,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReportRecordServiceImpl implements IReportRecordService {
+    @Autowired
+    ReportRecordRepository reportRecordRepository;
+    @Override
+    public boolean deleteReportRecordById(@Param("recordId") long recordId) {
+        reportRecordRepository.delete(recordId);
+        return true;
+    }
 }

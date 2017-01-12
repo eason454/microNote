@@ -35,18 +35,16 @@ public class WeeklyReportController {
 	@RequestMapping(path = "/queryWeeklyRecord", method = RequestMethod.POST)
 	public KaraMessage queryReportRecrodsByWeek(@RequestBody KaraRequestObject request){
 		/*
+		2017-1-12:Create by Zhaojl
 		1、解析传入的对象获取到需要的值
 		2、调用Repository层的方法查询数据
 		3、组合成返回格式并返回
 		 */
 		//获取数据
-		String resultMessage="";
 		String userId=request.getUserId();
 		long currentTime = Long.valueOf(request.getText());
 
 		//定义返回结构
-		List<KaraField> karaFieldList=new ArrayList<KaraField>();
-		StringBuffer content=new StringBuffer();
 		KaraField field=new KaraField();
 		List<KaraField> list=new ArrayList<KaraField>();
 

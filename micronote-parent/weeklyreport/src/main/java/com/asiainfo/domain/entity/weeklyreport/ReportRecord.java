@@ -60,7 +60,6 @@ public class ReportRecord {
 	}
 
 	/**
-	 *
 	 * 2、work
 	 */
 	@Column(name = "record_type")
