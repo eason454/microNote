@@ -4,12 +4,18 @@ import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
+import com.asiainfo.domain.kara.response.KaraUserInfo;
 import com.asiainfo.domain.kara.response.KaraUserResponseInfo;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
 import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import com.asiainfo.util.consts.CommonConst;
+import com.asiainfo.util.kara.HttpUtils;
 import com.asiainfo.util.kara.MessageConstructor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +30,7 @@ import java.util.List;
 
 @RestController
 public class WeeklyReportToController {
-	
+	private static Log logger= LogFactory.getLog(WeeklyReportToController.class);
 	@Autowired
 	private IWeeklyReportToService weeklyReportToService;
 	@Autowired
@@ -39,28 +45,72 @@ public class WeeklyReportToController {
 		String auditStaffNumber=request.getText();
         String auditUserId="";
         List<KaraField> karaFieldList=new ArrayList<KaraField>();
-        KaraUserResponseInfo userResponseInfo=restTemplate.getForObject("http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}",KaraUserResponseInfo.class,auditStaffNumber);
-        if(!userResponseInfo.getResponseCode().equals(CommonConst.KaraInfo.responseSuccessCode) || StringUtils.isEmpty(userResponseInfo.getStaffResponseInfo().getAccountId())){
-            resultMessage=CommonConst.KaraInfo.userNotExists;
-            //// TODO: 2017/1/11 需要拼装karaMessage
+        //根据工号查询微记用户
+        User auditUser=userService.queryUserByNumber(auditStaffNumber);//查询审核人信息
+        String auditUserName="";
+        if (auditUser==null){
+            //汇报对象信息为空，需要调用kara查询员工信息
+            try {
+                HttpEntity headers= HttpUtils.getKaraHttpEntityForGet(request.getToken());
+                HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange("http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}", HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//
+                KaraUserResponseInfo userResponseInfo=response.getBody();
+                if(!userResponseInfo.getResponseCode().equals(CommonConst.KaraInfo.responseSuccessCode) || StringUtils.isEmpty(userResponseInfo.getStaffResponseInfo().getAccountId())){
+                    resultMessage=CommonConst.KaraInfo.userNotExists;
+                    //// TODO: 2017/1/11 需要拼装karaMessage
+                    KaraField field=new KaraField();
+                    field.setTitle(CommonConst.KaraInfo.setWeeklyReportResult);
+                    field.setValue(String.format(CommonConst.KaraInfo.SetWeeklyReportResultFail,resultMessage));
+                    karaFieldList.add(field);
+                    return MessageConstructor.constructMessageWithFields("",karaFieldList);
+                }else{
+                    KaraUserInfo userInfo=userResponseInfo.getStaffResponseInfo();
+                    auditUserId=userInfo.getAccountId();
+                    auditUserName=userInfo.getStaffName();
+                    //生成用户资料
+                    User user=new User();
+                    user.setId(auditUserId);
+                    user.setName(userInfo.getStaffName());
+                    user.setUserNumber(userInfo.getStaffCode());
+                    userService.createUser(user);
+                }
+            }catch (Exception e){
+                logger.error(e.getMessage());
+                resultMessage=e.getMessage();
+                KaraField field=new KaraField();
+                field.setTitle(CommonConst.KaraInfo.setWeeklyReportResult);
+                field.setValue(String.format(CommonConst.KaraInfo.SetWeeklyReportResultFail,resultMessage));
+                karaFieldList.add(field);
+                return MessageConstructor.constructMessageWithFields("",karaFieldList);
+            }
+        }else{
+            auditUserId=auditUser.getId();
+            auditUserName=auditUser.getName();
+        }
+        //
+		WeeklyReportTo weeklyReportTo = weeklyReportToService.findByReportUserId(userId);
+        boolean flag=false;
+		if(weeklyReportTo==null){
+            WeeklyReportTo weeklyReportTo1=new WeeklyReportTo(userId,auditUserId);
+            flag=weeklyReportToService.saveWeeklyReportTo(weeklyReportTo1);
+
+        }else{
+            weeklyReportTo.setAuditingUserId(auditUserId);
+            flag=weeklyReportToService.saveWeeklyReportTo(weeklyReportTo);
+        }
+		if(flag){
+            //设置成功
+            KaraField field=new KaraField();
+            field.setTitle(CommonConst.KaraInfo.setWeeklyReportResult);
+            field.setValue(String.format(CommonConst.KaraInfo.SetWeeklyReportResultSuccess,auditUserName,auditStaffNumber));
+            karaFieldList.add(field);
+            return MessageConstructor.constructMessageWithFields("",karaFieldList);
+		}else{
             KaraField field=new KaraField();
             field.setTitle(CommonConst.KaraInfo.setWeeklyReportResult);
             field.setValue(String.format(CommonConst.KaraInfo.SetWeeklyReportResultFail,resultMessage));
             karaFieldList.add(field);
             return MessageConstructor.constructMessageWithFields("",karaFieldList);
-        }else{
-            auditUserId=userResponseInfo.getStaffResponseInfo().getAccountId();
         }
-		WeeklyReportTo weeklyReportTo = weeklyReportToService.findByReportUserId(userId);
-		weeklyReportTo.setAuditingUserId(auditUserId);
-		//查询汇报对象是否已经在微记用户中存在
-		User user=userService.queryUserById(auditUserId);
 
-		boolean flag=weeklyReportToService.saveWeeklyReportTo(weeklyReportTo);
-		if(flag){
-
-		}
-		//// TODO: 2017/1/11 增加拼装KaraMessage
-        return null;
 	}
 }

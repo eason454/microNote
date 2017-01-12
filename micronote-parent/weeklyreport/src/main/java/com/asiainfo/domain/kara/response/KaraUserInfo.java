@@ -7,6 +7,15 @@ public class KaraUserInfo {
     private String accountId;
     private String staffId;
     private String staffName;
+    private String staffCode;
+
+    public String getStaffCode() {
+        return staffCode;
+    }
+
+    public void setStaffCode(String staffCode) {
+        this.staffCode = staffCode;
+    }
 
     public String getAccountId() {
         return accountId;

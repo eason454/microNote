@@ -14,4 +14,5 @@ public interface IUserService {
     User createUser(User user);
     Page<User> queryUserByPages(Pageable pageable);
     User queryUserById(String id);
+    User queryUserByNumber(String staffNum);
 }
