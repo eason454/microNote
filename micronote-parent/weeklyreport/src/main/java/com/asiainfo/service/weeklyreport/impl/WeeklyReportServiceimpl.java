@@ -13,7 +13,7 @@ import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
 import com.asiainfo.service.notify.impl.Message;
 import com.asiainfo.service.notify.interfaces.INotifyService;
-import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
+import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
 import com.asiainfo.util.consts.CommonConst.NotificationType;
 import com.asiainfo.util.consts.CommonConst.WeeklyReportReport;
 
@@ -21,13 +21,25 @@ import com.asiainfo.util.consts.CommonConst.WeeklyReportReport;
  * Created by eason on 2017/1/6.
  */
 @Service
-public class WeeklyReportServiceimpl implements WeeklyReportService {
+public class WeeklyReportServiceimpl implements IWeeklyReportService {
 	@Autowired
 	private ReportRecordRepository reportRecordRepository;
 	@Autowired
 	private WeeklyReportRepository weeklyReportRepository;
 	//注入推送服務
-	@Autowired
+
+	@Override
+	public List<ReportRecord> findByUserIdAndTime(String userId, long time) {
+		//根据时间和使用者ID获取一周的记录内容
+
+		//根据时间获取周数
+		int weekOfYear = new Long(TimeUtil.getWeekOfYear(time)).intValue();
+		//调用方法获取到周报对象
+		WeeklyReport weeklyReport = weeklyReportRepository.findByReportUserIdAndWeekly(userId, weekOfYear);
+		//获取该周报对应的记录
+		return weeklyReport.getReportRecord();
+	}
+			@Autowired
 	private INotifyService notifyService;
 	//讀取配置的推送信息
 	@Value("${weeklyReport.notify.information}")
@@ -73,7 +85,7 @@ public class WeeklyReportServiceimpl implements WeeklyReportService {
 
 	@Override
 	public WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId, int weekly) {
-		return weeklyReportRepository.findByReportUserIdAndWeekly(userId,weekly);
+		return weeklyReportRepository.findByReportUserIdAndWeekly(userId, weekly);
 	}
 
     @Override

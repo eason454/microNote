@@ -4,7 +4,7 @@ import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReportTo;
 import com.asiainfo.repository.weeklyreport.WeeklyReportToRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
-import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
+import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
 import com.asiainfo.util.time.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class WeeklyReportToServiceImpl implements IWeeklyReportToService {
     @Autowired
     private WeeklyReportToRepository weeklyReportToRepository;
     @Autowired
-    private WeeklyReportService weeklyReportService;
+    private IWeeklyReportService weeklyReportService;
     @Override
     @Transactional(readOnly = false,propagation = Propagation.REQUIRES_NEW)
     public boolean saveWeeklyReportTo(WeeklyReportTo weeklyReportTo) {

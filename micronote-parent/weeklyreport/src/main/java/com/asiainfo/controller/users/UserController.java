@@ -1,7 +1,7 @@
 package com.asiainfo.controller.users;
 
 import com.asiainfo.domain.entity.user.User;
-import com.asiainfo.service.weeklyreport.interfaces.UserService;
+import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 public class UserController {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @RequestMapping(path = "/queryUsers",method = RequestMethod.GET)
     public List<User> queryUsers(){
        return userService.queryUsers();

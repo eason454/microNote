@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
-import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
+import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
 
 /**
  * Created by eason on 2017/1/6.
@@ -26,7 +26,7 @@ import com.asiainfo.service.weeklyreport.interfaces.WeeklyReportService;
 public class WeeklyReportController {
 	private Log logger = LogFactory.getLog(WeeklyReportController.class);
 	@Autowired
-	private WeeklyReportService weeklyReportService;
+	private IWeeklyReportService weeklyReportService;
 
 	@RequestMapping(path = "/createWeeklyReport", method = RequestMethod.POST)
 	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
@@ -39,10 +39,10 @@ public class WeeklyReportController {
         logger.info("header:" + header.toString());
         logger.info("param:"+param.toString());
         logger.info("body:"+body.toString());
-		String userId = body.get("userId");
+		String userId = body.get("reportUserId");
 		long currentTime = Long.parseLong(body.get("currentTime"));
 		//获取数据
-		List<ReportRecord> reportRecords = weeklyReportService.findByCreateDateBetween(userId,currentTime);
+		List<ReportRecord> reportRecords = weeklyReportService.findByUserIdAndTime(userId,currentTime);
 		//构造返回结构
         StringBuffer content=new StringBuffer();
 		KaraField field=new KaraField();

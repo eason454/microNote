@@ -3,7 +3,7 @@ package com.asiainfo.controller.weeklyreport;
 import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
-import com.asiainfo.service.weeklyreport.interfaces.UserService;
+import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReportTo;
-import com.asiainfo.repository.weeklyreport.WeeklyReportToRepository;
 
 @RestController
 public class WeeklyReportToController {
@@ -19,7 +18,7 @@ public class WeeklyReportToController {
 	@Autowired
 	private IWeeklyReportToService weeklyReportToService;
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
 	public String setWeeklyReportTo(@RequestBody KaraRequestObject request){
 		String userId=request.getUserId();

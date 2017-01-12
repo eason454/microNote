@@ -67,7 +67,7 @@ public class TimeUtil {
 	 */
 	public static long getNextWeekStartDate() {
 		Calendar calendar = Calendar.getInstance();
-		return getWeekStartDateByWeek(calendar.get(Calendar.YEAR) ,calendar.get(Calendar.WEEK_OF_YEAR) +1) ;
+		return getWeekStartDateByWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR) + 1) ;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class TimeUtil {
 	 */
 	public static long getNextWeekEndDate() {
 		Calendar calendar = Calendar.getInstance();
-		return getWeekEndDateByWeek(calendar.get(Calendar.YEAR) ,calendar.get(Calendar.WEEK_OF_YEAR) +1) ;
+		return getWeekEndDateByWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR) + 1) ;
 	}
 
 	private static void setZero(Calendar calendar) {
@@ -127,6 +127,12 @@ public class TimeUtil {
 			calendar.set(Calendar.SECOND, 59);
 		}
 		return calendar.getTimeInMillis();
+	}
+
+	public static long getWeekOfYear(long time){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(time);
+		return calendar.get(Calendar.WEEK_OF_YEAR);
 	}
 
 }
