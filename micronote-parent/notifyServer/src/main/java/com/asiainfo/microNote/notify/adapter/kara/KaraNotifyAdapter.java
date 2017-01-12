@@ -46,10 +46,15 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 	@Override
 	public boolean weeklyReportNotifyAuditing(List<WeeklyReportSubmitReportMessage> messages) {
 		KaraIncoming karaIncoming = new KaraIncoming();
-		karaIncoming.text = new StringBuffer().append("there is ").append(messages.size())
-				.append(" persons already submit weeklyReport to you ...");
+		karaIncoming.text = new StringBuffer().append("亲～ 已有 ");
+		
+		for(int i =0 ; i <messages.size()&& i<3 ; i++ ){
+			karaIncoming.text.append(" @").append(messages.get(i).getNotifyUser().getName());
+		}
+		
+		karaIncoming.text.append(" 等,共 ").append(messages.size()).append(" 个周报待查看，请点击以下链接查看 ...");
 		StringBuffer userId = messages.get(0).getNotifyUser().getId();
-		logger.info("weeklyReportNotifyAuditing " + messages.get(0).getNotifyUser().getName());
+		logger.info("weeklyReportNotifyAuditing " + karaIncoming.text);
 		karaIncoming.channel = new StringBuffer("@").append(userId);
 		StringBuffer title = new StringBuffer(weeklyReportReportCheck.replace("{userId}", userId));
 		karaIncoming.setAttachments(karaIncoming.new Attachment(title));
