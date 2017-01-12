@@ -25,7 +25,7 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 
 	private String weeklyReportReportContent = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}/{week}|点击填写周报>";
 
-	private String weeklyReportReportCheck = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}|点击周报>";
+	private String weeklyReportReportCheck = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}|点击查看周报>";
 
 	/**
 	 * 推送到kara
@@ -47,12 +47,12 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 	public boolean weeklyReportNotifyAuditing(List<WeeklyReportSubmitReportMessage> messages) {
 		KaraIncoming karaIncoming = new KaraIncoming();
 		karaIncoming.text = new StringBuffer().append("亲～ 已有 ");
-		
-		for(int i =0 ; i <messages.size()&& i<3 ; i++ ){
+
+		for (int i = 0; i < messages.size() && i < 3; i++) {
 			karaIncoming.text.append(" @").append(messages.get(i).getNotifyUser().getName());
 		}
-		
-		karaIncoming.text.append(" 等,共 ").append(messages.size()).append(" 个周报待查看，请点击以下链接查看 ...");
+
+		karaIncoming.text.append(" 等,共 ").append(messages.size()).append(" 个周报待查看，请点击以下链接查看...");
 		StringBuffer userId = messages.get(0).getNotifyUser().getId();
 		logger.info("weeklyReportNotifyAuditing " + karaIncoming.text);
 		karaIncoming.channel = new StringBuffer("@").append(userId);
