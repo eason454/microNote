@@ -2,9 +2,9 @@ spring:
   application:
     name: weeklyreport
   jpa:
-    generate-ddl: true
+    generate-ddl: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     database: mysql
   jackson:
