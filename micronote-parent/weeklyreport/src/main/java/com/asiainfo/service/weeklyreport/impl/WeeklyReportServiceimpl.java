@@ -85,7 +85,15 @@ public class WeeklyReportServiceimpl implements IWeeklyReportService {
 
 	@Override
 	public WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId, int weekly) {
-		return weeklyReportRepository.findByReportUserIdAndWeekly(userId, weekly);
+       WeeklyReport weeklyReport= weeklyReportRepository.findByReportUserIdAndWeekly(userId, weekly);
+        if(weeklyReport==null){
+            WeeklyReport weeklyReport1=new WeeklyReport();
+            weeklyReport1.setReportUserId(userId);
+            weeklyReport1.setWeekly(weekly);
+            return weeklyReportRepository.save(weeklyReport1);
+        }else{
+            return weeklyReport;
+        }
 	}
 
     @Override

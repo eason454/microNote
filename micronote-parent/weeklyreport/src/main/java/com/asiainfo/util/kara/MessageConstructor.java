@@ -15,7 +15,7 @@ public class MessageConstructor {
     public static KaraMessage constructMessageWithFields(String attachTitle,List<KaraField> karaFields){
         KaraMessage message=new KaraMessage();
 //        message.setChannel(body.get("channel_id"));
-        message.setText(CommonConst.KaraInfo.querySuccess);
+        message.setText("");//CommonConst.KaraInfo.querySuccess
         KaraAttachment attach=new KaraAttachment();
         attach.setTitle(attachTitle);
 //        attach.setCallbackId("testcallbackId");  //回调id填什么呢

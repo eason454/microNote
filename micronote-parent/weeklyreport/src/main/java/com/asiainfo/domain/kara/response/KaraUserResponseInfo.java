@@ -1,10 +1,14 @@
 package com.asiainfo.domain.kara.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by eason on 2017/1/11.
  */
 public class KaraUserResponseInfo {
+    @JsonProperty("resultCode")
     private String responseCode;
+    @JsonProperty("resultMessage")
     private String resultInfo;
     private KaraUserInfo staffResponseInfo;
 

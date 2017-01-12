@@ -50,4 +50,7 @@ public class WeeklyReportTo {
 		this.reportUserId = reportUserId;
 		this.auditingUserId = auditingUserId;
 	}
+
+	public WeeklyReportTo() {
+	}
 }

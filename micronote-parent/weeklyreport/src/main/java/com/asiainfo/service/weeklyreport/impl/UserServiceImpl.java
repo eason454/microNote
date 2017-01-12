@@ -33,6 +33,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public User queryUserByNumber(String staffNum) {
+        return userRepository.findByUserNumber(staffNum);
+    }
+
+    @Override
     public List<User> queryUsers() {
         return userRepository.findAll();
     }
