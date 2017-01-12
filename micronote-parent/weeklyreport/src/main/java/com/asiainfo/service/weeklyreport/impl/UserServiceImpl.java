@@ -2,7 +2,7 @@ package com.asiainfo.service.weeklyreport.impl;
 
 import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.repository.user.UserRepository;
-import com.asiainfo.service.weeklyreport.interfaces.UserService;
+import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by eason on 2017/1/6.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
     @Autowired
     private UserRepository userRepository;
 
@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User queryUserById(String id) {
         return userRepository.findOne(id);
+    }
+
+    @Override
+    public User queryUserByNumber(String staffNum) {
+        return userRepository.findByUserNumber(staffNum);
     }
 
     @Override

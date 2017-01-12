@@ -25,10 +25,10 @@ public class WeeklyReport {
 	
 	/**
 	 * 1、submitted 已提交<br>
-	 * 2、onChange 新的周报<br>
+	 * 2、ready 新的周报<br>
 	 */
 	@Column(name="state")
-	private String state;
+	private String state=CommonConst.WeeklyReportReport.READY;
 
 	/**
 	 * 汇报人Id

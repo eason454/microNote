@@ -7,14 +7,15 @@ server:
 eureka:
   instance:
     hostname: microNote
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
       defaultZone: http://microNote:8761/eureka/
   server:
-    enable-self-preservation: true
-    eviction-interval-timer-in-ms: 1000
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 10000
 #eureka:
 #  instance:
 #    prefer-ip-address: true

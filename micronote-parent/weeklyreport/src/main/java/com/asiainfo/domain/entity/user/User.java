@@ -23,9 +23,19 @@ public class User {
 	private String name;
 	@Column(name = "user_account")
 	private String account;
+	@Column(name="user_no")
+	private String userNumber;
+
+	public String getUserNumber() {
+		return userNumber;
+	}
+
+	public void setUserNumber(String userNumber) {
+		this.userNumber = userNumber;
+	}
 
 	@Column(name = "create_date")
-	private long createDate;
+	private long createDate=System.currentTimeMillis();
 	
 	public String getName() {
 		return name;
@@ -55,9 +65,10 @@ public class User {
 		this.createDate = createDate;
 	}
 
-	public User(String name, String account, String state, long createDate) {
+	public User(String name, String account, String userNumber, long createDate) {
 		this.name = name;
 		this.account = account;
+		this.userNumber = userNumber;
 		this.createDate = createDate;
 	}
 

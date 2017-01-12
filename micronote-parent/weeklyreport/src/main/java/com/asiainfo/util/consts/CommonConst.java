@@ -59,7 +59,12 @@ public interface CommonConst {
 		public static final String nextWeeklyInfo="下周计划";
 		public static final String thisWeeklyInfo="本周计划";
 		String weeklyWork="本周工作成果";
-
+		String responseSuccessCode="000000";
+		String userNotExists="对不起，设置失败，未查询到您设置到员工信息!";
+		String setWeeklyReportResult="设置结果:";
+		String SetWeeklyReportResultFail="设置失败，原因:%s";
+		String saveRecordSuccess = "保存信息成功！";
+		String SetWeeklyReportResultSuccess="设置成功，您的汇报对象为:%s,工号:%s";
 	}
 
 }
