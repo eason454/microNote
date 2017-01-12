@@ -13,7 +13,7 @@ eureka:
     serviceUrl:
       defaultZone: http://microNote:8761/eureka/
   server:
-    enable-self-preservation: true
+    enable-self-preservation: false
     eviction-interval-timer-in-ms: 1000
 #eureka:
 #  instance:

@@ -5,7 +5,6 @@ import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.domain.kara.response.KaraUserResponseInfo;
-import com.asiainfo.restclient.RestKaraUrl;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
 import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import com.asiainfo.util.consts.CommonConst;
@@ -32,6 +31,7 @@ public class WeeklyReportToController {
 	private IUserService userService;
 	@Autowired
 	private RestTemplate restTemplate;
+
 	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
 	public KaraMessage setWeeklyReportTo(@RequestBody KaraRequestObject request){
         String resultMessage="";

@@ -63,6 +63,7 @@ public interface CommonConst {
 		String userNotExists="对不起，设置失败，未查询到您设置到员工信息!";
 		String setWeeklyReportResult="设置结果:";
 		String SetWeeklyReportResultFail="设置失败，原因:%s";
+		String saveRecordSuccess = "保存信息成功！";
 	}
 
 }

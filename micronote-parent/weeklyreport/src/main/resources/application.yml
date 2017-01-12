@@ -27,7 +27,11 @@ eureka:
     fetch-registry: true
     service-url:
       defaultZone: http://microNote:8761/eureka/
-      
+  #add by zhaojl 2017-1-12 solve Eureka EMERGENCY Warnning
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+
 logging:
   level:
     org:
