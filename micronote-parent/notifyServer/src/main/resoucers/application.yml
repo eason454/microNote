@@ -18,7 +18,7 @@ spring:
 
 server:
   port: 9020
-  context-path: /notify
+  context-path: /microNote
 eureka:
   client:
     fetch-registry: true
@@ -32,12 +32,15 @@ eureka:
 #        SQL: debug
         
 weeklyReport:
-  user:
-    noitfy:
-      onSubmit: 亲%userName%向你提交了周报
-      #每周人员填写周报的提醒内容
-      onEveryWeek: 亲该填周报了 http://localhost:9001/weeklyReport/mnote/%userId%/%week%
-      notifyThreadNumber: 4
+  noitfy:
+    uris:
+      serverUri: http://localhost:9001/
+      Report: /sseresrse
+    notifyThreadNumber: 4
+     
       
-      
+kara:
+  accessToken: bearer 78ba5389ad5c4e4f876651988407e791
+  karaService: http://10.19.15.28:8000/
+  incomingUri: /api/webapi/incoming/services/reception
   
