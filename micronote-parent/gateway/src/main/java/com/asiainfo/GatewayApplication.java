@@ -9,6 +9,7 @@ import com.asiainfo.filter.SampleFilter;
 
 @SpringBootApplication
 @EnableSidecar
+@EnableHystrixDashboard
 public class GatewayApplication {
 
 	public static void main(String[] args) {
