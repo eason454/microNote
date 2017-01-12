@@ -7,33 +7,27 @@ package com.asiainfo.microNote.notify.pojo;
  */
 public class NotifyUser {
 
-	String id;
-	String name;
-	String account;
-
+	StringBuffer id;
+	StringBuffer name;
+	StringBuffer account;
 	
-	public String getId() {
+	public StringBuffer getId() {
 		return id;
 	}
-
-	public void setId(String id) {
+	public void setId(StringBuffer id) {
 		this.id = id;
 	}
-
-	public String getName() {
+	public StringBuffer getName() {
 		return name;
 	}
-
-	public void setName(String name) {
+	public void setName(StringBuffer name) {
 		this.name = name;
 	}
-
-	public String getAccount() {
+	public StringBuffer getAccount() {
 		return account;
 	}
-
-	public void setAccount(String account) {
+	public void setAccount(StringBuffer account) {
 		this.account = account;
 	}
-
+	
 }

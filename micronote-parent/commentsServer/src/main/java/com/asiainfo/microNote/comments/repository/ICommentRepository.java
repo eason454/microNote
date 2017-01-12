@@ -12,5 +12,5 @@ import com.asiainfo.microNote.comments.domain.entity.Comment;
  */
 public interface ICommentRepository extends PagingAndSortingRepository<Comment, Long>{
 
-	Comment findByCommentTargetIdAndTargetType(long targetId, String targetType);
+	Comment findByCommentTargetIdAndTargetTypeOrderByCreateDateDesc(long targetId, String targetType);
 }
