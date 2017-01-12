@@ -5,9 +5,7 @@ import java.util.List;
 
 /**
  * kara incoming对象
- * 
  * @author yi
- *
  */
 public class KaraIncoming {
 
@@ -40,17 +38,18 @@ public class KaraIncoming {
 	}
 
 	public class Attachment {
-		
+
 		StringBuffer title;
 
-		public Attachment(StringBuffer title){
+		public Attachment(StringBuffer title) {
 			this();
 			this.title = title;
 		}
-		
-		public Attachment(){
+
+		public Attachment() {
 			super();
 		}
+
 		public StringBuffer getTitle() {
 			return title;
 		}
