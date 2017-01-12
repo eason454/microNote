@@ -12,6 +12,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://10.5.5.60:3306/micro_note?characterEncoding=utf8&useSSL=false
+#    url: jdbc:mysql://localhost:3306/micro_note?characterEncoding=utf8&useSSL=false
     username: mnote
     password: 12345
     type: com.zaxxer.hikari.HikariDataSource
@@ -35,4 +36,7 @@ logging:
 weeklyReport:
   notify:
     information: 您有%count%周报待查看请访问链接 http://localhost:8020/queryWeeklyReportTo/%userId%/%week%
-    
+kara:
+  url:
+    getStaffByAccountId: http://10.19.15.28:8000/api/sdm/getStaffByAccountId/{accountId}
+    getStaffByStaffId: http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}
