@@ -99,6 +99,12 @@ public class WeeklyReportController {
         list.add(field);
         return MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.clickUrlToViewWeeklyReport,list);
 	}
+
+    /**
+     * 提供给web的查看周报详情接口
+     * @param userId
+     * @return
+     */
     @GetMapping(path="/viewWeeklyReportForWeb")
     public WeeklyReportForWeb viewWeeklyReportForWeb(@RequestParam(name = "userId",required = true) String userId){
         WeeklyReportForWeb weeklyReportForWeb=new WeeklyReportForWeb();

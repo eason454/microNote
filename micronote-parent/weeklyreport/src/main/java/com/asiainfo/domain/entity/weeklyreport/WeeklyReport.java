@@ -21,7 +21,7 @@ public class WeeklyReport {
 	@Id
 	@Column(name="weekly_report_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Long weeklyReportId;
 	
 	/**
 	 * 1、submitted 已提交<br>
@@ -62,13 +62,6 @@ public class WeeklyReport {
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,targetEntity = ReportRecord.class)
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getState() {
 		return state;
