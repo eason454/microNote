@@ -30,6 +30,10 @@ public class WeeklyReport {
 	@Column(name="state")
 	private String state=CommonConst.WeeklyReportReport.READY;
 
+	public Long getWeeklyReportId() {
+		return weeklyReportId;
+	}
+
 	/**
 	 * 汇报人Id
 	 */
@@ -59,7 +63,7 @@ public class WeeklyReport {
 		this.reportRecord = reportRecord;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,targetEntity = ReportRecord.class)
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 

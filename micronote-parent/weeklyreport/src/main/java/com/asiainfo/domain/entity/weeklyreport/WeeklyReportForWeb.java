@@ -9,7 +9,16 @@ import java.util.List;
  * Created by eason on 2017/1/13.
  */
 public class WeeklyReportForWeb {
-    private long weeklyReportId;
+    private Long weeklyReportId;
+
+    public Long getWeeklyReportId() {
+        return weeklyReportId;
+    }
+
+    public void setWeeklyReportId(Long weeklyReportId) {
+        this.weeklyReportId = weeklyReportId;
+    }
+
     private int weekly;
     private String reportUserId;
     private String auditingUserId;
@@ -52,13 +61,6 @@ public class WeeklyReportForWeb {
     private List<Plan> lastWeekPlan;
     private List<Plan> nextWeekPlan;
 
-    public long getWeeklyReportId() {
-        return weeklyReportId;
-    }
-
-    public void setWeeklyReportId(long weeklyReportId) {
-        this.weeklyReportId = weeklyReportId;
-    }
 
     public List<ReportRecord> getReportRecords() {
         return reportRecords;
