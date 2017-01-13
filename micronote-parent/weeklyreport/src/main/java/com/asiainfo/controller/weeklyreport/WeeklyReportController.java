@@ -39,7 +39,8 @@ public class WeeklyReportController {
 	private Log logger = LogFactory.getLog(WeeklyReportController.class);
 	@Autowired
 	private IWeeklyReportService weeklyReportService;
-
+    @Value("${kara.web.url.viewWeeklyReport}")
+    private String viewWeeklReportUrl;
 	@RequestMapping(path = "/createWeeklyReport", method = RequestMethod.POST)
 	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
 		return weeklyReportService.createWeeklyReport(reportUserId);
@@ -90,4 +91,19 @@ public class WeeklyReportController {
 	public Page<User> queryReportUsers(@PathVariable("userId") String authorId, Pageable pageable){
 		return weeklyReportService.getReportUsers(authorId, pageable);
 	}
+    /**
+     * 响应查看周报命令
+     * @param request
+     * @return
+     */
+	@PostMapping(path="/viewWeeklpReport")
+	public KaraMessage viewWeeklyReport(@RequestBody KaraRequestObject request){
+        logger.debug("request:"+request.toString());
+        KaraField field=new KaraField();
+        field.setTitle(viewWeeklReportUrl+CommonConst.KaraInfo.urlSplit+CommonConst.KaraInfo.weeklyReportDetail);
+        List<KaraField> list=new ArrayList<KaraField>();
+        list.add(field);
+        return MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.clickUrlToViewWeeklyReport,list);
+	}
+
 }
