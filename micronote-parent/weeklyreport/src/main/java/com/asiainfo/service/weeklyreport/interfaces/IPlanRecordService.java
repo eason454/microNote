@@ -58,12 +58,12 @@ public interface IPlanRecordService{
 	 * @param lastTimeThisWeek
 	 * @return
 	 */
-	List<Plan> queryNextWeekPlan(long userId);
+	List<Plan> queryNextWeekPlan(String userId);
     /**
      * 获取本周计划
      * @param userId
      * @return
      */
-    List<Plan> queryThisWeekPlan(long userId);
+    List<Plan> queryThisWeekPlan(String userId);
 
 }

@@ -12,13 +12,13 @@ import java.util.List;
  */
 @RepositoryRestResource(collectionResourceRel = "plan",path = "plan")
 public interface PlanRepository extends JpaRepository<Plan,Long> {
-    List<Plan> findByReportUserIdAndEndDateGreaterThanAndStartDateLessThan(long userId,long beginDate, long endDate);
+    List<Plan> findByReportUserIdAndEndDateGreaterThanAndStartDateLessThan(String userId,long beginDate, long endDate);
 
     /**
      * 获取下周计划
      * @param
      * @return
      */
-    List<Plan> findByReportUserIdAndStartDateGreaterThan(long userId,long lastTimeThisWeek);
+    List<Plan> findByReportUserIdAndStartDateGreaterThan(String userId,long lastTimeThisWeek);
 
 }

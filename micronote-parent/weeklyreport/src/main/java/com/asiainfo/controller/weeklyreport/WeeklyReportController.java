@@ -3,13 +3,18 @@ package com.asiainfo.controller.weeklyreport;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import com.asiainfo.domain.entity.weeklyreport.WeeklyReportForWeb;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
+import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
+import com.asiainfo.util.time.TimeUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +34,8 @@ public class WeeklyReportController {
 	private IWeeklyReportService weeklyReportService;
     @Value("${kara.web.url.viewWeeklyReport}")
     private String viewWeeklReportUrl;
+    @Autowired
+    private IPlanRecordService planService;
 	@RequestMapping(path = "/createWeeklyReport", method = RequestMethod.POST)
 	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
 		return weeklyReportService.createWeeklyReport(reportUserId);
@@ -89,5 +96,19 @@ public class WeeklyReportController {
         list.add(field);
         return MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.clickUrlToViewWeeklyReport,list);
 	}
-
+    @GetMapping(path="/viewWeeklyReportForWeb")
+    public WeeklyReportForWeb viewWeeklyReportForWeb(@RequestParam(name = "userId",required = true) String userId){
+        WeeklyReportForWeb weeklyReportForWeb=new WeeklyReportForWeb();
+        WeeklyReport weeklyReport=weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId, TimeUtil.getWeekOfYear());
+        BeanUtils.copyProperties(weeklyReport,weeklyReportForWeb);//copy properties
+        //get reportRecord
+        weeklyReportForWeb.setReportRecords(weeklyReport.getReportRecord());
+        //query last week plan
+        List<Plan> lastWeekplans=planService.queryThisWeekPlan(userId);
+        //query next week plan
+        List<Plan> nextWeekPlans=planService.queryNextWeekPlan(userId);
+        weeklyReportForWeb.setLastWeekPlan(lastWeekplans);
+        weeklyReportForWeb.setNextWeekPlan(nextWeekPlans);
+        return weeklyReportForWeb;
+    }
 }

@@ -1,5 +1,6 @@
 
 package com.asiainfo.controller.weeklyreport;
+import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.util.consts.CommonConst;
@@ -38,15 +39,12 @@ public class PlanController {
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
     @PostMapping(path="/queryNextWeekPlan")
-    public KaraMessage queryNextWeekPlan(@RequestParam Map<String,String> param,@RequestHeader Map<String,String> header,@RequestBody Map<String,String> body){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
-        logger.error("header:"+header.toString());
-        logger.error("param:"+param.toString());
-        logger.error("body:"+body.toString());
-        List<Plan> plans=planRecordService.queryNextWeekPlan(1L);
+    public KaraMessage queryNextWeekPlan(@RequestBody KaraRequestObject request){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
+        List<Plan> plans=planRecordService.queryNextWeekPlan(request.getUserId());
         StringBuffer content=new StringBuffer();
         for (Plan plan :
                 plans) {
-            content.append(plan.getContent()+"\\n");
+            content.append(plan.getContent()+",");
         }
         KaraField field=new KaraField();
         field.setTitle("下周计划");
@@ -56,15 +54,31 @@ public class PlanController {
         KaraMessage message=MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.nextWeeklyInfo,list);
         return message;
     }
+
+    /**
+     * 提供给web，查询本周计划
+     * @param userId
+     * @return
+     */
     @GetMapping(path="/queryThisWeekPlan")
-    public List<Plan> queryThisWeekPlan(@RequestHeader(value = "userId") long userId){
+    public List<Plan> queryThisWeekPlan(@RequestParam(value = "userId") String userId){
         return planRecordService.queryThisWeekPlan(userId);
     }
 
+    /**
+     * 提供给web，查询下周计划
+     * @param userId
+     * @return
+     */
+    @GetMapping(path="/queryNextWeekPlan")
+    public List<Plan> queryNextWeekPlan(@RequestParam(value = "userId") String userId){
+        return planRecordService.queryNextWeekPlan(userId);
+    }
+
     @PostMapping(path = "/cancelPlan")
-    public boolean cancelPlan(@RequestParam(value = "planId") long planId) {
+    public boolean cancelPlan(@RequestBody Plan plan) {
         try {
-            planRecordService.canelPlan(planId);
+            planRecordService.canelPlan(plan.getPlanId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
@@ -86,9 +100,9 @@ public class PlanController {
     }
 
     @PostMapping(path = "/delayPlan")
-    public boolean confirmedPlan(@RequestParam(value = "planId") long planId) {
+    public boolean confirmedPlan(@RequestBody Plan plan) {
         try {
-            planRecordService.delayPlan(planId);
+            planRecordService.delayPlan(plan.getPlanId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;

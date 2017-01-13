@@ -112,12 +112,12 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public List<Plan> queryNextWeekPlan(long userId) {
+	public List<Plan> queryNextWeekPlan(String userId) {
 		long lastTimeThisWeek=TimeUtil.getEndDateThisWeek();
 		return planRepository.findByReportUserIdAndStartDateGreaterThan(userId,lastTimeThisWeek);
 	}
 	@Override
-	public List<Plan> queryThisWeekPlan(long userId) {
+	public List<Plan> queryThisWeekPlan(String userId) {
 		long startTimeThisWeek=TimeUtil.getStartDateThisWeek();
 		long endTimeThisWeek=TimeUtil.getEndDateThisWeek();
 		return planRepository.findByReportUserIdAndEndDateGreaterThanAndStartDateLessThan(userId,startTimeThisWeek,endTimeThisWeek);
