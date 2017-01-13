@@ -58,7 +58,7 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 		for (WeeklyReportSubmitReportMessage message : messages) {
 			karaIncoming.setAttachments(
 					karaIncoming.new Attachment(new StringBuffer(weeklyReportCheckReport.replace("{userId}", userId)
-							.replace("{week}", week).replace("{userName}", message.getNotifyUser().getName()))));
+							.replace("{week}", week).replace("{userName}", message.getWeeklyReport().getReportUserName()))));
 		}
 		// 添加查看更多
 		karaIncoming.setAttachments(karaIncoming.new Attachment(
