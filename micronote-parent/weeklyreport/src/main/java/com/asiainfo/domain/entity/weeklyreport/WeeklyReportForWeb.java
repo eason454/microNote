@@ -1,6 +1,8 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
 
+import com.asiainfo.domain.entity.user.User;
+
 import java.util.List;
 
 /**提供给web端的周报对象
@@ -9,8 +11,17 @@ import java.util.List;
 public class WeeklyReportForWeb {
     private long weeklyReportId;
     private int weekly;
-    private String userId;
-    private String auditUserId;
+    private String reportUserId;
+    private String auditingUserId;
+    private List<User> user;
+
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
+        this.user = user;
+    }
 
     public int getWeekly() {
         return weekly;
@@ -20,20 +31,21 @@ public class WeeklyReportForWeb {
         this.weekly = weekly;
     }
 
-    public String getUserId() {
-        return userId;
+
+    public String getReportUserId() {
+        return reportUserId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setReportUserId(String reportUserId) {
+        this.reportUserId = reportUserId;
     }
 
-    public String getAuditUserId() {
-        return auditUserId;
+    public String getAuditingUserId() {
+        return auditingUserId;
     }
 
-    public void setAuditUserId(String auditUserId) {
-        this.auditUserId = auditUserId;
+    public void setAuditingUserId(String auditingUserId) {
+        this.auditingUserId = auditingUserId;
     }
 
     private List<ReportRecord> reportRecords;
