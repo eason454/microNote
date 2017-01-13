@@ -10,6 +10,7 @@ import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
+import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
 import com.asiainfo.util.time.TimeUtil;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
@@ -39,6 +41,8 @@ public class WeeklyReportController {
     private String viewWeeklReportUrl;
     @Autowired
     private IPlanRecordService planService;
+    @Autowired
+    private IUserService userService;
 	@RequestMapping(path = "/createWeeklyReport", method = RequestMethod.POST)
 	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
 		return weeklyReportService.createWeeklyReport(reportUserId);
@@ -110,6 +114,20 @@ public class WeeklyReportController {
         WeeklyReportForWeb weeklyReportForWeb=new WeeklyReportForWeb();
         WeeklyReport weeklyReport=weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId, TimeUtil.getWeekOfYear());
         BeanUtils.copyProperties(weeklyReport,weeklyReportForWeb);//copy properties
+        //get UserInfo
+        List<User> userList=new ArrayList<User>();
+        if(!StringUtils.isEmpty(weeklyReport.getReportUserId())){
+            User user=userService.queryUserById(weeklyReport.getReportUserId());
+            if(user!=null){
+                userList.add(user);
+            }
+        }
+        if(!StringUtils.isEmpty(weeklyReport.getAuditingUserId())){
+            User user=userService.queryUserById(weeklyReport.getAuditingUserId());
+            if(user!=null){
+                userList.add(user);
+            }
+        }
         //get reportRecord
         weeklyReportForWeb.setReportRecords(weeklyReport.getReportRecord());
         //query last week plan
@@ -118,6 +136,7 @@ public class WeeklyReportController {
         List<Plan> nextWeekPlans=planService.queryNextWeekPlan(userId);
         weeklyReportForWeb.setLastWeekPlan(lastWeekplans);
         weeklyReportForWeb.setNextWeekPlan(nextWeekPlans);
+        weeklyReportForWeb.setUser(userList);
         return weeklyReportForWeb;
     }
 
