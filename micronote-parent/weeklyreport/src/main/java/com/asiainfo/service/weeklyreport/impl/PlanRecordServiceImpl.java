@@ -45,7 +45,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public boolean confirmePlan(long planId, long worklyReportId) throws Exception {
+	public boolean confirmePlan(long planId, long weeklyReportId) throws Exception {
 		 //  TODO 确认计划完成
 		 //  查询现在要完成的计划 变成确认状态confirmed
 		Plan plan = planRepository.findOne(planId);
@@ -65,7 +65,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		workRecord = reportRecordRepository.save(workRecord);
 		
 		//添加周報外鍵關系
-		WeeklyReport weeklyReport = weeklyReportRepository.findOne(worklyReportId);
+		WeeklyReport weeklyReport = weeklyReportRepository.findOne(weeklyReportId);
 		List<ReportRecord> reportRecords = weeklyReport.getReportRecord();
 		reportRecords.add(workRecord);
 		weeklyReport.setReportRecord(reportRecords);

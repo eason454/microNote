@@ -22,7 +22,7 @@ public interface IPlanRecordService{
 	 * @param planRecordId
 	 * @return
 	 */
-	boolean confirmePlan(long planId, long worklyReportId) throws Exception;
+	boolean confirmePlan(long planId, long weeklyReportId) throws Exception;
 	
 	/**
 	 * 延迟计划
