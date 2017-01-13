@@ -75,9 +75,9 @@ public class PlanController {
 
     @PostMapping(path = "/confirmedPlan")
     public boolean confirmedPlan(@RequestParam(value = "planId") long planId,
-                                 @RequestParam(value = "planId") long worklyReportId) {
+                                 @RequestParam(value = "weeklyReportId") long weeklyReportId) {
         try {
-            planRecordService.confirmePlan(planId, worklyReportId);
+            planRecordService.confirmePlan(planId, weeklyReportId);
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
