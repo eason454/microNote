@@ -1,22 +1,19 @@
 
 package com.asiainfo.controller.weeklyreport;
+import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
+import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.asiainfo.domain.entity.weeklyreport.Plan;
-import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by eason on 2017/1/9.
@@ -111,3 +108,4 @@ public class PlanController {
     }
 
 }
+

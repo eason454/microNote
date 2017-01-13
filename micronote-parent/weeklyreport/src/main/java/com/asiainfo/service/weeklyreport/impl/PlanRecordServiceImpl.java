@@ -1,10 +1,4 @@
 package com.asiainfo.service.weeklyreport.impl;
-
-import java.util.List;
-
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
@@ -16,8 +10,11 @@ import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 /**
  * 简单的计划操作实现
  * 
@@ -119,7 +116,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	@Override
 	public List<Plan> queryThisWeekPlan(String userId) {
 		long startTimeThisWeek=TimeUtil.getStartDateThisWeek();
-		long endTimeThisWeek=TimeUtil.getEndDateThisWeek();
+		long endTimeThisWeek= TimeUtil.getEndDateThisWeek();
 		return planRepository.findByReportUserIdAndEndDateGreaterThanAndStartDateLessThan(userId,startTimeThisWeek,endTimeThisWeek);
 	}
 }
