@@ -2,7 +2,7 @@ package com.asiainfo.microNote.notify.adapter;
 
 import java.util.List;
 
-import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportNotifyReportMessage;
+import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportRemaindReportMessage;
 import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportSubmitReportMessage;
 
 /**
@@ -16,7 +16,7 @@ public interface NotifyAdapter {
 	 * @param message
 	 * @return
 	 */
-	boolean weeklyReportNotifyReport(WeeklyReportNotifyReportMessage message);
+	boolean weeklyReportNotifyReport(WeeklyReportRemaindReportMessage message);
 	
 	/**
 	 * 

@@ -25,9 +25,9 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
  * @author yi
  */
 @Service
-public class WeeklyReportRealTimeNotifyService {
+public class WeeklyReportSubmitNotifyService {
 
-	Logger logger = Logger.getLogger(WeeklyReportRealTimeNotifyService.class);
+	Logger logger = Logger.getLogger(WeeklyReportSubmitNotifyService.class);
 
 	private static final Queue<WeeklyReportSubmitReportMessage> submitNotifyQueen = new ConcurrentLinkedQueue<WeeklyReportSubmitReportMessage>();
 
@@ -58,16 +58,20 @@ public class WeeklyReportRealTimeNotifyService {
 	 */
 	@Scheduled(cron = "0/30 * * * * ?")
 	public void onWeeklyReportSubmit() {
-
+		logger.info("進入檢查新提的交周報工作線程...");
 		for (int i = 0; i < 5; i++) {
 			onWeeklyReportSubmitExecutor.execute(new Runnable() {
 				@Override
 				public void run() {
+					
 					while (true) {
 						try {
 							WeeklyReportSubmitReportMessage message = submitNotifyQueen.poll();
-							if(message == null)
+							//退出新提交周報工作線程
+							if(message == null){
+								logger.info("退出新提交周報工作線程 "+Thread.currentThread().getId()+" ...");
 								break;
+							}
 							String key = message.getNotifyUser().getId().toString();
 							List<WeeklyReportSubmitReportMessage> reportMessages = userNotifyMap
 									.containsKey(key)
@@ -99,7 +103,7 @@ public class WeeklyReportRealTimeNotifyService {
 	/**
 	 * 处理提交的周报生成综合周报提交信息
 	 */
-	@Scheduled(cron = "0/15 * * * * ?")
+	@Scheduled(cron = "0/5 * * * * ?")
 	public void notifyAuditingUser() {
 		for (int i = 0; i < 1; i++) {
 			notifyAuditingUserExecutor.execute(new Runnable() {
@@ -107,8 +111,10 @@ public class WeeklyReportRealTimeNotifyService {
 				public void run() {
 					while (true) {
 						List<WeeklyReportSubmitReportMessage> messages = notifyQueen.poll();
-						if(messages == null )
+						if(messages == null ){
+							logger.info("推送新贈周報工作線程 "+Thread.currentThread().getId()+" ...");
 							break;
+						}
 						notifyAdapter.weeklyReportNotifyAuditing(messages);
 					}
 				}

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.asiainfo.microNote.notify.adapter.NotifyAdapter;
 import com.asiainfo.microNote.notify.pojo.NotifyUser;
-import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportNotifyReportMessage;
+import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportRemaindReportMessage;
 import com.asiainfo.microNote.notify.user.service.IUserService;
 
 import ch.qos.logback.core.util.ExecutorServiceUtil;
@@ -23,9 +23,9 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
  * @author yi
  */
 @Service
-public class WeeklyReportOnTimeNotifyService {
+public class WeeklyReportRemaindReportNotifyService {
 
-	private static final Logger logger = Logger.getLogger(WeeklyReportOnTimeNotifyService.class);
+	private static final Logger logger = Logger.getLogger(WeeklyReportRemaindReportNotifyService.class);
 
 	@Autowired
 	IUserService userService;
@@ -41,7 +41,7 @@ public class WeeklyReportOnTimeNotifyService {
 	/**
 	 * 每周五通知所有用户填写周报
 	 */
-	@Scheduled(cron = "0 */30 * * * ?")
+	@Scheduled(cron = "0 */120 * * * ?")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend() {
 		// 每周五通知所有用户填写周报代碼
 		Executor executor = ExecutorServiceUtil.newExecutorService();
@@ -69,7 +69,7 @@ public class WeeklyReportOnTimeNotifyService {
 							for (NotifyUser user : users) {
 								try {
 									logger.info("推送"+user.getName());
-									WeeklyReportNotifyReportMessage message = new WeeklyReportNotifyReportMessage();
+									WeeklyReportRemaindReportMessage message = new WeeklyReportRemaindReportMessage();
 									message.setNotifyUser(user);
 									message.setWeek(week);
 									notifyAdapter.weeklyReportNotifyReport(message);

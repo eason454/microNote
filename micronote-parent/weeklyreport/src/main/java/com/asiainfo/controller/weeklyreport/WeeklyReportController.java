@@ -3,20 +3,33 @@ package com.asiainfo.controller.weeklyreport;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import com.asiainfo.domain.kara.KaraRequestObject;
-import com.asiainfo.domain.kara.response.KaraField;
-import com.asiainfo.domain.kara.response.KaraMessage;
-import com.asiainfo.util.consts.CommonConst;
-import com.asiainfo.util.kara.MessageConstructor;
+
+import javax.websocket.server.PathParam;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
+import com.asiainfo.domain.kara.KaraRequestObject;
+import com.asiainfo.domain.kara.response.KaraField;
+import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
+import com.asiainfo.util.consts.CommonConst;
+import com.asiainfo.util.kara.MessageConstructor;
 
 /**
  * Created by eason on 2017/1/6.
@@ -68,8 +81,13 @@ public class WeeklyReportController {
 		return null;
 	}
 
-	@RequestMapping(path = "/submitWeeklyReport", method = RequestMethod.POST)
-	public boolean submitWeeklyReport(@RequestParam("weeklyReportId") long weeklyReportId) throws Exception {
+	@PostMapping(path = "/submitWeeklyReport/{weeklyReportId}")
+	public boolean submitWeeklyReport(@PathVariable("weeklyReportId") long weeklyReportId) throws Exception {
 		 return weeklyReportService.submitWeeklyReport(weeklyReportId);
+	}
+	
+	@GetMapping(path="/queryReportUsers/{userId}")
+	public Page<User> queryReportUsers(@PathVariable("userId") String authorId, Pageable pageable){
+		return weeklyReportService.getReportUsers(authorId, pageable);
 	}
 }
