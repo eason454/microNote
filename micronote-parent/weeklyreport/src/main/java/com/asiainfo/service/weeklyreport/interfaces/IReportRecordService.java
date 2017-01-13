@@ -1,5 +1,6 @@
 package com.asiainfo.service.weeklyreport.interfaces;
 
+import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import org.springframework.data.repository.query.Param;
 
 /**
@@ -7,4 +8,5 @@ import org.springframework.data.repository.query.Param;
  */
 public interface IReportRecordService {
     boolean deleteReportRecordById(@Param("recordId") long recordId);
+    ReportRecord modifyReportRecord(ReportRecord reportRecord);
 }

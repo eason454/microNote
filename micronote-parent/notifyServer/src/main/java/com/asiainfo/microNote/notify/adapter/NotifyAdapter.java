@@ -1,6 +1,9 @@
 package com.asiainfo.microNote.notify.adapter;
 
-import com.asiainfo.microNote.notify.pojo.Message;
+import java.util.List;
+
+import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportNotifyReportMessage;
+import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportSubmitReportMessage;
 
 /**
  * 推送适配器接口
@@ -13,5 +16,13 @@ public interface NotifyAdapter {
 	 * @param message
 	 * @return
 	 */
-	boolean notify(Message message);
+	boolean weeklyReportNotifyReport(WeeklyReportNotifyReportMessage message);
+	
+	/**
+	 * 
+	 * @param messages
+	 * @return
+	 */
+	public boolean weeklyReportNotifyAuditing(List<WeeklyReportSubmitReportMessage> messages);
+	
 }

@@ -5,6 +5,7 @@ import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
+import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
@@ -70,8 +71,14 @@ public class ReportRecordController {
 
     }
 
-    @RequestMapping(path = "/deleteRecord", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/deleteRecord", method = RequestMethod.POST)
     public boolean deleteRecord(long recordId){
        return reportRecordService.deleteReportRecordById(recordId);
+    }
+
+
+    @RequestMapping(path = "/modifyRecord", method = RequestMethod.POST)
+    public ReportRecord modifyReportRecord(ReportRecord reportRecord){
+        return reportRecordService.modifyReportRecord(reportRecord);
     }
 }

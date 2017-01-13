@@ -1,5 +1,6 @@
 package com.asiainfo.microNote.notify.service.weeklyReport;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -10,8 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.asiainfo.microNote.notify.adapter.NotifyAdapter;
-import com.asiainfo.microNote.notify.pojo.Message;
 import com.asiainfo.microNote.notify.pojo.NotifyUser;
+import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportNotifyReportMessage;
 import com.asiainfo.microNote.notify.user.service.IUserService;
 
 import ch.qos.logback.core.util.ExecutorServiceUtil;
@@ -28,25 +29,23 @@ public class WeeklyReportOnTimeNotifyService {
 
 	@Autowired
 	IUserService userService;
-	// 推送適配器 第一版只有kara
+	//TODO 推送適配器 第一版只有kara 如果有多渠道推送需要更改为订阅模式
+	
 	@Autowired
 	NotifyAdapter notifyAdapter;
 
-	// 推送消息定義
-	@Value("${weeklyReport.user.noitfy.onEveryWeek}")
-	String notifyContentEveryWeek;
-
 	// 推送線程數量
-	@Value("${weeklyReport.user.noitfy.notifyThreadNumber}")
+	@Value("${weeklyReport.noitfy.notifyThreadNumber}")
 	int notifyThreadNumber;
 
 	/**
 	 * 每周五通知所有用户填写周报
 	 */
-	@Scheduled(cron = "0/30 * * * * ?")
+	@Scheduled(cron = "0 */30 * * * ?")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend() {
 		// 每周五通知所有用户填写周报代碼
 		Executor executor = ExecutorServiceUtil.newExecutorService();
+		int week = Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 		// 定义工作线程数量是sendThreadNumber
 		for (int i = 0; i < notifyThreadNumber; i++) {
 			// 定義當前線程應該處理那個分頁段數據
@@ -57,6 +56,7 @@ public class WeeklyReportOnTimeNotifyService {
 					int page = handlePage;
 					while (true) {
 						try {
+							Thread.sleep((long) (Math.random()*3000+1));
 							// 查询当前线程负责分页
 							logger.info("線程[" + handlePage + "]正在處理分頁[" + page + "]的數據...");
 							List<NotifyUser> users = userService.getUserByPageAndSort(page, 5, "id");
@@ -67,17 +67,20 @@ public class WeeklyReportOnTimeNotifyService {
 							}
 							// 循環向用戶通知填寫周報消息
 							for (NotifyUser user : users) {
-								StringBuffer content = new StringBuffer(notifyContentEveryWeek);
 								try {
-									notifyAdapter.notify(new Message(user.getId() + "", user.getName() + "", content));
+									logger.info("推送"+user.getName());
+									WeeklyReportNotifyReportMessage message = new WeeklyReportNotifyReportMessage();
+									message.setNotifyUser(user);
+									message.setWeek(week);
+									notifyAdapter.weeklyReportNotifyReport(message);
 								} catch (Exception ex) {
 									// TODO 推送錯誤處理代碼
-									logger.error("推送[" + user.getId() + "," + user.getName() + "," + content + "]遇到错误："
+									logger.error("推送[" + user.getId() + "," + user.getName() + "]遇到错误："
 											+ ex.getCause());
 									ex.printStackTrace();
 								}
 							}
-							Thread.sleep(100);
+							
 							// 獲取當前頁
 							page = page + notifyThreadNumber;
 						} catch (Exception ex) {
@@ -91,11 +94,4 @@ public class WeeklyReportOnTimeNotifyService {
 		}
 	}
 
-	/**
-	 * 通知用户查看填写的周报
-	 */
-	@Scheduled(cron = "0/5 * * * * ?")
-	public void notifyUserCheckWeeklyReport() {
-		// TODO 第一版全部实时推送需要在第二版实现统一推送
-	}
 }
