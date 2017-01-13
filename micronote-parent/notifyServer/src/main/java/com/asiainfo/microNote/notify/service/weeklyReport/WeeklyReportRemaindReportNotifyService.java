@@ -41,7 +41,7 @@ public class WeeklyReportRemaindReportNotifyService {
 	/**
 	 * 每周五通知所有用户填写周报
 	 */
-	@Scheduled(cron = "${cron.notifyUserSubimtWeeklyReportOnEveryWeekend}")
+	@Scheduled(cron = "${weeklyReport.noitfy.cron.notifyUserSubimtWeeklyReportOnEveryWeekend}")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend() {
 		// 每周五通知所有用户填写周报代碼
 		Executor executor = ExecutorServiceUtil.newExecutorService();
