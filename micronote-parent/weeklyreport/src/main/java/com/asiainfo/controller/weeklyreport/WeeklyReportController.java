@@ -84,8 +84,8 @@ public class WeeklyReportController {
 		return null;
 	}
 
-	@RequestMapping(path = "/submitWeeklyReport", method = RequestMethod.POST)
-	public boolean submitWeeklyReport(@RequestParam("weeklyReportId") long weeklyReportId) throws Exception {
+	@PostMapping(path = "/submitWeeklyReport/{weeklyReportId}")
+	public boolean submitWeeklyReport(@PathVariable("weeklyReportId") long weeklyReportId) throws Exception {
 		 return weeklyReportService.submitWeeklyReport(weeklyReportId);
 	}
 

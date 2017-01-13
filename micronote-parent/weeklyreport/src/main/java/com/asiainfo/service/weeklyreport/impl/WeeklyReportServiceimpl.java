@@ -110,6 +110,7 @@ public class WeeklyReportServiceimpl implements IWeeklyReportService {
 		weeklyReportInfo.setReportUserName(reportUser.getName());
 		weeklyReportInfo.setSubmitTime(System.currentTimeMillis());
 		weeklyReportInfo.setWeek(TimeUtil.getWeekOfYear());
+		message.setWeeklyReport(weeklyReportInfo);
 		notifyService.notify(message);
 		return true;
 	} 

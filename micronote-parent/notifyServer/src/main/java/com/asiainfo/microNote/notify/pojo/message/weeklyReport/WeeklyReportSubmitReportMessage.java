@@ -32,7 +32,7 @@ public class WeeklyReportSubmitReportMessage {
 	 * 通知需要的周报信息
 	 * @author yi
 	 */
-	class WeeklyReportInfo {
+	public class WeeklyReportInfo {
 		// 提交人
 		String reportUserName;
 		// 提交的周
