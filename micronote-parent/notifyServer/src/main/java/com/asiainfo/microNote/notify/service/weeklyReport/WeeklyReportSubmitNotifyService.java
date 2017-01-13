@@ -56,7 +56,7 @@ public class WeeklyReportSubmitNotifyService {
 	/**
 	 * 处理提交的周报生成综合周报提交信息
 	 */
-	@Scheduled(cron = "0/30 * * * * ?")
+	@Scheduled(cron = "${cron.onWeeklyReportSubmit}")
 	public void onWeeklyReportSubmit() {
 		logger.info("進入檢查新提的交周報工作線程...");
 		for (int i = 0; i < 5; i++) {
@@ -103,7 +103,7 @@ public class WeeklyReportSubmitNotifyService {
 	/**
 	 * 处理提交的周报生成综合周报提交信息
 	 */
-	@Scheduled(cron = "0/5 * * * * ?")
+	@Scheduled(cron = "${cron.notifyAuditingUser}")
 	public void notifyAuditingUser() {
 		for (int i = 0; i < 1; i++) {
 			notifyAuditingUserExecutor.execute(new Runnable() {
