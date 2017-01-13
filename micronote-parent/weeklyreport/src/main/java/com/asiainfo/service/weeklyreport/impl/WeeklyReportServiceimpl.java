@@ -141,7 +141,7 @@ public class WeeklyReportServiceimpl implements IWeeklyReportService {
 		Page<WeeklyReport>  weeklyReportPage = weeklyReportRepository
 			 .findByAuditingUserIdAndWeeklyAndState(authorId, TimeUtil.getWeekOfYear(),
 					 WeeklyReportReport.SUBMMITED , pageable);
-		//獲取用戶信息
+		//獲取用戶信息   
 		List<User>  users= new ArrayList<User>();
 		for(WeeklyReport report : weeklyReportPage.getContent()){
 			users.add(userService.queryUserById(report.getReportUserId()));
