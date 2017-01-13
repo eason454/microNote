@@ -49,15 +49,15 @@ public interface CommonConst {
 	 * plan 工作計劃<br>
 	 * @author yi
 	 */
-	  interface RecordType {
-		String PLAN = "plan";
-		String WORK = "wrok";
+	public static interface RecordType {
+		public static final String PLAN = "plan";
+		public static final String WORK = "wrok";
 	}
-	interface KaraInfo{
-		String responseTypeDefault="in_channel";
-		String querySuccess="查询成功";
-		String nextWeeklyInfo="下周计划";
-		String thisWeeklyInfo="本周计划";
+	public static interface KaraInfo{
+		public static final String responseTypeDefault="in_channel";
+		public static final String querySuccess="查询成功";
+		public static final String nextWeeklyInfo="下周计划";
+		public static final String thisWeeklyInfo="本周计划";
 		String weeklyWork="本周工作成果";
 		String responseSuccessCode="000000";
 		String userNotExists="对不起，设置失败，未查询到您设置到员工信息!";
@@ -67,7 +67,7 @@ public interface CommonConst {
 		String SetWeeklyReportResultSuccess="设置成功，您的汇报对象为:%s,工号:%s";
         String clickUrlToViewWeeklyReport="请点击以下链接查看:";
         String weeklyReportDetail="周报详情";
-        String urlSplit="|";
+        String urlSplit="设置成功，您的汇报对象为:%s,工号:%s";
 	}
 
 }

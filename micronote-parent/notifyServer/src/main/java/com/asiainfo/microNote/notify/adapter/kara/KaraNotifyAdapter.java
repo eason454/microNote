@@ -1,5 +1,6 @@
 package com.asiainfo.microNote.notify.adapter.kara;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.asiainfo.microNote.notify.adapter.NotifyAdapter;
-import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportNotifyReportMessage;
+import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportRemaindReportMessage;
 import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportSubmitReportMessage;
 
 /**
@@ -23,15 +24,17 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 	@Autowired
 	private IKaraService karaService;
 
-	private String weeklyReportReportContent = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}/{week}|点击填写周报>";
+	private String weeklyReportReportContent = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}/{week}|填写周报>";
 
-	private String weeklyReportReportCheck = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}|点击查看周报>";
+	private String weeklyReportCheckReportAll = "<http://localhost:9001/microNote/weeklyReport/{userId}|查看 {week} 周所有已提交的周报...>";
+
+	private String weeklyReportCheckReport = "<http://localhost:9001/microNote/weeklyReport/{userId}|查看{week}周 @{userName} de周报>";
 
 	/**
 	 * 推送到kara
 	 */
 	@Override
-	public boolean weeklyReportNotifyReport(WeeklyReportNotifyReportMessage message) {
+	public boolean weeklyReportNotifyReport(WeeklyReportRemaindReportMessage message) {
 		KaraIncoming karaIncoming = new KaraIncoming();
 		karaIncoming.text = new StringBuffer("亲～ 该填周报了^O^");
 		karaIncoming.channel = new StringBuffer("@").append(message.getNotifyUser().getId());
@@ -45,19 +48,21 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 
 	@Override
 	public boolean weeklyReportNotifyAuditing(List<WeeklyReportSubmitReportMessage> messages) {
+		String week = "" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 		KaraIncoming karaIncoming = new KaraIncoming();
-		karaIncoming.text = new StringBuffer().append("亲～ 已有 ");
-
-		for (int i = 0; i < messages.size() && i < 3; i++) {
-			karaIncoming.text.append(" @").append(messages.get(i).getNotifyUser().getName());
-		}
-
-		karaIncoming.text.append(" 等,共 ").append(messages.size()).append(" 个周报待查看，请点击以下链接查看...");
+		karaIncoming.text = new StringBuffer().append("亲～ 剛才有").append(messages.size()).append(" 人向您提交了周報");
 		StringBuffer userId = messages.get(0).getNotifyUser().getId();
 		logger.info("weeklyReportNotifyAuditing " + karaIncoming.text);
 		karaIncoming.channel = new StringBuffer("@").append(userId);
-		StringBuffer title = new StringBuffer(weeklyReportReportCheck.replace("{userId}", userId));
-		karaIncoming.setAttachments(karaIncoming.new Attachment(title));
+		// 添加提交人的周報
+		for (WeeklyReportSubmitReportMessage message : messages) {
+			karaIncoming.setAttachments(
+					karaIncoming.new Attachment(new StringBuffer(weeklyReportCheckReport.replace("{userId}", userId)
+							.replace("{week}", week).replace("{userName}", message.getNotifyUser().getName()))));
+		}
+		// 添加查看更多
+		karaIncoming.setAttachments(karaIncoming.new Attachment(
+				new StringBuffer(weeklyReportCheckReportAll.replace("{userId}", userId).replace("{week}", week))));
 		karaService.incoming(karaIncoming);
 		return true;
 	}

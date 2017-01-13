@@ -3,7 +3,6 @@ package com.asiainfo.util.time;
 import java.util.Calendar;
 
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 
 /**
  * 
@@ -40,15 +39,35 @@ public class TimeUtil {
 	/**
 	 * 获取本周一的日期
 	 */
-    public static long getStartDateThisWeek() {
-       DateTime dateTime=new DateTime();
-       return  dateTime.dayOfWeek().withMinimumValue().millisOfDay().withMinimumValue().toDate().getTime();
-    }
+	public static long getStartDateThisWeek() {
+		Calendar calendar = Calendar.getInstance();
+		int day_of_week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		if (day_of_week == 0)
+			day_of_week = 7;
+		calendar.add(Calendar.DATE, -day_of_week + 1);
+		logger.debug("getStartDateThisWeek:" + calendar.getTime());
+		return calendar.getTime().getTime();
+	}
+
+	/**
+	 * 获取本周末的日期
+	 */
+	public static long getEndDateThisWeek() {
+		Calendar calendar = Calendar.getInstance();
+		int day_of_week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+		if (day_of_week == 0)
+			day_of_week = 7;
+		calendar.add(Calendar.DATE, -day_of_week + 7);
+		logger.debug("getEndDateThisWeek:" + calendar.getTime());
+		return calendar.getTime().getTime();
+	}
+
 	/**
 	 * 获取下周一的日期
 	 */
 	public static long getNextWeekStartDate() {
-		return getEndDateThisWeek();//本周末最后一秒等同于下周第一秒
+		Calendar calendar = Calendar.getInstance();
+		return getWeekStartDateByWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR) + 1) ;
 	}
 
 	/**
@@ -56,10 +75,11 @@ public class TimeUtil {
 	 * 
 	 * @return
 	 */
-    public static long getNextWeekEndDate() {
-        DateTime dateTime=new DateTime();
-        return dateTime.plusWeeks(1).dayOfWeek().withMaximumValue().millisOfDay().withMaximumValue().toDate().getTime();
-    }
+	public static long getNextWeekEndDate() {
+		Calendar calendar = Calendar.getInstance();
+		return getWeekEndDateByWeek(calendar.get(Calendar.YEAR), calendar.get(Calendar.WEEK_OF_YEAR) + 1) ;
+	}
+
 	private static void setZero(Calendar calendar) {
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
@@ -78,24 +98,15 @@ public class TimeUtil {
 	}
 
 	public static void main(String[] args) {
-//		logger.debug(getWeekStartDateByWeek(2017, 1));
-//		logger.debug(getWeekEndDateByWeek(2017, 1));
-//		logger.debug(getStartDateThisWeek());
-//		logger.debug(getEndDateThisWeek());
-//		logger.debug(getNextWeekStartDate());
-//		logger.debug(getNextWeekEndDate());
-//		logger.debug(getWeekOfYear());
-//		logger.error(getStartDateThisWeek());
-//        logger.error(getStartDateThisWeek1());
+		logger.debug(getWeekStartDateByWeek(2017, 1));
+		logger.debug(getWeekEndDateByWeek(2017, 1));
+		logger.debug(getStartDateThisWeek());
+		logger.debug(getEndDateThisWeek());
+		logger.debug(getNextWeekStartDate());
+		logger.debug(getNextWeekEndDate());
+		logger.debug(getWeekOfYear());
 	}
-	public static int getDayOfWeek(){
-		DateTime dateTime=new DateTime();
-		return dateTime.getDayOfWeek();
-	}
-	public static long getEndDateThisWeek(){
-        DateTime dateTime=new DateTime();
-        return dateTime.dayOfWeek().withMaximumValue().millisOfDay().withMaximumValue().toDate().getTime();
-    }
+
 	public static long getDayInWeek(long currentTime, String day) {
 		/*
 		 * 获取输入时间所在周的某一天 day取值：MONDAY,SUNDAY 暂时只取每周的首与尾，不作其它考虑

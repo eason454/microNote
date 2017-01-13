@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.asiainfo.service.notify.impl.Message;
+import com.asiainfo.service.notify.impl.WeeklyReportSubmitReportMessage;
 
 @FeignClient("notifyServer")
 public interface INotifyService {
 	
-	@RequestMapping(path = "/notify/notify", method = RequestMethod.POST)
+	@RequestMapping(path = "/microNote/notifyAuditing", method = RequestMethod.POST)
 	@ResponseBody
-	public String notify(@RequestBody Message message);
+	public String notify(@RequestBody WeeklyReportSubmitReportMessage message);
 	
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asiainfo.microNote.notify.pojo.message.weeklyReport.WeeklyReportSubmitReportMessage;
-import com.asiainfo.microNote.notify.service.weeklyReport.WeeklyReportRealTimeNotifyService;
+import com.asiainfo.microNote.notify.service.weeklyReport.WeeklyReportSubmitNotifyService;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class NotifyController {
 	@RequestMapping(path = "/notifyAuditing", method = RequestMethod.POST)
 	@ResponseBody
 	public String notify(@RequestBody WeeklyReportSubmitReportMessage message) {
-		WeeklyReportRealTimeNotifyService.notifyAuditing(message);
+		WeeklyReportSubmitNotifyService.notifyAuditing(message);
 		return "OK";
 	}
 

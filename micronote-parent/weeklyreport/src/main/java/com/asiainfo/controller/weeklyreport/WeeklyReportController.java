@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReportForWeb;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
@@ -17,6 +18,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
@@ -111,4 +114,11 @@ public class WeeklyReportController {
         weeklyReportForWeb.setNextWeekPlan(nextWeekPlans);
         return weeklyReportForWeb;
     }
+
+
+	@GetMapping(path="/queryReportUsers/{userId}")
+	public Page<User> queryReportUsers(@PathVariable("userId") String authorId, Pageable pageable){
+		return weeklyReportService.getReportUsers(authorId, pageable);
+	}
+
 }
