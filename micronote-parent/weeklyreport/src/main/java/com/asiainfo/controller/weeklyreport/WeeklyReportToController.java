@@ -14,6 +14,8 @@ import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
@@ -37,7 +39,8 @@ public class WeeklyReportToController {
 	private IUserService userService;
 	@Autowired
 	private RestTemplate restTemplate;
-
+    @Value("${kara.url.getStaffByStaffIdUrl}")
+    private String getStaffOfIdUrl;
 	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
 	public KaraMessage setWeeklyReportTo(@RequestBody KaraRequestObject request){
         String resultMessage="";
@@ -52,7 +55,7 @@ public class WeeklyReportToController {
             //汇报对象信息为空，需要调用kara查询员工信息
             try {
                 HttpEntity headers= HttpUtils.getKaraHttpEntityForGet(request.getToken());
-                HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange("http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}", HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//
+                HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange(getStaffOfIdUrl, HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//"http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}"
                 KaraUserResponseInfo userResponseInfo=response.getBody();
                 if(!userResponseInfo.getResponseCode().equals(CommonConst.KaraInfo.responseSuccessCode) || StringUtils.isEmpty(userResponseInfo.getStaffResponseInfo().getAccountId())){
                     resultMessage=CommonConst.KaraInfo.userNotExists;

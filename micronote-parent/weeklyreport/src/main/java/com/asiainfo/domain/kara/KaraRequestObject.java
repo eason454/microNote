@@ -73,4 +73,17 @@ public class KaraRequestObject {
     public void setResponseUrl(String responseUrl) {
         this.responseUrl = responseUrl;
     }
+
+    @Override
+    public String toString() {
+        return "KaraRequestObject{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", text='" + text + '\'' +
+                ", channelId='" + channelId + '\'' +
+                ", command='" + command + '\'' +
+                ", token='" + token + '\'' +
+                ", responseUrl='" + responseUrl + '\'' +
+                '}';
+    }
 }
