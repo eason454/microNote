@@ -63,7 +63,7 @@ public class WeeklyReport {
 		this.reportRecord = reportRecord;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "weeklyReport")
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 

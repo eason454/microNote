@@ -56,9 +56,11 @@ public class ReportRecordController {
         reportRecord.setStartDate(System.currentTimeMillis());
         reportRecord.setCreateDate(System.currentTimeMillis());
         reportRecord.setEndDate(System.currentTimeMillis());
-        reportRecordList.add(reportRecord);
-        weeklyReport.setReportRecord(reportRecordList);
-        weeklyReportService.modifyWeeklyReport(weeklyReport);
+        reportRecord.setWeeklyReport(weeklyReport);
+        reportRecordService.modifyReportRecord(reportRecord);
+//        reportRecordList.add(reportRecord);
+//        weeklyReport.setReportRecord(reportRecordList);
+//        weeklyReportService.modifyWeeklyReport(weeklyReport);
 
         //数据写入到Kara返回结构中
         karaField.setTitle(CommonConst.KaraInfo.weeklyWork);

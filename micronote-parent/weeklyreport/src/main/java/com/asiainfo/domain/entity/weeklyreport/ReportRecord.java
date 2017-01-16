@@ -32,17 +32,17 @@ public class ReportRecord {
 
 	@Column(name="report_user_id")
 	private String reportUserId;
-//    @ManyToOne(cascade = CascadeType.ALL,optional = false)
-//    @JoinColumn(name="weekly_report_id")
-//	private WeeklyReport weeklyReport;
-//
-//    public WeeklyReport getWeeklyReport() {
-//        return weeklyReport;
-//    }
-//
-//    public void setWeeklyReport(WeeklyReport weeklyReport) {
-//        this.weeklyReport = weeklyReport;
-//    }
+    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name="weekly_report_id")
+	private WeeklyReport weeklyReport;
+
+    public WeeklyReport getWeeklyReport() {
+        return weeklyReport;
+    }
+
+    public void setWeeklyReport(WeeklyReport weeklyReport) {
+        this.weeklyReport = weeklyReport;
+    }
 
     public String getReportUserId() {
 		return reportUserId;
