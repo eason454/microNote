@@ -50,14 +50,14 @@ public class WeeklyReportController {
 	}
 
 	@RequestMapping(path = "/queryWeeklyRecordOrderByCreateDate", method = RequestMethod.POST)
-	public List<ReportRecord> queryWeeklyRecordOrderByCreateDate(@RequestParam("user_id") String userId){
+	public List<ReportRecord> queryWeeklyRecordOrderByCreateDate(@RequestBody KaraRequestObject requestObject){
 		/*
 		1、取当前时间，获取周数据
 		2、调用方法获取数据
 		3、取其中的ReportRecord内容返回
 		 */
 		int weeklyNumber = TimeUtil.getWeekOfYear(System.currentTimeMillis());
-		WeeklyReport weeklyReport = weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId,weeklyNumber);
+		WeeklyReport weeklyReport = weeklyReportService.queryWeeklyReportByUserIdAndWeekly(requestObject.getUserId(),weeklyNumber);
 		return weeklyReport.getReportRecord();
 	}
 
