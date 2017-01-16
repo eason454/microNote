@@ -1,6 +1,7 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.util.consts.CommonConst;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.*;
 
@@ -64,6 +65,7 @@ public class WeeklyReport {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "weeklyReport")
+	@JsonBackReference
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 
