@@ -18,8 +18,10 @@ weeklyReport:
       serverUri: http://localhost:9001/
       Report: /sseresrse
     notifyThreadNumber: 4
-     
-      
+    cron:
+      onWeeklyReportSubmit: 0/30 * 9-23 * * FRI
+      notifyAuditingUser: 0/5 * * * * FRI
+      notifyUserSubimtWeeklyReportOnEveryWeekend: 0 0 0/1 * * FRI
 kara:
   accessToken: bearer 78ba5389ad5c4e4f876651988407e791
   karaService: http://10.19.15.28:8000/

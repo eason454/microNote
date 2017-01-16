@@ -1,7 +1,9 @@
 package com.asiainfo.microNote.notify.service.weeklyReport;
 
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executor;
 
 import org.apache.log4j.Logger;
@@ -30,9 +32,10 @@ public class WeeklyReportRemaindReportNotifyService {
 	@Autowired
 	IUserService userService;
 	//TODO 推送適配器 第一版只有kara 如果有多渠道推送需要更改为订阅模式
-	
 	@Autowired
 	NotifyAdapter notifyAdapter;
+	
+	public static final Set<String> exceptNotifyUsers = new HashSet<String>();
 
 	// 推送線程數量
 	@Value("${weeklyReport.noitfy.notifyThreadNumber}")
@@ -41,7 +44,7 @@ public class WeeklyReportRemaindReportNotifyService {
 	/**
 	 * 每周五通知所有用户填写周报
 	 */
-	@Scheduled(cron = "0 */120 * * * ?")
+	@Scheduled(cron = "${weeklyReport.noitfy.cron.notifyUserSubimtWeeklyReportOnEveryWeekend}")
 	public void notifyUserSubimtWeeklyReportOnEveryWeekend() {
 		// 每周五通知所有用户填写周报代碼
 		Executor executor = ExecutorServiceUtil.newExecutorService();
@@ -68,6 +71,9 @@ public class WeeklyReportRemaindReportNotifyService {
 							// 循環向用戶通知填寫周報消息
 							for (NotifyUser user : users) {
 								try {
+									//已經提交了周報的用戶不用在通知
+									if(exceptNotifyUsers.contains(user.getId()))
+										continue;
 									logger.info("推送"+user.getName());
 									WeeklyReportRemaindReportMessage message = new WeeklyReportRemaindReportMessage();
 									message.setNotifyUser(user);
@@ -94,4 +100,12 @@ public class WeeklyReportRemaindReportNotifyService {
 		}
 	}
 
+	/**
+	 * 每周六清空提交周報用戶
+	 */
+	@Scheduled(cron = "0 0 23 * * STA")
+	private void removeExceptionUsers(){
+		exceptNotifyUsers.clear();
+	}
+	
 }
