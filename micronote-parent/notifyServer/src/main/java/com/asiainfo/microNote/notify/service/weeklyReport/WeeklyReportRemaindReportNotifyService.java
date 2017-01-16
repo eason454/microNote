@@ -71,6 +71,7 @@ public class WeeklyReportRemaindReportNotifyService {
 							// 循環向用戶通知填寫周報消息
 							for (NotifyUser user : users) {
 								try {
+									//已經提交了周報的用戶不用在通知
 									if(exceptNotifyUsers.contains(user.getId()))
 										continue;
 									logger.info("推送"+user.getName());
@@ -99,7 +100,9 @@ public class WeeklyReportRemaindReportNotifyService {
 		}
 	}
 
-	
+	/**
+	 * 每周六清空提交周報用戶
+	 */
 	@Scheduled(cron = "0 0 23 * * STA")
 	private void removeExceptionUsers(){
 		exceptNotifyUsers.clear();
