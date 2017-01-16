@@ -129,8 +129,8 @@ public class WeeklyReportController {
      * @param userId
      * @return
      */
-    @GetMapping(path="/viewWeeklyReportForWeb")
-    public WeeklyReportForWeb viewWeeklyReportForWeb(@RequestParam(name = "user_id",required = true) String userId){
+    @GetMapping(path="/viewWeeklyReportForWeb/{user_id}")
+    public WeeklyReportForWeb viewWeeklyReportForWeb(@PathVariable(name = "user_id",required = true) String userId){
         WeeklyReportForWeb weeklyReportForWeb=new WeeklyReportForWeb();
         WeeklyReport weeklyReport=weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId, TimeUtil.getWeekOfYear());
         BeanUtils.copyProperties(weeklyReport,weeklyReportForWeb);//copy properties
