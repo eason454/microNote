@@ -1,5 +1,6 @@
 package com.asiainfo.controller.weeklyreport;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,7 +20,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.endpoint.AutoConfigurationReportEndpoint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
@@ -47,6 +47,18 @@ public class WeeklyReportController {
 	@RequestMapping(path = "/createWeeklyReport", method = RequestMethod.POST)
 	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
 		return weeklyReportService.createWeeklyReport(reportUserId);
+	}
+
+	@RequestMapping(path = "/queryWeeklyRecordOrderByCreateDate", method = RequestMethod.POST)
+	public List<ReportRecord> queryWeeklyRecordOrderByCreateDate(@RequestParam("user_id") String userId){
+		/*
+		1、取当前时间，获取周数据
+		2、调用方法获取数据
+		3、取其中的ReportRecord内容返回
+		 */
+		int weeklyNumber = TimeUtil.getWeekOfYear(System.currentTimeMillis());
+		WeeklyReport weeklyReport = weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId,weeklyNumber);
+		return weeklyReport.getReportRecord();
 	}
 
 	@RequestMapping(path = "/queryWeeklyRecord", method = RequestMethod.POST)
@@ -79,7 +91,7 @@ public class WeeklyReportController {
 		for (ReportRecord reportRecord : weeklyReport.getReportRecord()) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(reportRecord.getCreateDate());
-			field.setTitle(calendar.getTime().toString() + ":");
+			field.setTitle(CommonConst.KaraInfo.recordElement);
 			field.setValue(reportRecord.getContent());
 			list.add(field);
 		}
@@ -109,7 +121,7 @@ public class WeeklyReportController {
         field.setTitle(viewWeeklReportUrl+CommonConst.KaraInfo.urlSplit+CommonConst.KaraInfo.weeklyReportDetail);
         List<KaraField> list=new ArrayList<KaraField>();
         list.add(field);
-        return MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.clickUrlToViewWeeklyReport,list);
+        return MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.clickUrlToViewWeeklyReport, list);
 	}
 
     /**

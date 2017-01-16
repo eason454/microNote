@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class KaraRequestObject {
     @JsonProperty("user_id")
     private String userId;
-    @JsonProperty("userName")
+    @JsonProperty("user_name")
     private String userName;
     private String text;
     @JsonProperty("channel_id")
