@@ -153,6 +153,14 @@ public class WeeklyReportController {
 	public Page<User> queryReportUsers(@PathVariable("userId") String authorId, Pageable pageable){
 		return weeklyReportService.getReportUsers(authorId, pageable);
 	}
-
+    @GetMapping(path = "/queryCurrentWeekly")
+    public List<Integer> queryCurrentWeekly(){
+        List<Integer> result=new ArrayList<Integer>();
+        int weekOfYear=TimeUtil.getWeekOfYear();
+        for (int i=1;i<=weekOfYear;i++){
+            result.add(i);
+        }
+        return result;
+    }
 }
 
