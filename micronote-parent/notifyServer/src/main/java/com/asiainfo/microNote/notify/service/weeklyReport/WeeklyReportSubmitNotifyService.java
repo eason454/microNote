@@ -73,6 +73,7 @@ public class WeeklyReportSubmitNotifyService {
 								break;
 							}
 							String key = message.getNotifyUser().getId().toString();
+							WeeklyReportRemaindReportNotifyService.exceptNotifyUsers.add(key);
 							List<WeeklyReportSubmitReportMessage> reportMessages = userNotifyMap
 									.containsKey(key)
 											? userNotifyMap.get(key)
