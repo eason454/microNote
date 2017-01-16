@@ -129,7 +129,7 @@ public class TimeUtil {
 		return calendar.getTimeInMillis();
 	}
 
-	public static long getWeekOfYear(long time){
+	public static int getWeekOfYear(long time){
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(time);
 		return calendar.get(Calendar.WEEK_OF_YEAR);

@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.endpoint.AutoConfigurationReportEndpoint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
@@ -58,17 +59,24 @@ public class WeeklyReportController {
 		 */
 		//获取数据
 		String userId=request.getUserId();
-		long currentTime = Long.valueOf(request.getText());
+		long currentTime = 0;
+		//如果不传值，则取当前时间
+		if("".equals(request.getText())){
+			currentTime = System.currentTimeMillis();
+		}else{
+			currentTime = Long.valueOf(request.getText());
+		}
 
 		//定义返回结构
 		KaraField field=new KaraField();
 		List<KaraField> list=new ArrayList<KaraField>();
 
 		//调用方法
-		List<ReportRecord> reportRecords = weeklyReportService.findByUserIdAndTime(userId,currentTime);
+		int weeklyNumber = TimeUtil.getWeekOfYear(currentTime);
+		WeeklyReport weeklyReport = weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId,weeklyNumber);
 
 		//将数据写入到返回结构中
-		for (ReportRecord reportRecord : reportRecords) {
+		for (ReportRecord reportRecord : weeklyReport.getReportRecord()) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(reportRecord.getCreateDate());
 			field.setTitle(calendar.getTime().toString() + ":");
