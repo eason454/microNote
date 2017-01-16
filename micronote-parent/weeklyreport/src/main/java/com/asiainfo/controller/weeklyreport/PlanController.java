@@ -27,7 +27,7 @@ public class PlanController {
     public Plan createWeeklyPlan(@RequestBody Plan plan) {
         return planRecordService.createWeeklyPlan(plan);
     }
-    @PostMapping(path="/modifyWeeklyPlan")
+        @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.modifyWeeklyPlan(plan);
     }
@@ -54,12 +54,23 @@ public class PlanController {
 
     /**
      * 提供给web，查询本周计划
-     * @param userId
      * @return
      */
-    @GetMapping(path="/queryThisWeekPlan")
-    public List<Plan> queryThisWeekPlan(@RequestParam(value = "userId") String userId){
-        return planRecordService.queryThisWeekPlan(userId);
+    @PostMapping(path="/queryThisWeekPlan")
+    public KaraMessage queryThisWeekPlan(@RequestBody KaraRequestObject request){
+        List<Plan> plans=planRecordService.queryThisWeekPlan(request.getUserId());
+        StringBuffer content=new StringBuffer();
+        for (Plan plan :
+                plans) {
+            content.append(plan.getContent()+",");
+        }
+        KaraField field=new KaraField();
+        field.setTitle("本周计划");
+        field.setValue(content.toString());
+        List<KaraField> list=new ArrayList<KaraField>();
+        list.add(field);
+        KaraMessage message=MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.thisWeeklyInfo,list);
+        return message;
     }
 
     /**

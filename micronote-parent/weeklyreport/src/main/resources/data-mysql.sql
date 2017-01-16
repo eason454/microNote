@@ -1,2 +1,1 @@
-insert into micro_record_user (user_id,user_name) values('U47ACEF7895044DD9817EA672F811DFB','赵益');
-insert into micro_record_user (user_id,user_name) values('U5FCAE1135A9488284945ED2368D42E6','赵纪亮');
+insert into micro_record_user(user_id,create_date,user_name,user_no) values ('ff8080815991b1ad015991b2b36e0000',1484208124706,'赵益',66102),('U47ACEF7895044DD9817EA672F811DFB',1484208124706,'赵纪亮',62430),('U7724BF7CF3C442F9F33AC94409094B0',1484208124706,'张奕',61545);

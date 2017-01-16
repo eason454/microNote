@@ -121,6 +121,11 @@ public class WeeklyReportServiceimpl implements IWeeklyReportService {
         if(weeklyReport==null){
             WeeklyReport weeklyReport1=new WeeklyReport();
             weeklyReport1.setReportUserId(userId);
+			//获取审批人信息
+           WeeklyReportTo weeklyReportTo= weeklyReportToRepository.findByReportUserId(userId);
+            if(weeklyReportTo!=null){
+                weeklyReport1.setAuditingUserId(weeklyReportTo.getAuditingUserId());
+            }
             weeklyReport1.setWeekly(weekly);
             return weeklyReportRepository.save(weeklyReport1);
         }else{
