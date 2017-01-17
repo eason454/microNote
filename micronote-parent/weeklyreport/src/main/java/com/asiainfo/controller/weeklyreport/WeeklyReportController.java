@@ -80,8 +80,12 @@ public class WeeklyReportController {
 		}
 
 		//定义返回结构
-		KaraField field=new KaraField();
 		List<KaraField> list=new ArrayList<KaraField>();
+
+		//处理userId为空的情况
+		if(userId == null || "".equals(userId)){
+			return null;
+		}
 
 		//调用方法
 		int weeklyNumber = TimeUtil.getWeekOfYear(currentTime);
@@ -89,8 +93,9 @@ public class WeeklyReportController {
 
 		//将数据写入到返回结构中
 		for (ReportRecord reportRecord : weeklyReport.getReportRecord()) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(reportRecord.getCreateDate());
+//			Calendar calendar = Calendar.getInstance();
+//			calendar.setTimeInMillis(reportRecord.getCreateDate());
+			KaraField field=new KaraField();
 			field.setTitle(CommonConst.KaraInfo.recordElement);
 			field.setValue(reportRecord.getContent());
 			list.add(field);

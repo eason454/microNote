@@ -45,6 +45,10 @@ public class ReportRecordController {
         KaraField karaField = new KaraField();
         List<KaraField> list = new ArrayList<KaraField>();
         List<ReportRecord> reportRecordList = new ArrayList<ReportRecord>();
+        //处理userId为空的情况
+        if(userId == null || "".equals(userId)){
+            return null;
+        }
 
         //查询该员工本周的周报对象
         WeeklyReport weeklyReport=  weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId, TimeUtil.getWeekOfYear());
