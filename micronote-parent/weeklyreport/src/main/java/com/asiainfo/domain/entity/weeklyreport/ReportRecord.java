@@ -31,7 +31,15 @@ public class ReportRecord {
 	@Column(name="content", nullable=false)
 	private String content;
 
-	@Column(name="report_user_id")
+    public Long getReportRecordId() {
+        return reportRecordId;
+    }
+
+    public void setReportRecordId(Long reportRecordId) {
+        this.reportRecordId = reportRecordId;
+    }
+
+    @Column(name="report_user_id")
 	private String reportUserId;
     @ManyToOne(cascade = CascadeType.ALL,optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name="weekly_report_id")
