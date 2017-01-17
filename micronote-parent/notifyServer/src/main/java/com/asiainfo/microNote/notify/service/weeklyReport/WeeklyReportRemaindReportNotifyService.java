@@ -35,7 +35,7 @@ public class WeeklyReportRemaindReportNotifyService {
 	@Autowired
 	NotifyAdapter notifyAdapter;
 	
-	public static final Set<String> exceptNotifyUsers = new HashSet<String>();
+	volatile public static Set<String> exceptNotifyUsers = new HashSet<String>();
 
 	// 推送線程數量
 	@Value("${weeklyReport.noitfy.notifyThreadNumber}")
@@ -103,7 +103,7 @@ public class WeeklyReportRemaindReportNotifyService {
 	/**
 	 * 每周六清空提交周報用戶
 	 */
-	@Scheduled(cron = "0 0 23 * * STA")
+	@Scheduled(cron = "0 0 23 * * 6")
 	private void removeExceptionUsers(){
 		exceptNotifyUsers.clear();
 	}

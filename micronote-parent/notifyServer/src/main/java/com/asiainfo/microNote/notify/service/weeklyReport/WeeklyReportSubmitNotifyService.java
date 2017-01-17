@@ -27,19 +27,19 @@ import ch.qos.logback.core.util.ExecutorServiceUtil;
 @Service
 public class WeeklyReportSubmitNotifyService {
 
-	Logger logger = Logger.getLogger(WeeklyReportSubmitNotifyService.class);
+	private static final Logger logger = Logger.getLogger(WeeklyReportSubmitNotifyService.class);
 
-	private static final Queue<WeeklyReportSubmitReportMessage> submitNotifyQueen = new ConcurrentLinkedQueue<WeeklyReportSubmitReportMessage>();
+	private static volatile Queue<WeeklyReportSubmitReportMessage> submitNotifyQueen = new ConcurrentLinkedQueue<WeeklyReportSubmitReportMessage>();
 
-	private static final Queue<List<WeeklyReportSubmitReportMessage>> notifyQueen = new ConcurrentLinkedQueue<List<WeeklyReportSubmitReportMessage>>();
+	private static volatile Queue<List<WeeklyReportSubmitReportMessage>> notifyQueen = new ConcurrentLinkedQueue<List<WeeklyReportSubmitReportMessage>>();
 
-	private static final Map<String, List<WeeklyReportSubmitReportMessage>> userNotifyMap = new ConcurrentHashMap<String, List<WeeklyReportSubmitReportMessage>>();
+	private static volatile Map<String, List<WeeklyReportSubmitReportMessage>> userNotifyMap = new ConcurrentHashMap<String, List<WeeklyReportSubmitReportMessage>>();
 
 	private static final Executor onWeeklyReportSubmitExecutor = ExecutorServiceUtil.newExecutorService();
 
 	private static final Executor notifyAuditingUserExecutor = ExecutorServiceUtil.newExecutorService();
 
-	private static final CountDownLatch startSingle = new CountDownLatch(5);
+	private static volatile CountDownLatch startSingle = new CountDownLatch(5);
 
 	@Autowired
 	NotifyAdapter notifyAdapter;
