@@ -4,6 +4,7 @@ import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,10 @@ public class UserController {
     @RequestMapping(path = "/queryusersbypages", method = RequestMethod.GET)
     public List<User> queryUsersByPages(Pageable pageable){
         return userService.queryUserByPages(pageable).getContent();
+    }
+
+    @RequestMapping(path = "/queryUser/{user_id}", method = RequestMethod.GET)
+    public User queryUserById(@PathVariable("user_id") String userId){
+        return userService.queryUserById(userId);
     }
 }
