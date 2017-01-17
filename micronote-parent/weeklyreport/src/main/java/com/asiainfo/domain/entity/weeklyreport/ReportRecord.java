@@ -1,6 +1,7 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,10 +31,19 @@ public class ReportRecord {
 	@Column(name="content", nullable=false)
 	private String content;
 
-	@Column(name="report_user_id")
+    public Long getReportRecordId() {
+        return reportRecordId;
+    }
+
+    public void setReportRecordId(Long reportRecordId) {
+        this.reportRecordId = reportRecordId;
+    }
+
+    @Column(name="report_user_id")
 	private String reportUserId;
-    @ManyToOne(cascade = CascadeType.ALL,optional = false)
+    @ManyToOne(cascade = CascadeType.ALL,optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name="weekly_report_id")
+	@JsonManagedReference
 	private WeeklyReport weeklyReport;
 
     public WeeklyReport getWeeklyReport() {

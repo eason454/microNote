@@ -113,8 +113,14 @@ public class WeeklyReportServiceimpl implements IWeeklyReportService {
 		message.setWeeklyReport(weeklyReportInfo);
 		notifyService.notify(message);
 		return true;
-	} 
+	}
 
+    /**
+     * 返回一条周报记录，如果没有就创建一条
+     * @param userId
+     * @param weekly
+     * @return
+     */
 	@Override
 	public WeeklyReport queryWeeklyReportByUserIdAndWeekly(String userId, int weekly) {
        WeeklyReport weeklyReport= weeklyReportRepository.findByReportUserIdAndWeekly(userId, weekly);

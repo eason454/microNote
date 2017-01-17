@@ -97,15 +97,15 @@ public class TimeUtil {
 		return calendar.get(Calendar.WEEK_OF_YEAR);
 	}
 
-	public static void main(String[] args) {
-		logger.debug(getWeekStartDateByWeek(2017, 1));
-		logger.debug(getWeekEndDateByWeek(2017, 1));
-		logger.debug(getStartDateThisWeek());
-		logger.debug(getEndDateThisWeek());
-		logger.debug(getNextWeekStartDate());
-		logger.debug(getNextWeekEndDate());
-		logger.debug(getWeekOfYear());
-	}
+//	public static void main(String[] args) {
+//		logger.debug(getWeekStartDateByWeek(2017, 1));
+//		logger.debug(getWeekEndDateByWeek(2017, 1));
+//		logger.debug(getStartDateThisWeek());
+//		logger.debug(getEndDateThisWeek());
+//		logger.debug(getNextWeekStartDate());
+//		logger.debug(getNextWeekEndDate());
+//		logger.debug(getWeekOfYear());
+//	}
 
 	public static long getDayInWeek(long currentTime, String day) {
 		/*
