@@ -38,16 +38,15 @@ public class PlanController {
     @PostMapping(path="/queryNextWeekPlan")
     public KaraMessage queryNextWeekPlan(@RequestBody KaraRequestObject request){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
         List<Plan> plans=planRecordService.queryNextWeekPlan(request.getUserId());
-        StringBuffer content=new StringBuffer();
+        List<KaraField> list=new ArrayList<>();
         for (Plan plan :
                 plans) {
-            content.append(plan.getContent()+",");
+            KaraField field=new KaraField();
+            field.setTitle("");
+            field.setValue(plan.getContent());
+            field.setId(plan.getPlanId());
+            list.add(field);
         }
-        KaraField field=new KaraField();
-        field.setTitle("下周计划");
-        field.setValue(content.toString());
-        List<KaraField> list=new ArrayList<KaraField>();
-        list.add(field);
         KaraMessage message=MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.nextWeeklyInfo,list);
         return message;
     }
@@ -59,16 +58,15 @@ public class PlanController {
     @PostMapping(path="/queryThisWeekPlan")
     public KaraMessage queryThisWeekPlan(@RequestBody KaraRequestObject request){
         List<Plan> plans=planRecordService.queryThisWeekPlan(request.getUserId());
-        StringBuffer content=new StringBuffer();
+        List<KaraField> list=new ArrayList<>();
         for (Plan plan :
                 plans) {
-            content.append(plan.getContent()+",");
+            KaraField field=new KaraField();
+            field.setTitle("");
+            field.setValue(plan.getContent());
+            field.setId(plan.getPlanId());
+            list.add(field);
         }
-        KaraField field=new KaraField();
-        field.setTitle("本周计划");
-        field.setValue(content.toString());
-        List<KaraField> list=new ArrayList<KaraField>();
-        list.add(field);
         KaraMessage message=MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.thisWeeklyInfo,list);
         return message;
     }
