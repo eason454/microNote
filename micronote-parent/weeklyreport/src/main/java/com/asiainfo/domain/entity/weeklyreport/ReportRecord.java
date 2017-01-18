@@ -43,9 +43,8 @@ public class ReportRecord {
 	private String reportUserId;
     @ManyToOne(cascade = CascadeType.ALL,optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name="weekly_report_id")
-	@JsonManagedReference
 	private WeeklyReport weeklyReport;
-
+    @JsonManagedReference
     public WeeklyReport getWeeklyReport() {
         return weeklyReport;
     }

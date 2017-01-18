@@ -62,9 +62,6 @@ public class ReportRecordController {
         reportRecord.setEndDate(System.currentTimeMillis());
         reportRecord.setWeeklyReport(weeklyReport);
         reportRecordService.modifyReportRecord(reportRecord);
-//        reportRecordList.add(reportRecord);
-//        weeklyReport.setReportRecord(reportRecordList);
-//        weeklyReportService.modifyWeeklyReport(weeklyReport);
 
         //数据写入到Kara返回结构中
         karaField.setTitle(CommonConst.KaraInfo.weeklyWork);
@@ -77,14 +74,15 @@ public class ReportRecordController {
 
     }
 
-    @RequestMapping(path = "/deleteRecord", method = RequestMethod.POST)
-    public boolean deleteRecord(long recordId){
-       return reportRecordService.deleteReportRecordById(recordId);
+    @PostMapping(path = "/deleteRecord")
+    public boolean deleteRecord(@RequestBody ReportRecord reportRecord){
+        Long recordId = reportRecord.getReportRecordId();
+        return reportRecordService.deleteReportRecordById(recordId);
     }
 
-
-    @RequestMapping(path = "/modifyRecord", method = RequestMethod.POST)
+    @PostMapping(path = "/modifyRecord")
     public ReportRecord modifyReportRecord(ReportRecord reportRecord){
         return reportRecordService.modifyReportRecord(reportRecord);
     }
+
 }

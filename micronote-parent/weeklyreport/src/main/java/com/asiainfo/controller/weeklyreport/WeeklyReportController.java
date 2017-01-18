@@ -1,8 +1,6 @@
 package com.asiainfo.controller.weeklyreport;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com.asiainfo.domain.entity.user.User;
@@ -48,7 +46,6 @@ public class WeeklyReportController {
 	public WeeklyReport createWeeklyReport(@RequestParam("userId") String reportUserId) {
 		return weeklyReportService.createWeeklyReport(reportUserId);
 	}
-
 	@RequestMapping(path = "/queryWeeklyRecordOrderByCreateDate", method = RequestMethod.POST)
 	public List<ReportRecord> queryWeeklyRecordOrderByCreateDate(@RequestBody KaraRequestObject requestObject){
 		/*
@@ -164,7 +161,6 @@ public class WeeklyReportController {
         weeklyReportForWeb.setUser(userList);
         return weeklyReportForWeb;
     }
-
 
 	@GetMapping(path="/queryReportUsers/{userId}")
 	public Page<User> queryReportUsers(@PathVariable("userId") String authorId, Pageable pageable){
