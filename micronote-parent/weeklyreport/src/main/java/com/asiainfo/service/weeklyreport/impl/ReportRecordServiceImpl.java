@@ -21,6 +21,12 @@ public class ReportRecordServiceImpl implements IReportRecordService {
     }
 
     @Override
+    public boolean deleteRecord(Long recordId) throws Exception {
+        reportRecordRepository.delete(recordId);
+        return true;
+    }
+
+    @Override
     public boolean deleteReportRecordById(@Param("recordId") long recordId) {
         reportRecordRepository.delete(recordId);
         return true;
