@@ -59,13 +59,12 @@ public class WeeklyReport {
 	public List<ReportRecord> getReportRecord() {
 		return reportRecord;
 	}
-
+	@JsonBackReference
 	public void setReportRecord(List<ReportRecord> reportRecord) {
 		this.reportRecord = reportRecord;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "weeklyReport")
-	@JsonBackReference
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 
