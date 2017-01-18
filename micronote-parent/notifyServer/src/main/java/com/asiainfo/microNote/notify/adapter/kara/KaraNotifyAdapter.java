@@ -55,7 +55,8 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 		logger.info("weeklyReportNotifyAuditing " + karaIncoming.text);
 		karaIncoming.channel = new StringBuffer("@").append(userId);
 		// 添加提交人的周報
-		for (WeeklyReportSubmitReportMessage message : messages) {
+		for (int i = 0; i< messages.size() && i < 5 ;i++) {
+			 WeeklyReportSubmitReportMessage message = messages.get(i);
 			karaIncoming.setAttachments(
 					karaIncoming.new Attachment(new StringBuffer(weeklyReportCheckReport.replace("{userId}", userId)
 							.replace("{week}", week).replace("{userName}", message.getWeeklyReport().getReportUserName()))));
