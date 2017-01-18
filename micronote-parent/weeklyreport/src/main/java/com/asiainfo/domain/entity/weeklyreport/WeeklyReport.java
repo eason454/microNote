@@ -2,6 +2,8 @@ package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.util.consts.CommonConst;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.*;
 
@@ -17,6 +19,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "weekly_report")
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "weeklyReportId")
 public class WeeklyReport {
 	
 	@Id
@@ -59,7 +64,6 @@ public class WeeklyReport {
 	public List<ReportRecord> getReportRecord() {
 		return reportRecord;
 	}
-	@JsonBackReference
 	public void setReportRecord(List<ReportRecord> reportRecord) {
 		this.reportRecord = reportRecord;
 	}
