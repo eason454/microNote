@@ -80,7 +80,7 @@ public class ReportRecordController {
     }
 
     @PostMapping(path = "/modifyRecord")
-    public ReportRecord modifyReportRecord(ReportRecord reportRecord){
+    public ReportRecord modifyReportRecord(@RequestBody ReportRecord reportRecord){
         return reportRecordService.modifyReportRecord(reportRecord);
     }
 

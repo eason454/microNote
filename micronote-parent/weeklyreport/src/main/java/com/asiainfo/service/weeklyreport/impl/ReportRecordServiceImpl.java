@@ -3,6 +3,8 @@ package com.asiainfo.service.weeklyreport.impl;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
+import com.asiainfo.util.CommonUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,11 @@ public class ReportRecordServiceImpl implements IReportRecordService {
 
     @Override
     public ReportRecord modifyReportRecord(ReportRecord reportRecord) {
-        return reportRecordRepository.save(reportRecord);
+        ReportRecord oldRecord = reportRecordRepository.findOne(reportRecord.getReportRecordId());
+//        oldRecord.getWeeklyReport();
+        String[] nullProperties = CommonUtils.getNullPropertyNames(reportRecord);
+        BeanUtils.copyProperties(reportRecord, oldRecord, nullProperties);
+        return reportRecordRepository.save(oldRecord);
     }
 
     @Override
@@ -28,7 +34,11 @@ public class ReportRecordServiceImpl implements IReportRecordService {
 
     @Override
     public boolean deleteReportRecordById(@Param("recordId") long recordId) {
-        reportRecordRepository.delete(recordId);
-        return true;
+        if(reportRecordRepository.exists(recordId)){
+            reportRecordRepository.delete(recordId);
+            return true;
+        }else{
+            return false;
+        }
     }
 }
