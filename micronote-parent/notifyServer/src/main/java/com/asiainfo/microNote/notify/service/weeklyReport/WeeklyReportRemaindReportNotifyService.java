@@ -83,7 +83,9 @@ public class WeeklyReportRemaindReportNotifyService {
 									// TODO 推送錯誤處理代碼
 									logger.error("推送[" + user.getId() + "," + user.getName() + "]遇到错误："
 											+ ex.getCause());
+									
 									ex.printStackTrace();
+									continue;
 								}
 							}
 							
@@ -93,6 +95,7 @@ public class WeeklyReportRemaindReportNotifyService {
 							// TODO 添加分頁查詢錯誤處理代碼
 							logger.error("查询分页[" + page + "]遇到错误：" + ex.getCause());
 							ex.printStackTrace();
+							continue;
 						}
 					}
 				}
