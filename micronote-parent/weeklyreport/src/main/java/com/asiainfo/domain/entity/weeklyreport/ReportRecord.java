@@ -1,6 +1,7 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -41,7 +42,7 @@ public class ReportRecord {
 
     @Column(name="report_user_id")
 	private String reportUserId;
-    @ManyToOne(cascade = CascadeType.ALL,optional = false,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name="weekly_report_id")
 	private WeeklyReport weeklyReport;
     @JsonManagedReference

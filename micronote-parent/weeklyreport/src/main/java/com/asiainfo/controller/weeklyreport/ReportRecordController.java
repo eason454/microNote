@@ -12,6 +12,7 @@ import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
 import com.asiainfo.util.time.TimeUtil;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,8 +76,8 @@ public class ReportRecordController {
     }
 
     @PostMapping(path = "/deleteRecord")
-    public boolean deleteRecord(@RequestBody ReportRecord reportRecord){
-        Long recordId = reportRecord.getReportRecordId();
+    public boolean deleteRecord(@RequestBody JSONObject jsonObject){
+        Long recordId = Long.valueOf(jsonObject.get("record_id").toString());
         return reportRecordService.deleteReportRecordById(recordId);
     }
 
