@@ -27,7 +27,7 @@ public class PlanController {
     public Plan createWeeklyPlan(@RequestBody Plan plan) {
         return planRecordService.createWeeklyPlan(plan);
     }
-        @PostMapping(path="/modifyWeeklyPlan")
+    @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.modifyWeeklyPlan(plan);
     }
