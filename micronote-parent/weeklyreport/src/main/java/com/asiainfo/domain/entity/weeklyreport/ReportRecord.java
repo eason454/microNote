@@ -2,6 +2,7 @@ package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -10,9 +11,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "report_record")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "reportRecordId")
 public class ReportRecord {
 	
 	@Id
@@ -47,6 +45,7 @@ public class ReportRecord {
 	private String reportUserId;
     @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH},optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name="weekly_report_id")
+    @JsonIgnoreProperties("reportRecord")
 	private WeeklyReport weeklyReport;
     public WeeklyReport getWeeklyReport() {
         return weeklyReport;
