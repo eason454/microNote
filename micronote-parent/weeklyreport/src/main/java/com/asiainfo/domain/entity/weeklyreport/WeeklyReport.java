@@ -19,9 +19,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "weekly_report")
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "weeklyReportId")
 public class WeeklyReport {
 	
 	@Id
