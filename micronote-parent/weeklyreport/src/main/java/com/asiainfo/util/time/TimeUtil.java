@@ -76,7 +76,7 @@ public class TimeUtil {
 		Calendar calendar = Calendar.getInstance();
 		return calendar.get(Calendar.WEEK_OF_YEAR);
 	}
-
+/*
 	public static void main(String[] args) {
 		logger.debug(getWeekStartDateByWeek(2017, 1));
 		logger.debug(getWeekEndDateByWeek(2017, 1));
@@ -86,7 +86,7 @@ public class TimeUtil {
 		logger.debug(getNextWeekEndDate());
 		logger.debug(getWeekOfYear());
 		logger.error(getStartDateThisWeek());
-	}
+	}*/
 	public static int getDayOfWeek(){
 		DateTime dateTime=new DateTime();
 		return dateTime.getDayOfWeek();
