@@ -30,7 +30,7 @@ public class ReportRecordController {
     IReportRecordService reportRecordService;
 
     @RequestMapping(path = "/saveReportRecord", method = RequestMethod.POST)
-    public KaraMessage saveReportRecord(@RequestBody KaraRequestObject requestObject){
+    public KaraMessage saveReportRecord(@RequestBody KaraRequestObject requestObject) throws Exception{
         /*
         1、获取传入的UserId和Text内容
         2、检查周报是否存在，并获取ID
@@ -60,7 +60,7 @@ public class ReportRecordController {
         reportRecord.setCreateDate(System.currentTimeMillis());
         reportRecord.setEndDate(System.currentTimeMillis());
         reportRecord.setWeeklyReport(weeklyReport);
-        reportRecordService.modifyReportRecord(reportRecord);
+        reportRecordService.saveRecord(reportRecord);
 
         //数据写入到Kara返回结构中
         karaField.setTitle(CommonConst.KaraInfo.weeklyWork);

@@ -33,6 +33,11 @@ public class ReportRecordServiceImpl implements IReportRecordService {
     }
 
     @Override
+    public ReportRecord saveRecord(ReportRecord reportRecord) throws Exception {
+        return reportRecordRepository.save(reportRecord);
+    }
+
+    @Override
     public boolean deleteReportRecordById(@Param("recordId") long recordId) {
         if(reportRecordRepository.exists(recordId)){
             reportRecordRepository.delete(recordId);

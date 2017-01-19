@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
  */
 public interface IReportRecordService {
     boolean deleteRecord(Long recordId) throws Exception;
+    ReportRecord saveRecord(ReportRecord reportRecord) throws Exception;
     boolean deleteReportRecordById(@Param("recordId") long recordId);
     ReportRecord modifyReportRecord(ReportRecord reportRecord);
 }
