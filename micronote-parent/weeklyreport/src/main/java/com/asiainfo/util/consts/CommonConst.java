@@ -68,7 +68,7 @@ public interface CommonConst {
 		String SetWeeklyReportResultSuccess="设置成功，您的汇报对象为:%s,工号:%s";
         String clickUrlToViewWeeklyReport="请点击以下链接查看:";
         String weeklyReportDetail="周报详情";
-        String urlSplit="设置成功，您的汇报对象为:%s,工号:%s";
+        String urlSplit="|";
 	}
 
 }
