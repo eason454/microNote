@@ -76,8 +76,8 @@ public class PlanController {
      * @param userId
      * @return
      */
-    @GetMapping(path="/queryNextWeekPlan")
-    public List<Plan> queryNextWeekPlan(@RequestParam(value = "userId") String userId){
+    @GetMapping(path="/queryNextWeekPlan/{user_id}")
+    public List<Plan> queryNextWeekPlan(@PathVariable(value = "user_id") String userId){
         return planRecordService.queryNextWeekPlan(userId);
     }
 
