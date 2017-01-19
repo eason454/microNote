@@ -43,7 +43,7 @@ public class ReportRecord {
 
     @Column(name="report_user_id")
 	private String reportUserId;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},optional = false,fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH},optional = false,fetch = FetchType.EAGER)
     @JoinColumn(name="weekly_report_id")
     @JsonIgnoreProperties("reportRecord")
 	private WeeklyReport weeklyReport;
