@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 import org.springframework.cloud.netflix.sidecar.EnableSidecar;
 import org.springframework.context.annotation.Bean;
 
+import com.asiainfo.filter.RouteFilter;
 import com.asiainfo.filter.SampleFilter;
 
 @SpringBootApplication
@@ -19,5 +20,9 @@ public class GatewayApplication {
 	@Bean
 	public SampleFilter sampleFilter(){
 		return new SampleFilter();
+	}
+	@Bean
+	public RouteFilter routeFilter(){
+		return new RouteFilter();
 	}
 }
