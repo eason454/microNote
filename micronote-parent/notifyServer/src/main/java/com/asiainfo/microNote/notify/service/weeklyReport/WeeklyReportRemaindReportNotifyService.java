@@ -35,7 +35,7 @@ public class WeeklyReportRemaindReportNotifyService {
 	@Autowired
 	NotifyAdapter notifyAdapter;
 	
-	public static final Set<String> exceptNotifyUsers = new HashSet<String>();
+	volatile public static Set<String> exceptNotifyUsers = new HashSet<String>();
 
 	// 推送線程數量
 	@Value("${weeklyReport.noitfy.notifyThreadNumber}")
@@ -83,7 +83,9 @@ public class WeeklyReportRemaindReportNotifyService {
 									// TODO 推送錯誤處理代碼
 									logger.error("推送[" + user.getId() + "," + user.getName() + "]遇到错误："
 											+ ex.getCause());
+									
 									ex.printStackTrace();
+									continue;
 								}
 							}
 							
@@ -93,6 +95,7 @@ public class WeeklyReportRemaindReportNotifyService {
 							// TODO 添加分頁查詢錯誤處理代碼
 							logger.error("查询分页[" + page + "]遇到错误：" + ex.getCause());
 							ex.printStackTrace();
+							continue;
 						}
 					}
 				}
@@ -103,7 +106,7 @@ public class WeeklyReportRemaindReportNotifyService {
 	/**
 	 * 每周六清空提交周報用戶
 	 */
-	@Scheduled(cron = "0 0 23 * * STA")
+	@Scheduled(cron = "0 0 23 * * 6")
 	private void removeExceptionUsers(){
 		exceptNotifyUsers.clear();
 	}

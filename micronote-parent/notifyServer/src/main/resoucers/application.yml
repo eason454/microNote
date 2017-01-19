@@ -19,11 +19,11 @@ weeklyReport:
       Report: /sseresrse
     notifyThreadNumber: 4
     cron:
-      onWeeklyReportSubmit: 0/30 * 9-23 * * FRI
-      notifyAuditingUser: 0/5 * * * * FRI
+      onWeeklyReportSubmit: 0/60 * 9-23 * * *
+      notifyAuditingUser: 0/30 * * * * *
       notifyUserSubimtWeeklyReportOnEveryWeekend: 0 0 0/1 * * FRI
 kara:
-  accessToken: bearer 78ba5389ad5c4e4f876651988407e791
-  karaService: http://10.19.15.28:8000/
+  accessToken: bearer fff412aa166143b285a414e3b805e1e6
+  karaService: http://10.19.15.36:16010/
   incomingUri: /api/webapi/incoming/services/reception
   

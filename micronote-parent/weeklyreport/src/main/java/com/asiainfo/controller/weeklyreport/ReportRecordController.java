@@ -5,7 +5,6 @@ import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
-import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
 import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportService;
@@ -62,9 +61,6 @@ public class ReportRecordController {
         reportRecord.setEndDate(System.currentTimeMillis());
         reportRecord.setWeeklyReport(weeklyReport);
         reportRecordService.modifyReportRecord(reportRecord);
-//        reportRecordList.add(reportRecord);
-//        weeklyReport.setReportRecord(reportRecordList);
-//        weeklyReportService.modifyWeeklyReport(weeklyReport);
 
         //数据写入到Kara返回结构中
         karaField.setTitle(CommonConst.KaraInfo.weeklyWork);
@@ -77,14 +73,15 @@ public class ReportRecordController {
 
     }
 
-    @RequestMapping(path = "/deleteRecord", method = RequestMethod.POST)
-    public boolean deleteRecord(long recordId){
-       return reportRecordService.deleteReportRecordById(recordId);
+    @PostMapping(path = "/deleteRecord")
+    public boolean deleteRecord(@RequestBody ReportRecord jsonObject){
+        Long recordId = jsonObject.getReportRecordId();
+        return reportRecordService.deleteReportRecordById(recordId);
     }
 
-
-    @RequestMapping(path = "/modifyRecord", method = RequestMethod.POST)
-    public ReportRecord modifyReportRecord(ReportRecord reportRecord){
+    @PostMapping(path = "/modifyRecord")
+    public ReportRecord modifyReportRecord(@RequestBody ReportRecord reportRecord){
         return reportRecordService.modifyReportRecord(reportRecord);
     }
+
 }

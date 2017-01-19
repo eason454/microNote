@@ -25,6 +25,8 @@ public class CommonUtils {
             Object srcValue = src.getPropertyValue(pd.getName());
             if (srcValue == null) {
                 emptyNames.add(pd.getName());
+            }else if(srcValue.getClass().getSimpleName().equals("Long") && ((Long)srcValue).longValue()==0){
+                emptyNames.add(pd.getName());
             }
         }
         String[] result = new String[emptyNames.size()];

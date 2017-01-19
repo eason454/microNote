@@ -104,8 +104,14 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 
 	@Override
 	public boolean deleteWeeklyPlan(long planId) {
-		planRepository.delete(planId);
-		return true;
+		boolean exists = planRepository.exists(planId);
+		if(exists){
+			planRepository.delete(planId);
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 
 	@Override

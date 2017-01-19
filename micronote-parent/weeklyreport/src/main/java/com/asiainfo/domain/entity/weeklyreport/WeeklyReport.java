@@ -2,6 +2,8 @@ package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.util.consts.CommonConst;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.*;
 
@@ -59,13 +61,11 @@ public class WeeklyReport {
 	public List<ReportRecord> getReportRecord() {
 		return reportRecord;
 	}
-
 	public void setReportRecord(List<ReportRecord> reportRecord) {
 		this.reportRecord = reportRecord;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "weeklyReport")
-	@JsonBackReference
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 

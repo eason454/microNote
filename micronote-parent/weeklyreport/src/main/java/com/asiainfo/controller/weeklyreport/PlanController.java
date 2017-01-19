@@ -27,11 +27,11 @@ public class PlanController {
     public Plan createWeeklyPlan(@RequestBody Plan plan) {
         return planRecordService.createWeeklyPlan(plan);
     }
-        @PostMapping(path="/modifyWeeklyPlan")
+    @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.modifyWeeklyPlan(plan);
     }
-    @DeleteMapping(path="/deleteWeeklyPlan")
+    @PostMapping(path="/deleteWeeklyPlan")
     public boolean deleteWeeklyPlan(@RequestBody Plan plan){
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
