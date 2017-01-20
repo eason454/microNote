@@ -65,7 +65,11 @@ public class WeeklyReport {
 		this.reportRecord = reportRecord;
 	}
 
+<<<<<<< HEAD
 	@OneToMany(cascade = {CascadeType.REFRESH,CascadeType.PERSIST}, fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval = true)
+=======
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval=true)
+>>>>>>> b7680defcbdce1ac2ae97f0939727ea29d2946b4
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 

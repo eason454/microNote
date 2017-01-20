@@ -4,6 +4,9 @@ import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
 import com.asiainfo.util.CommonUtils;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -34,6 +37,7 @@ public class ReportRecordServiceImpl implements IReportRecordService {
     }
 
     @Override
+    @Transactional
     public boolean deleteReportRecordById(@Param("recordId") long recordId) {
         if(reportRecordRepository.exists(recordId)){
             reportRecordRepository.delete(recordId);
