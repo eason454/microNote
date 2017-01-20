@@ -21,7 +21,17 @@ public class WeeklyReportForWeb {
 
     private int weekly;
     private String reportUserId;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     private String auditingUserId;
+    private String state;
     private List<User> user;
 
     public List<User> getUser() {
