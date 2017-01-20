@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableFeignClients
-@EnableEurekaClient
+//@EnableEurekaClient
 public class WeeklyreportApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WeeklyreportApplication.class, args);
