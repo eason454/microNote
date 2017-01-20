@@ -23,7 +23,7 @@ weeklyReport:
       notifyAuditingUser: 0/30 * * * * *
       notifyUserSubimtWeeklyReportOnEveryWeekend: 0 0 0/1 * * FRI
 kara:
-  accessToken: bearer fff412aa166143b285a414e3b805e1e6
+  accessToken: bearer 9f72b0d71fd443d28d5cae1f754d23fd
   karaService: http://10.19.15.36:16010/
   incomingUri: /api/webapi/incoming/services/reception
   

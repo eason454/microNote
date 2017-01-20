@@ -24,11 +24,13 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 	@Autowired
 	private IKaraService karaService;
 
-	private String weeklyReportReportContent = "<http://localhost:9001/microNote/comment/weeklyReport/{userId}/{week}|填写周报>";
-
-	private String weeklyReportCheckReportAll = "<http://localhost:9001/microNote/weeklyReport/{userId}|查看 {week} 周所有已提交的周报...>";
-
-	private String weeklyReportCheckReport = "<http://localhost:9001/microNote/weeklyReport/{userId}|查看{week}周 @{userName} de周报>";
+	
+	//填寫周報
+	private String weeklyReportReportContent = "<http://171.221.254.231:9997/weekly/index/{userId}|填写周报>";
+	//查看下屬周報
+	private String weeklyReportCheckReportAll = "<http://171.221.254.231:9997/weekly/subordWeekly/{userId}|查看 {week} 周所有已提交的周报...>";
+	//查看周報
+	private String weeklyReportCheckReport = "<http://171.221.254.231:9997/weekly/index/{userId}|查看{week}周 @{userName} de周报>";
 
 	/**
 	 * 推送到kara
@@ -50,17 +52,22 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 	public boolean weeklyReportNotifyAuditing(List<WeeklyReportSubmitReportMessage> messages) {
 		String week = "" + Calendar.getInstance().get(Calendar.WEEK_OF_YEAR);
 		KaraIncoming karaIncoming = new KaraIncoming();
-		karaIncoming.text = new StringBuffer().append("亲～ 剛才有").append(messages.size()).append(" 人向您提交了周報");
+		karaIncoming.text = new StringBuffer().append("亲～ 剛才有");
+		for (int i = 0; i< messages.size() && i < 20 ;i++){
+			WeeklyReportSubmitReportMessage message = messages.get(i);
+			karaIncoming.text.append( " ").append(message.getWeeklyReport().getReportUserName());
+		}
+		karaIncoming.text.append("等，共 【").append(messages.size()).append("】 人向您提交了周報");
 		StringBuffer userId = messages.get(0).getNotifyUser().getId();
 		logger.info("weeklyReportNotifyAuditing " + karaIncoming.text);
 		karaIncoming.channel = new StringBuffer("@").append(userId);
 		// 添加提交人的周報
-		for (int i = 0; i< messages.size() && i < 5 ;i++) {
-			 WeeklyReportSubmitReportMessage message = messages.get(i);
-			karaIncoming.setAttachments(
-					karaIncoming.new Attachment(new StringBuffer(weeklyReportCheckReport.replace("{userId}", userId)
-							.replace("{week}", week).replace("{userName}", message.getWeeklyReport().getReportUserName()))));
-		}
+//		for (int i = 0; i< messages.size() && i < 5 ;i++) {
+//			 WeeklyReportSubmitReportMessage message = messages.get(i);
+//			karaIncoming.setAttachments(
+//					karaIncoming.new Attachment(new StringBuffer(weeklyReportCheckReport.replace("{userId}", userId)
+//							.replace("{week}", week).replace("{userName}", message.getWeeklyReport().getReportUserName()))));
+//		}
 		// 添加查看更多
 		karaIncoming.setAttachments(karaIncoming.new Attachment(
 				new StringBuffer(weeklyReportCheckReportAll.replace("{userId}", userId).replace("{week}", week))));

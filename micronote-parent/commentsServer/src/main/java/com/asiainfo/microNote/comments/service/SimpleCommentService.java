@@ -84,6 +84,14 @@ public class SimpleCommentService implements ICommentsService {
 		return true;
 	}
 
+	public boolean updateComment(CommentRecord commentRecord){
+		CommentRecord newCommentRecord = commentRecordRepository.findOne(commentRecord.getId());
+		newCommentRecord.setContent(commentRecord.getContent());
+		newCommentRecord.getComment();
+		commentRecordRepository.save(newCommentRecord);
+		return true;
+	}
+	
 	@Override
 	public boolean deleteComment(long commentRecordId) {
 		commentRecordRepository.delete(commentRecordId);

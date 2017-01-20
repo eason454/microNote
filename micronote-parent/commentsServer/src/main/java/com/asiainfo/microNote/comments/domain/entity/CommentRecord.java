@@ -2,12 +2,15 @@ package com.asiainfo.microNote.comments.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * 评论条目
  * @author yi
@@ -25,11 +28,11 @@ public class CommentRecord {
 	String userId;
 	
 	/**
-	 * 必须增加set方法否则会报错无法设置
-	 * 不可增加get方法否则会无限循环
+	 * 自動加載會導致無法刪除
 	 */
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="comment_id")
+	@JsonIgnoreProperties("comment")
 	private Comment comment;
 	
 	String content;
@@ -73,5 +76,11 @@ public class CommentRecord {
 	public void setComment(Comment comment) {
 		this.comment = comment;
 	}
+
+	public Comment getComment() {
+		return comment;
+	}
+	
+	
 	
 }

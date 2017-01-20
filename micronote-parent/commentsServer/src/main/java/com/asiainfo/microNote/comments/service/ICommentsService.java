@@ -29,6 +29,7 @@ public interface ICommentsService {
 	 */
 	public boolean addComment(long targetId,String targetType, CommentRecord commentRecord);
 	
+	public boolean updateComment(CommentRecord commentRecord);
 	/**
 	 * 刪除評論
 	 * @param commentRecordId

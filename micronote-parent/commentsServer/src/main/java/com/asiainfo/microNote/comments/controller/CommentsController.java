@@ -58,6 +58,12 @@ public class CommentsController {
 			commentRecord.setUserId(userId);
 		return commentsService.addComment(targetId, targetType, commentRecord);
 	}
+	
+	@PostMapping(path = "/updateComment")
+	public boolean addCommentRecord(@RequestBody CommentRecord commentRecord) {
+	
+		return commentsService.updateComment(commentRecord);
+	}
 
 	/**
 	 * 刪除品論

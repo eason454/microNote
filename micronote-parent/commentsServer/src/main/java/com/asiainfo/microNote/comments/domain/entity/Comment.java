@@ -29,7 +29,7 @@ public class Comment {
 	/**
 	 * mappedBy 被关联的表的列
 	 */
-	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "comment")
+	@OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "comment", orphanRemoval=true)
 	private Set<CommentRecord> records ;
 	
 	@Column(name = "create_date")
