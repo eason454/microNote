@@ -8,6 +8,8 @@ import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 /**
  * Created by eason on 2017/1/5.
  */
@@ -15,4 +17,6 @@ import java.util.List;
 public interface ReportRecordRepository extends JpaRepository<ReportRecord,Long> {
 //    public List<ReportRecord> findByCreateDateBetweenOrderByCreateDateDesc(@Param("startDate") long startDate, @Param("endDate") long endDate);
     List<ReportRecord> findByReportUserIdAndCreateDateBetweenOrderByCreateDateDesc(@Param("reportUserId") String reportUserId,@Param("startDate") long startDate, @Param("endDate") long endDate);
+    @Transactional
+    void deleteByReportRecordId(long reportRecordId);
 }

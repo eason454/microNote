@@ -66,7 +66,7 @@ public interface CommonConst {
 		String SetWeeklyReportResultFail="设置失败，原因:%s";
 		String saveRecordSuccess = "保存信息成功！";
 		String SetWeeklyReportResultSuccess="设置成功，您的汇报对象为:%s,工号:%s";
-        String clickUrlToViewWeeklyReport="请点击以下链接查看:";
+        String clickUrlToViewWeeklyReport="请点击以下链接查看周报:";
         String weeklyReportDetail="周报详情";
         String urlSplit="|";
 	}

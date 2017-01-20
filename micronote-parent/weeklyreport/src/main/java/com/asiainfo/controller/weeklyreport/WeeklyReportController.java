@@ -6,6 +6,7 @@ import java.util.List;
 import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReportForWeb;
 import com.asiainfo.domain.kara.KaraRequestObject;
+import com.asiainfo.domain.kara.response.KaraAttachment;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
@@ -119,11 +120,16 @@ public class WeeklyReportController {
 	@PostMapping(path="/viewWeeklpReport")
 	public KaraMessage viewWeeklyReport(@RequestBody KaraRequestObject request){
         logger.debug("request:"+request.toString());
-        KaraField field=new KaraField();
-        field.setTitle(viewWeeklReportUrl+CommonConst.KaraInfo.urlSplit+CommonConst.KaraInfo.weeklyReportDetail);
-        List<KaraField> list=new ArrayList<KaraField>();
-        list.add(field);
-        return MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.clickUrlToViewWeeklyReport, list);
+        KaraAttachment attach=new KaraAttachment();
+        String tmp=String.format(viewWeeklReportUrl, request.getUserId(),CommonConst.KaraInfo.urlSplit,CommonConst.KaraInfo.weeklyReportDetail);
+        attach.setTitle(tmp);
+//        attach.setTitle("<"+viewWeeklReportUrl+request.getUserId()+CommonConst.KaraInfo.urlSplit+CommonConst.KaraInfo.weeklyReportDetail+">");
+        List<KaraAttachment> list=new ArrayList<>();
+        list.add(attach);
+        KaraMessage message=new KaraMessage();
+        message.setText(CommonConst.KaraInfo.clickUrlToViewWeeklyReport);
+        message.setAttachments(list.toArray(new KaraAttachment[0]));
+        return message;
 	}
 
     /**
