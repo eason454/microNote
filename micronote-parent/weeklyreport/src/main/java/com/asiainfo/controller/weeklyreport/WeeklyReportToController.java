@@ -37,8 +37,8 @@ public class WeeklyReportToController {
 	private IUserService userService;
 	@Autowired
 	private RestTemplate restTemplate;
-    @Value("#{kara.url.getStaffByStaffIdUrl}")
-    public String karaUrl;
+    @Value("#{karaUrl.getStaffByStaffIdUrl}")
+    private String karaUrl;
 	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
 	public KaraMessage setWeeklyReportTo(@RequestBody KaraRequestObject request){
         String resultMessage="";
