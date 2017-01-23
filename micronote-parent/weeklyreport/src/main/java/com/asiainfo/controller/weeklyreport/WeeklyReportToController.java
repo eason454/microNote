@@ -1,19 +1,21 @@
 package com.asiainfo.controller.weeklyreport;
 
 import com.asiainfo.domain.entity.user.User;
+import com.asiainfo.domain.entity.weeklyreport.WeeklyReportTo;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.domain.kara.response.KaraUserInfo;
 import com.asiainfo.domain.kara.response.KaraUserResponseInfo;
-import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
 import com.asiainfo.service.weeklyreport.interfaces.IUserService;
+import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.HttpUtils;
 import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.StringUtils;
@@ -21,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.asiainfo.domain.entity.weeklyreport.WeeklyReportTo;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -37,7 +37,8 @@ public class WeeklyReportToController {
 	private IUserService userService;
 	@Autowired
 	private RestTemplate restTemplate;
-
+    @Value("#{kara.url.getStaffByStaffIdUrl}")
+    private String karaUrl;
 	@RequestMapping(path = "/setWeeklyReportTo", method = RequestMethod.POST)
 	public KaraMessage setWeeklyReportTo(@RequestBody KaraRequestObject request){
         String resultMessage="";
@@ -52,7 +53,7 @@ public class WeeklyReportToController {
             //汇报对象信息为空，需要调用kara查询员工信息
             try {
                 HttpEntity headers= HttpUtils.getKaraHttpEntityForGet(request.getToken());
-                HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange("http://10.19.15.28:8000/api/sdm/getStaffByStaffId/{staffId}", HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//
+                HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange(karaUrl, HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//
                 KaraUserResponseInfo userResponseInfo=response.getBody();
                 if(!userResponseInfo.getResponseCode().equals(CommonConst.KaraInfo.responseSuccessCode) || StringUtils.isEmpty(userResponseInfo.getStaffResponseInfo().getAccountId())){
                     resultMessage=CommonConst.KaraInfo.userNotExists;
