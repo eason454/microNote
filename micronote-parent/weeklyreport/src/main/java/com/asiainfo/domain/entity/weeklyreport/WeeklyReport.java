@@ -65,15 +65,8 @@ public class WeeklyReport {
 		this.reportRecord = reportRecord;
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-	@OneToMany(cascade = {CascadeType.REFRESH,CascadeType.PERSIST}, fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval = true)
-=======
-	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval=true)
->>>>>>> b7680defcbdce1ac2ae97f0939727ea29d2946b4
-=======
-	@OneToMany(cascade = {CascadeType.REMOVE},fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval=true)
->>>>>>> 0d164e6451b3607188c3a079cc159e253a822583
+//	@OneToMany(cascade = {CascadeType.REFRESH,CascadeType.PERSIST}, fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.REMOVE,fetch=FetchType.EAGER,mappedBy = "weeklyReport",orphanRemoval=true)
 	private List<ReportRecord> reportRecord = new ArrayList<ReportRecord>();
 
 
