@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import com.asiainfo.domain.KaraUserResponseInfo;
@@ -56,7 +56,7 @@ public class WeeklyReportFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request =ctx.getRequest();
         String url=request.getRequestURI();
-        if(StringUtils.contains(url, "/microNote/")){
+        if(url.indexOf("/microNote/")>-1){
         	BufferedReader reader;
 			try {
 				
@@ -68,7 +68,7 @@ public class WeeklyReportFilter extends ZuulFilter {
 				}
 				String requestBody=reader.readLine();
 				Map<String,Object> map =JsonParserFactory.getJsonParser().parseMap(requestBody);
-				if(StringUtils.isBlank(map.get("user_id").toString())){
+				if(StringUtils.isEmpty(map.get("user_id").toString())){
 					return null;
 				}
      	        User userInfo=weeklyReportClient.getUser(map.get("user_id").toString());
