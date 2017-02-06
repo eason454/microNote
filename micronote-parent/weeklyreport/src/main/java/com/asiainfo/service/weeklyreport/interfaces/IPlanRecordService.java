@@ -1,8 +1,9 @@
 package com.asiainfo.service.weeklyreport.interfaces;
 
-import com.asiainfo.domain.entity.weeklyreport.Plan;
-
 import java.util.List;
+
+import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 
 /**
  * 处理工作计划条目的业务逻辑
@@ -22,7 +23,7 @@ public interface IPlanRecordService{
 	 * @param planRecordId
 	 * @return
 	 */
-	Plan confirmePlan(long planId, long worklyReportId) throws Exception;
+	ReportRecord confirmePlan(long planId, long worklyReportId) throws Exception;
 	
 	/**
 	 * 延迟计划
