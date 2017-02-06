@@ -65,6 +65,7 @@ public class ReportRecordController {
         //数据写入到Kara返回结构中
         karaField.setTitle(CommonConst.KaraInfo.weeklyWork);
         karaField.setValue(content);
+        karaField.setId(reportRecord.getReportRecordId());
         list.add(karaField);
 
         //返回KaraMessage

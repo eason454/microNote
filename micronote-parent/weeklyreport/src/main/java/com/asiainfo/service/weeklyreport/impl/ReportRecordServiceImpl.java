@@ -23,16 +23,12 @@ public class ReportRecordServiceImpl implements IReportRecordService {
     @Override
     public ReportRecord modifyReportRecord(ReportRecord reportRecord) {
         ReportRecord oldRecord = reportRecordRepository.findOne(reportRecord.getReportRecordId());
-//        oldRecord.getWeeklyReport();
+        if(oldRecord == null){
+            return null;
+        }
         String[] nullProperties = CommonUtils.getNullPropertyNames(reportRecord);
         BeanUtils.copyProperties(reportRecord, oldRecord, nullProperties);
         return reportRecordRepository.save(oldRecord);
-    }
-
-    @Override
-    public boolean deleteRecord(Long recordId) throws Exception {
-        reportRecordRepository.delete(recordId);
-        return true;
     }
 
     @Override
