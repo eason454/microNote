@@ -24,9 +24,9 @@ public class PlanController {
     private static Log logger=LogFactory.getLog(PlanController.class);
     @Autowired
     private IPlanRecordService planRecordService;
-    @PostMapping(path = "/createWeeklyPlan/{week}")
-    public Plan createWeeklyPlan(@RequestBody Plan plan ,@PathVariable(value = "week") int week ) {
-        return planRecordService.createWeeklyPlan(plan, week);
+    @PostMapping(path = "/createWeeklyPlan")
+    public Plan createWeeklyPlan(@RequestBody Plan plan  ) {
+        return planRecordService.createWeeklyPlan(plan, plan.getWeek());
     }
     @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
