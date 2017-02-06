@@ -27,3 +27,6 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://microNote:8761/eureka/
+karaUrl:
+  getStaffByStaffIdUrl: http://10.19.15.36:16010/api/sdm/getStaffByStaffId/{staffId}
+  getStaffByAccountId: http://10.19.15.36:16010/api/sdm/getStaffByAccountId/{accountId}
