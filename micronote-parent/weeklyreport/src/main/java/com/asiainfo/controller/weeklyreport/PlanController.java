@@ -1,6 +1,7 @@
 
 package com.asiainfo.controller.weeklyreport;
 import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
 import com.asiainfo.domain.kara.response.KaraMessage;
@@ -23,9 +24,9 @@ public class PlanController {
     private static Log logger=LogFactory.getLog(PlanController.class);
     @Autowired
     private IPlanRecordService planRecordService;
-    @PostMapping(path = "/createWeeklyPlan/{week}")
-    public Plan createWeeklyPlan(@RequestBody Plan plan ,@PathVariable(value = "week") int week ) {
-        return planRecordService.createWeeklyPlan(plan, week);
+    @PostMapping(path = "/createWeeklyPlan")
+    public Plan createWeeklyPlan(@RequestBody Plan plan  ) {
+        return planRecordService.createWeeklyPlan(plan, plan.getWeek());
     }
     @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
@@ -94,19 +95,13 @@ public class PlanController {
     }
 
     @PostMapping(path = "/confirmedPlan/{plan_id}/{weekly_report_id}")
-    public boolean confirmedPlan(@PathVariable(value = "plan_id") long planId,
-    		@PathVariable(value = "weekly_report_id") long weeklyReportId) {
-        try {
-            planRecordService.confirmePlan(planId, weeklyReportId);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
-        }
-        return true;
+    public ReportRecord confirmedPlan(@PathVariable(value = "plan_id") long planId,
+    		@PathVariable(value = "weekly_report_id") long weeklyReportId) throws Exception {
+       return planRecordService.confirmePlan(planId, weeklyReportId);
     }
 
     @PostMapping(path = "/delayPlan/{plan_id}")
-    public boolean confirmedPlan(@PathVariable long planId) {
+    public boolean confirmedPlan(@PathVariable(value = "plan_id") long planId) {
         try {
             planRecordService.delayPlan(planId);
         } catch (Exception ex) {

@@ -1,4 +1,12 @@
 package com.asiainfo.service.weeklyreport.impl;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joda.time.DateTime;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
@@ -10,13 +18,6 @@ import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
-
-import org.joda.time.DateTime;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 /**
  * 简单的计划操作实现
  * 
@@ -44,7 +45,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public Plan confirmePlan(long planId, long worklyReportId) throws Exception {
+	public ReportRecord confirmePlan(long planId, long worklyReportId) throws Exception {
 		 //  TODO 确认计划完成
 		 //  查询现在要完成的计划 变成确认状态confirmed
 		Plan plan = planRepository.findOne(planId);
@@ -54,23 +55,30 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		//TODO 复制一个条目为新的完成工作
 		ReportRecord workRecord = new ReportRecord();
 		workRecord.setCreateDate(System.currentTimeMillis());
+		workRecord.setEndDate(System.currentTimeMillis());
 		workRecord.setContent(plan.getContent());
 		workRecord.setReportUserId(plan.getReportUserId());
 		workRecord.setState(WorkRecordState.WORKED);
-		workRecord.setRecordAttachments(plan.getRecordAttachments());
-		
+
+		List attachments = new ArrayList();
+		attachments.addAll(plan.getRecordAttachments());
+		workRecord.setRecordAttachments(attachments);
 		//TODO 保存計劃工作和工作的修改
 		plan = planRepository.save(plan);
-		workRecord = reportRecordRepository.save(workRecord);
+//		workRecord = reportRecordRepository.save(workRecord);
 		
 		//添加周報外鍵關系
 		WeeklyReport weeklyReport = weeklyReportRepository.findOne(worklyReportId);
-		List<ReportRecord> reportRecords = weeklyReport.getReportRecord();
-		reportRecords.add(workRecord);
-		weeklyReport.setReportRecord(reportRecords);
-		weeklyReportRepository.save(weeklyReport);
+		workRecord.setWeeklyReport(weeklyReport);
+		workRecord = reportRecordRepository.save(workRecord);
 		
-		return plan;
+//		List<ReportRecord> reportRecords = weeklyReport.getReportRecord();
+//		reportRecords.add(workRecord);
+//		weeklyReport.setReportRecord(reportRecords);
+//		weeklyReportRepository.save(weeklyReport);
+		
+		
+		return workRecord;
 	}
 
 	@Override

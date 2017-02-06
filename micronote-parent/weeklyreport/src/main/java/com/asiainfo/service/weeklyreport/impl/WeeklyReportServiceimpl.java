@@ -93,6 +93,9 @@ public class WeeklyReportServiceimpl implements IWeeklyReportService {
 		WeeklyReport weeklyReport = weeklyReportRepository.findOne(weeklyReportId);
 		//設置周報匯報人，因爲本周以內可能變化過匯報人，提交的時候重新設置一次匯報人以免錯誤
 		WeeklyReportTo weeklyReportTo = weeklyReportToRepository.findByReportUserId(weeklyReport.getReportUserId());
+		if(weeklyReportTo == null ){
+			throw new Exception("NO_AUDITING_USER");
+		}
 		weeklyReport.setAuditingUserId(weeklyReportTo.getAuditingUserId());
 		//修改周報狀態到提交狀態
 		weeklyReport.setState(WeeklyReportReport.SUBMMITED);
