@@ -45,7 +45,7 @@ public class ReportRecord {
 	private String reportUserId;
 //    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH},optional = false,fetch = FetchType.EAGER)
 	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REFRESH},fetch = FetchType.EAGER)
-//    @JoinColumn(name="weekly_report_id")
+    @JoinColumn(name="weekly_report_id")
     @JsonIgnoreProperties("reportRecord")
 	private WeeklyReport weeklyReport;
     public WeeklyReport getWeeklyReport() {

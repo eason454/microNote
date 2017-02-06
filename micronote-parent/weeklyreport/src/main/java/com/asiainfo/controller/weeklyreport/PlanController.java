@@ -24,8 +24,8 @@ public class PlanController {
     @Autowired
     private IPlanRecordService planRecordService;
     @PostMapping(path = "/createWeeklyPlan/{week}")
-    public Plan createWeeklyPlan(@RequestBody Plan plan) {
-        return planRecordService.createWeeklyPlan(plan);
+    public Plan createWeeklyPlan(@RequestBody Plan plan ,@PathVariable(value = "week") int week ) {
+        return planRecordService.createWeeklyPlan(plan, week);
     }
     @PostMapping(path="/modifyWeeklyPlan")
     public boolean modifyWeeklyPlan(@RequestBody Plan plan){
@@ -93,9 +93,9 @@ public class PlanController {
         return true;
     }
 
-    @PostMapping(path = "/confirmedPlan")
-    public boolean confirmedPlan(@RequestParam(value = "planId") long planId,
-                                 @RequestParam(value = "weeklyReportId") long weeklyReportId) {
+    @PostMapping(path = "/confirmedPlan/{plan_id}/{weekly_report_id}")
+    public boolean confirmedPlan(@PathVariable(value = "plan_id") long planId,
+    		@PathVariable(value = "weekly_report_id") long weeklyReportId) {
         try {
             planRecordService.confirmePlan(planId, weeklyReportId);
         } catch (Exception ex) {
@@ -105,10 +105,10 @@ public class PlanController {
         return true;
     }
 
-    @PostMapping(path = "/delayPlan")
-    public boolean confirmedPlan(@RequestBody Plan plan) {
+    @PostMapping(path = "/delayPlan/{plan_id}")
+    public boolean confirmedPlan(@PathVariable long planId) {
         try {
-            planRecordService.delayPlan(plan.getPlanId());
+            planRecordService.delayPlan(planId);
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;

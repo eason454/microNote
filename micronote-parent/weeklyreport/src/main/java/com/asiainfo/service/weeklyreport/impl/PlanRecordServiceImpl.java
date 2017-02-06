@@ -10,6 +10,8 @@ import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +44,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public boolean confirmePlan(long planId, long worklyReportId) throws Exception {
+	public Plan confirmePlan(long planId, long worklyReportId) throws Exception {
 		 //  TODO 确认计划完成
 		 //  查询现在要完成的计划 变成确认状态confirmed
 		Plan plan = planRepository.findOne(planId);
@@ -58,7 +60,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		workRecord.setRecordAttachments(plan.getRecordAttachments());
 		
 		//TODO 保存計劃工作和工作的修改
-		planRepository.save(plan);
+		plan = planRepository.save(plan);
 		workRecord = reportRecordRepository.save(workRecord);
 		
 		//添加周報外鍵關系
@@ -68,35 +70,62 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		weeklyReport.setReportRecord(reportRecords);
 		weeklyReportRepository.save(weeklyReport);
 		
-		return true;
+		return plan;
 	}
 
 	@Override
 	public boolean delayPlan(long planRecordId) throws Exception{
 		
-		//TODO 延遲計劃
+		/**
+		 * 2017-02-06 CHANGE BY YI
+		 * TODO 不穩定需求，延遲計劃是順延一周
+		 */
 		Plan plan = planRepository.findOne(planRecordId);
-		//取得下周五的日期
-		long nextWeekEndDate = TimeUtil.getNextWeekEndDate();
-		//判断一下现在的结束时间是否大于下周周末的时间
-		if(plan.getEndDate() < nextWeekEndDate){
-			//修改结束日期到下周五
-			plan.setEndDate(nextWeekEndDate);
-			planRepository.save(plan);
+		if(plan  == null){
+			return false;
 		}
+		int week = TimeUtil.getWeekOfYear();
+		week = week > 52 ? week + 1 : week;
+		
+		//取得下周五的日期
+		long endDate = TimeUtil.getNextWeekEndDate();
+		long startDate = TimeUtil.getNextWeekStartDate();
+		
+		plan.setWeek(week);
+		plan.setStartDate(startDate);
+		plan.setEndDate(endDate);
+		planRepository.save(plan);
+		
+//		//判断一下现在的结束时间是否大于下周周末的时间
+//		if(plan.getEndDate() < nextWeekEndDate){
+//			//修改结束日期到下周五
+//			plan.setEndDate(nextWeekEndDate);
+//			planRepository.save(plan);
+//		}
 		
 		return true;
 	}
 	
 	@Override
-	public Plan createWeeklyPlan(Plan plan) {
+	public Plan createWeeklyPlan(Plan plan, int week ) {
 		/**
 		 * 2017-02-06 CHANGE BY YI
 		 * TODO 不穩定需求，修改計劃只能做一周
 		 */
-		//=========================================================
+		//============================================================
+		int nextWeek = week + 1;
+		int year = DateTime.now().getYear();
+		//處理跨年
+		nextWeek = nextWeek > 52 ? 0 : nextWeek;
+		year = nextWeek > 52 ? year + 1 : year;
 		
-		//=========================================================
+		long startDate = TimeUtil.getWeekStartDateByWeek(year, nextWeek);
+		long endDate = TimeUtil.getWeekEndDateByWeek(year, nextWeek);
+		
+		plan.setStartDate(startDate);
+		plan.setEndDate(endDate);
+		plan.setWeek(nextWeek);
+		//===========================================================
 		return planRepository.save(plan);
 	}
 
