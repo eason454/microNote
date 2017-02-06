@@ -1,5 +1,22 @@
 package com.asiainfo.controller.weeklyreport;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.asiainfo.domain.entity.user.User;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReportTo;
 import com.asiainfo.domain.kara.KaraRequestObject;
@@ -12,21 +29,6 @@ import com.asiainfo.service.weeklyreport.interfaces.IWeeklyReportToService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.HttpUtils;
 import com.asiainfo.util.kara.MessageConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class WeeklyReportToController {
@@ -53,7 +55,16 @@ public class WeeklyReportToController {
             //汇报对象信息为空，需要调用kara查询员工信息
             try {
                 HttpEntity headers= HttpUtils.getKaraHttpEntityForGet(request.getToken());
-                HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange(karaUrl, HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//
+                ResponseEntity<KaraUserResponseInfo> response=restTemplate.exchange(karaUrl, HttpMethod.GET,headers,KaraUserResponseInfo.class,auditStaffNumber);//
+                if(response.getStatusCodeValue()!=200){//未返回正确响应
+                	resultMessage=response.getStatusCode().getReasonPhrase();
+                    //// TODO: 2017/1/11 需要拼装karaMessage
+                    KaraField field=new KaraField();
+                    field.setTitle(CommonConst.KaraInfo.setWeeklyReportResult);
+                    field.setValue(String.format(CommonConst.KaraInfo.SetWeeklyReportResultFail,resultMessage));
+                    karaFieldList.add(field);
+                    return MessageConstructor.constructMessageWithFields("",karaFieldList);
+                }
                 KaraUserResponseInfo userResponseInfo=response.getBody();
                 if(!userResponseInfo.getResponseCode().equals(CommonConst.KaraInfo.responseSuccessCode) || StringUtils.isEmpty(userResponseInfo.getStaffResponseInfo().getAccountId())){
                     resultMessage=CommonConst.KaraInfo.userNotExists;
@@ -72,6 +83,8 @@ public class WeeklyReportToController {
                     user.setId(auditUserId);
                     user.setName(userInfo.getStaffName());
                     user.setUserNumber(userInfo.getStaffCode());
+                    user.setAvatar(userInfo.getHeadIcon());
+                    user.setAccount(userInfo.getStaffAccount());
                     userService.createUser(user);
                 }
             }catch (Exception e){
