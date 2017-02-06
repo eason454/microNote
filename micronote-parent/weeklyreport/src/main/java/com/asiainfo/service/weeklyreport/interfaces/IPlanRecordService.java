@@ -36,7 +36,7 @@ public interface IPlanRecordService{
 	 * @param plan
 	 * @return
 	 */
-	Plan createWeeklyPlan(Plan plan);
+	Plan createWeeklyPlan(Plan plan, int week);
 
 	/**
 	 * 修改计划

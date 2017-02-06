@@ -33,6 +33,18 @@ public class Plan {
 
 	@Column(name = "report_user_id")
 	private String reportUserId;
+	
+	@Column(name = "week")
+	private int week;
+
+	
+	public int getWeek() {
+		return week;
+	}
+
+	public void setWeek(int week) {
+		this.week = week;
+	}
 
 	public String getReportUserId() {
 		return reportUserId;

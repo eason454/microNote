@@ -23,7 +23,7 @@ public class PlanController {
     private static Log logger=LogFactory.getLog(PlanController.class);
     @Autowired
     private IPlanRecordService planRecordService;
-    @PostMapping(path = "/createWeeklyPlan")
+    @PostMapping(path = "/createWeeklyPlan/{week}")
     public Plan createWeeklyPlan(@RequestBody Plan plan) {
         return planRecordService.createWeeklyPlan(plan);
     }

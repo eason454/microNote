@@ -90,6 +90,13 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	
 	@Override
 	public Plan createWeeklyPlan(Plan plan) {
+		/**
+		 * 2017-02-06 CHANGE BY YI
+		 * TODO 不穩定需求，修改計劃只能做一周
+		 */
+		//=========================================================
+		
+		//=========================================================
 		return planRepository.save(plan);
 	}
 
