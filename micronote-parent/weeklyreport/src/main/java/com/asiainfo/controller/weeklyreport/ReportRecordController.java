@@ -14,7 +14,6 @@ import com.asiainfo.util.time.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,12 +60,12 @@ public class ReportRecordController {
         reportRecord.setCreateDate(System.currentTimeMillis());
         reportRecord.setEndDate(System.currentTimeMillis());
         reportRecord.setWeeklyReport(weeklyReport);
-        ReportRecord res = reportRecordService.saveRecord(reportRecord);
+        reportRecordService.saveRecord(reportRecord);
 
         //数据写入到Kara返回结构中
         karaField.setTitle(CommonConst.KaraInfo.weeklyWork);
-        karaField.setValue(res.getContent());
-        karaField.setId(res.getReportRecordId());
+        karaField.setValue(content);
+        karaField.setId(reportRecord.getReportRecordId());
         list.add(karaField);
 
         //返回KaraMessage

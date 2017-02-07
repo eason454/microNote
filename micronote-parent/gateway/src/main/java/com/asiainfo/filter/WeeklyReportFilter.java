@@ -1,3 +1,4 @@
+
 package com.asiainfo.filter;
 
 import java.io.BufferedReader;
@@ -103,3 +104,4 @@ public class WeeklyReportFilter extends ZuulFilter {
         return null;
     }
 }
+

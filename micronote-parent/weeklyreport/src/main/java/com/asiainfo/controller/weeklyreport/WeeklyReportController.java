@@ -96,7 +96,6 @@ public class WeeklyReportController {
 			KaraField field=new KaraField();
 			field.setTitle(CommonConst.KaraInfo.recordElement);
 			field.setValue(reportRecord.getContent());
-			field.setId(reportRecord.getReportRecordId());
 			list.add(field);
 		}
 		KaraMessage karaMessage = MessageConstructor.constructMessageWithFields(CommonConst.KaraInfo.weeklyWork,list);

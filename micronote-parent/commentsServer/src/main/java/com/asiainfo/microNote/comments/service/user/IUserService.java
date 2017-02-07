@@ -1,7 +1,5 @@
 package com.asiainfo.microNote.comments.service.user;
 
-import java.util.List;
-
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +19,6 @@ public interface IUserService {
 	 * @param UserId
 	 * @return
 	 */
-	@RequestMapping(path = "/microNote/users/{userId}", method = RequestMethod.GET)
+	@RequestMapping(path = "/microNote/queryUser/{user_id}", method = RequestMethod.GET)
 	CommentUser getUserById(@PathVariable("userId") String UserId);
 }
