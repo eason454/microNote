@@ -90,6 +90,7 @@ public class WeeklyReportFilter extends ZuulFilter {
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
+					log.error(e.getMessage());
 					return null;
 				}
      	       

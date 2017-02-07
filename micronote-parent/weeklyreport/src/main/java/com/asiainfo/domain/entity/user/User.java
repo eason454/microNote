@@ -16,6 +16,7 @@ public class User {
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
+	private String sid;
 	@Column(name = "user_id")
 	private String id;
 	@Column(name = "user_name")
