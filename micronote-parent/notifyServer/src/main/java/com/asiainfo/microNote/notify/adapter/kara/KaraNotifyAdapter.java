@@ -28,9 +28,9 @@ public class KaraNotifyAdapter implements NotifyAdapter {
 	//填寫周報
 	private String weeklyReportReportContent = "<http://171.221.254.231:9997/weekly/index/{userId}|填写周报>";
 	//查看下屬周報
-	private String weeklyReportCheckReportAll = "<http://171.221.254.231:9997/weekly/subordWeekly/{userId}|查看 {week} 周所有已提交的周报...>";
+	private String weeklyReportCheckReportAll = "<http://171.221.254.231:9997/weekly/subordWeekly/{userId}|查看第 {week} 周，所有已提交的周报...>";
 	//查看周報
-	private String weeklyReportCheckReport = "<http://171.221.254.231:9997/weekly/index/{userId}|查看{week}周 @{userName} de周报>";
+	private String weeklyReportCheckReport = "<http://171.221.254.231:9997/weekly/index/{userId}|查看第{week}周 @{userName} de周报>";
 
 	/**
 	 * 推送到kara
