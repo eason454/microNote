@@ -80,6 +80,9 @@ public class WeeklyReportFilter extends ZuulFilter {
 	     	        	HttpEntity headers = HttpUtils.getKaraHttpEntityForGet(token);
 	     	        	HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange(karaStaffUrl, HttpMethod.GET,headers,KaraUserResponseInfo.class,map.get("user_id"));//
 	                    KaraUserResponseInfo userResponseInfo=response.getBody();
+	                    if(userResponseInfo.getStaffResponseInfo()==null){
+	                    	return null;
+	                    }
 	                    User newUser=new User();
 	                    newUser.setId(userResponseInfo.getStaffResponseInfo().getAccountId());
 	                    newUser.setName(userResponseInfo.getStaffResponseInfo().getStaffName());
