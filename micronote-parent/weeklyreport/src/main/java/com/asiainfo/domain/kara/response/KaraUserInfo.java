@@ -8,8 +8,25 @@ public class KaraUserInfo {
     private String staffId;
     private String staffName;
     private String staffCode;
+    private String headIcon;
+    private String staffAccount;
+    public String getHeadIcon() {
+		return headIcon;
+	}
 
-    public String getStaffCode() {
+	public void setHeadIcon(String headIcon) {
+		this.headIcon = headIcon;
+	}
+
+	public String getStaffAccount() {
+		return staffAccount;
+	}
+
+	public void setStaffAccount(String staffAccount) {
+		this.staffAccount = staffAccount;
+	}
+
+	public String getStaffCode() {
         return staffCode;
     }
 

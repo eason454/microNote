@@ -5,6 +5,7 @@ import com.asiainfo.service.weeklyreport.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,8 @@ public class UserController {
     public List<User> queryUsers(){
        return userService.queryUsers();
     }
-    public User createUser(User user){
+    @RequestMapping(path="/createUser",method=RequestMethod.POST)
+    public User createUser(@RequestBody User user){
         return userService.createUser(user);
     }
 
