@@ -62,24 +62,21 @@ public class WeeklyReportFilter extends ZuulFilter {
 				
 				try {
 					reader = request.getReader();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					return null;
-				}
-				String requestBody=reader.readLine();
-				Map<String,Object> map =JsonParserFactory.getJsonParser().parseMap(requestBody);
-				if(StringUtils.isEmpty(map.get("user_id").toString())){
-					return null;
-				}
-     	        User userInfo;
-				try {
-					userInfo = weeklyReportClient.getUser(map.get("user_id").toString());
+					String requestBody=reader.readLine();
+					Map<String,Object> map =JsonParserFactory.getJsonParser().parseMap(requestBody);
+					if(StringUtils.isEmpty(map.get("user_id").toString())){
+						return null;
+					}
+					 User userInfo = weeklyReportClient.getUser(map.get("user_id").toString());
 					if(userInfo==null){
 	     	        	//调用kara获取用户信息
 	     	        	String token=map.get("token").toString();
 	     	        	HttpEntity headers = HttpUtils.getKaraHttpEntityForGet(token);
 	     	        	HttpEntity<KaraUserResponseInfo> response=restTemplate.exchange(karaStaffUrl, HttpMethod.GET,headers,KaraUserResponseInfo.class,map.get("user_id"));//
 	                    KaraUserResponseInfo userResponseInfo=response.getBody();
+	                    if(userResponseInfo.getStaffResponseInfo()==null){
+	                    	return null;
+	                    }
 	                    User newUser=new User();
 	                    newUser.setId(userResponseInfo.getStaffResponseInfo().getAccountId());
 	                    newUser.setName(userResponseInfo.getStaffResponseInfo().getStaffName());
@@ -88,15 +85,18 @@ public class WeeklyReportFilter extends ZuulFilter {
 	                    newUser.setUserNumber(userResponseInfo.getStaffResponseInfo().getStaffCode());
 	                    weeklyReportClient.createUser(newUser);//通过feign创建用户
 	                    log.debug(newUser.getName()+" created");
-	     	        }
+					}else{
+						return null;
+					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					return null;
 				}
      	       
-			} catch (IOException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				log.error(e.getMessage());
+				return null;
 			}
         }
         return null;
