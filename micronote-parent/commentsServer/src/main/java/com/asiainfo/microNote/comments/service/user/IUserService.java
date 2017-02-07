@@ -21,6 +21,6 @@ public interface IUserService {
 	 * @param UserId
 	 * @return
 	 */
-	@RequestMapping(path = "/microNote/users/{userId}", method = RequestMethod.GET)
+	@RequestMapping(path = "/microNote/queryUser/{user_id}", method = RequestMethod.GET)
 	CommentUser getUserById(@PathVariable("userId") String UserId);
 }
