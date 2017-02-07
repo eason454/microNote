@@ -7,14 +7,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.asiainfo.domain.entity.microRecord.RecordAttachment;
 import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.domain.entity.weeklyreport.PlanRel;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
+import com.asiainfo.repository.weeklyreport.PlanRelRepository;
 import com.asiainfo.repository.weeklyreport.PlanRepository;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.CommonUtils;
+import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
@@ -33,6 +37,8 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	private PlanRepository planRepository;
 	@Autowired
 	private WeeklyReportRepository weeklyReportRepository;
+	@Autowired
+	private PlanRelRepository planRelRepository;
 	
 	@Override
 	public boolean canelPlan(long planId) throws Exception{
@@ -60,22 +66,16 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		workRecord.setReportUserId(plan.getReportUserId());
 		workRecord.setState(WorkRecordState.WORKED);
 
-		List attachments = new ArrayList();
+		List<RecordAttachment> attachments = new ArrayList<RecordAttachment>();
 		attachments.addAll(plan.getRecordAttachments());
 		workRecord.setRecordAttachments(attachments);
 		//TODO 保存計劃工作和工作的修改
 		plan = planRepository.save(plan);
-//		workRecord = reportRecordRepository.save(workRecord);
 		
 		//添加周報外鍵關系
 		WeeklyReport weeklyReport = weeklyReportRepository.findOne(worklyReportId);
 		workRecord.setWeeklyReport(weeklyReport);
 		workRecord = reportRecordRepository.save(workRecord);
-		
-//		List<ReportRecord> reportRecords = weeklyReport.getReportRecord();
-//		reportRecords.add(workRecord);
-//		weeklyReport.setReportRecord(reportRecords);
-//		weeklyReportRepository.save(weeklyReport);
 		
 		
 		return workRecord;
@@ -90,26 +90,41 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		 */
 		Plan plan = planRepository.findOne(planRecordId);
 		if(plan  == null){
-			return false;
+			throw new Exception("NO_PLAN_FOUND");
 		}
+		
+		Plan delayPlan = new Plan();
+		
+		BeanUtils.copyProperties(plan, delayPlan);
+		
 		int week = TimeUtil.getWeekOfYear();
 		week = week > 52 ? week + 1 : week;
 		
 		//取得下周五的日期
 		long endDate = TimeUtil.getNextWeekEndDate();
 		long startDate = TimeUtil.getNextWeekStartDate();
+		//保存延遲計劃
 		
-		plan.setWeek(week);
-		plan.setStartDate(startDate);
-		plan.setEndDate(endDate);
+		List<RecordAttachment> attachments = new ArrayList<RecordAttachment>();
+		attachments.addAll(plan.getRecordAttachments());
+		
+		delayPlan.setPlanId(null);
+		delayPlan.setRecordAttachments(attachments);
+		delayPlan.setState(CommonConst.PlanRecordState.DELAY);
+		delayPlan.setWeek(week);
+		delayPlan.setStartDate(startDate);
+		delayPlan.setEndDate(endDate);
+		delayPlan = planRepository.save(delayPlan);
+		//修改原始計劃被延遲
+		plan.setState(CommonConst.PlanRecordState.DELAYED);
 		planRepository.save(plan);
 		
-//		//判断一下现在的结束时间是否大于下周周末的时间
-//		if(plan.getEndDate() < nextWeekEndDate){
-//			//修改结束日期到下周五
-//			plan.setEndDate(nextWeekEndDate);
-//			planRepository.save(plan);
-//		}
+		//添加延遲關系
+		PlanRel planRel = new PlanRel();
+		planRel.setPlanId(plan.getPlanId());
+		planRel.setRelatedPlanId(delayPlan.getPlanId());
+		planRel.setRelationship(CommonConst.PlanRelationship.DELAY);
+		planRelRepository.save(planRel);
 		
 		return true;
 	}
@@ -150,6 +165,8 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	public boolean deleteWeeklyPlan(long planId) {
 		boolean exists = planRepository.exists(planId);
 		if(exists){
+			//刪除有計劃關系
+			planRelRepository.delete(planRelRepository.findByRelatedPlanId(planId));
 			planRepository.delete(planId);
 			return true;
 		}else{

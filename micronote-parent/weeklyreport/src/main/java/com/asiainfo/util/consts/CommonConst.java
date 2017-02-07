@@ -17,6 +17,9 @@ public interface CommonConst {
 		public static final String WEEKLY_REPORT_REPORT_NOTIFY  = "weekly_report_report_notify";
 	}
 	
+	public interface PlanRelationship{
+		public static final String DELAY = "delay";
+	}
 	/**
 	 * <B>周报条目是计划(plan)状态为:</B> <br>
 	 * new 新建未生效<br>
@@ -28,6 +31,10 @@ public interface CommonConst {
 	public static interface PlanRecordState {
 		public static final String NEW = "new";
 		public static final String PLANNING = "planning";
+		//延遲的計劃
+		public static final String DELAY = "delay";
+		//被延遲的計劃
+		public static final String DELAYED = "delayed";
 		public static final String CANCELED = "canceled";
 		public static final String CONFIRMED = "confirmed";
 	}
