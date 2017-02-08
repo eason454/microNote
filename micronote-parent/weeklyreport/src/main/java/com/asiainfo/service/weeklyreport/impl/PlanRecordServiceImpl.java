@@ -95,10 +95,10 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		
 		Plan delayPlan = new Plan();
 		
-		BeanUtils.copyProperties(plan, delayPlan);
+		BeanUtils.copyProperties(plan, delayPlan, "planId");
 		
 		int week = TimeUtil.getWeekOfYear();
-		week = week > 52 ? week + 1 : week;
+		week = week > 52 ?  0 :week + 1;
 		
 		//取得下周五的日期
 		long endDate = TimeUtil.getNextWeekEndDate();
@@ -108,7 +108,6 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		List<RecordAttachment> attachments = new ArrayList<RecordAttachment>();
 		attachments.addAll(plan.getRecordAttachments());
 		
-		delayPlan.setPlanId(null);
 		delayPlan.setRecordAttachments(attachments);
 		delayPlan.setState(CommonConst.PlanRecordState.DELAY);
 		delayPlan.setWeek(week);
