@@ -19,15 +19,7 @@ public class MessageConstructor {
         KaraAttachment attach=new KaraAttachment();
         attach.setTitle(attachTitle);
 //        attach.setCallbackId("testcallbackId");  //回调id填什么呢
-        List<KaraField> fieldList=new ArrayList<KaraField>();
-        for (KaraField karaField :
-                karaFields) {
-            KaraField field=new KaraField();
-            field.setTitle(karaField.getTitle());
-            field.setValue(karaField.getValue());
-            fieldList.add(field);
-        }
-        attach.setFields(fieldList.toArray(new KaraField[fieldList.size()]));
+        attach.setFields(karaFields.toArray(new KaraField[karaFields.size()]));
         //不支持attachments时显示的内容
         List<KaraAttachment> attachList=new ArrayList<KaraAttachment>();
         attachList.add(attach);
