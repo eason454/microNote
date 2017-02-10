@@ -39,10 +39,10 @@ public class WeeklyReportListen {
 
 	@RabbitListener(queues = "notifyWeeklyReportSubmit")
 	public void submitWeeklyReport(String messageString) throws Exception {
-		System.out.print(messageString);
+		logger.info(messageString);
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
-		mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+		mapper.disable(DeserializationFeature.UNWRAP_ROOT_VALUE);
+		mapper.disable(SerializationFeature.WRAP_ROOT_VALUE);
 		WeeklyReportSubmitNotifyService
 				.notifyAuditing(mapper.readValue(messageString, WeeklyReportSubmitReportMessage.class));
 	}

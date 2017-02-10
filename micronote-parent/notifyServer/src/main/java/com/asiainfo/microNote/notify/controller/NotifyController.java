@@ -39,8 +39,8 @@ public class NotifyController {
 	public String notifySubmit(@RequestBody WeeklyReportSubmitReportMessage message) throws AmqpException, JsonProcessingException {
 //		WeeklyReportSubmitNotifyService.notifyAuditing(message);
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
-		mapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+		mapper.disable(DeserializationFeature.UNWRAP_ROOT_VALUE);
+		mapper.disable(SerializationFeature.WRAP_ROOT_VALUE);
 		amqpTemplate.convertAndSend("submitExchange", "route1", mapper.writeValueAsString(message));
 		return "OK";
 	}
