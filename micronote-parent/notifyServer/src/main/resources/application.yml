@@ -1,6 +1,12 @@
 spring:
   application:
     name: notifyServer
+  rabbitmq:
+    host: 10.5.5.58
+    port: 5673
+    username: mnote
+    password: 12345
+    virtualHost: mnote
 
 server:
   port: 9020
@@ -26,4 +32,3 @@ kara:
   accessToken: bearer 9f72b0d71fd443d28d5cae1f754d23fd
   karaService: http://10.19.15.36:16010/
   incomingUri: /api/webapi/incoming/services/reception
-  
