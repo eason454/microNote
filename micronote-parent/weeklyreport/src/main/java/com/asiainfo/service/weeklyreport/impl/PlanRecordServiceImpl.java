@@ -165,7 +165,13 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		boolean exists = planRepository.exists(planId);
 		if(exists){
 			//刪除有計劃關系
-			planRelRepository.delete(planRelRepository.findByRelatedPlanId(planId));
+			List<PlanRel> planRels = planRelRepository.findByRelatedPlanId(planId);
+			for(PlanRel planRel : planRels){
+				Plan plan = planRepository.findOne(planRel.getPlanId());
+				plan.setState(CommonConst.PlanRecordState.PLANNING);
+				planRepository.save(plan);
+			}
+			planRelRepository.delete(planRels);
 			planRepository.delete(planId);
 			return true;
 		}else{
