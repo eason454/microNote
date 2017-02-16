@@ -31,4 +31,4 @@ weeklyReport:
 kara:
   accessToken: bearer 9f72b0d71fd443d28d5cae1f754d23fd
   karaService: http://10.19.15.36:16010/
-  incomingUri: /api/webapi/incoming/services/reception
+  incomingUri: /api/v1.0.0/webapi/incoming/services/reception
