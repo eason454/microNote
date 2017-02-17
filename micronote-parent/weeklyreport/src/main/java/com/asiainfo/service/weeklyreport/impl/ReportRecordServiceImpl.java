@@ -1,6 +1,8 @@
 package com.asiainfo.service.weeklyreport.impl;
 
+import com.asiainfo.domain.entity.microRecord.MicroRecord;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
+import com.asiainfo.repository.microRecord.MicroRecordRepository;
 import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IReportRecordService;
 import com.asiainfo.util.CommonUtils;
@@ -20,6 +22,9 @@ public class ReportRecordServiceImpl implements IReportRecordService {
     @Autowired
     ReportRecordRepository reportRecordRepository;
 
+    @Autowired
+    MicroRecordRepository microRecordRepository;
+
     @Override
     public ReportRecord modifyReportRecord(ReportRecord reportRecord) {
         ReportRecord oldRecord = reportRecordRepository.findOne(reportRecord.getReportRecordId());
@@ -32,7 +37,12 @@ public class ReportRecordServiceImpl implements IReportRecordService {
     }
 
     @Override
+    @Transactional
     public ReportRecord saveRecord(ReportRecord reportRecord) throws Exception {
+        //在这里同步保存ReportRecord和MicroRecord
+        MicroRecord microRecord = new MicroRecord();
+        BeanUtils.copyProperties(reportRecord,microRecord);
+        microRecordRepository.save(microRecord);
         return reportRecordRepository.save(reportRecord);
     }
 

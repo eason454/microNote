@@ -1,5 +1,6 @@
 package com.asiainfo.controller.weeklyreport;
 
+import com.asiainfo.domain.entity.microRecord.MicroRecord;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.domain.kara.KaraRequestObject;
@@ -49,13 +50,13 @@ public class ReportRecordController {
             return null;
         }
 
-        //查询该员工本周的周报对象
-        WeeklyReport weeklyReport=  weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId, TimeUtil.getWeekOfYear());
+        //查询该员工本周的周报
+        WeeklyReport weeklyReport = weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId,TimeUtil.getWeekOfYear());
 
-        //构造写入对象并写入数据
+        //构建ReportRecord并写入值
         ReportRecord reportRecord = new ReportRecord();
-        reportRecord.setContent(content);
         reportRecord.setReportUserId(userId);
+        reportRecord.setContent(content);
         reportRecord.setStartDate(System.currentTimeMillis());
         reportRecord.setCreateDate(System.currentTimeMillis());
         reportRecord.setEndDate(System.currentTimeMillis());
