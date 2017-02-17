@@ -82,15 +82,26 @@ public class PlanController {
         return planRecordService.queryNextWeekPlan(userId);
     }
 
-    @PostMapping(path = "/cancelPlan")
-    public boolean cancelPlan(@RequestBody Plan plan) {
+    @PostMapping(path = "/cancelPlan/{plan_id}")
+    public boolean cancelPlan(@PathVariable(value = "plan_id") long planId, @RequestBody String reason) {
         try {
-            planRecordService.canelPlan(plan.getPlanId());
+            planRecordService.canelPlan(planId, reason);
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
 
+        return true;
+    }
+    
+    @PostMapping(path = "/recoverPlan/{plan_id}")
+    public boolean recoverPlan(@PathVariable(value = "plan_id") long planId) {
+        try {
+            planRecordService.recoverPlan(planId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
         return true;
     }
 

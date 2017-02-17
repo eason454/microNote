@@ -37,7 +37,16 @@ public class Plan {
 	@Column(name = "week")
 	private int week;
 
+	private String cancelReason;
 	
+	public String getCancelReason() {
+		return cancelReason;
+	}
+
+	public void setCancelReason(String cancelReason) {
+		this.cancelReason = cancelReason;
+	}
+
 	public int getWeek() {
 		return week;
 	}
