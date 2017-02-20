@@ -1,5 +1,18 @@
 
 package com.asiainfo.controller.weeklyreport;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.asiainfo.domain.entity.weeklyreport.Plan;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.kara.KaraRequestObject;
@@ -8,13 +21,6 @@ import com.asiainfo.domain.kara.response.KaraMessage;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by eason on 2017/1/9.
@@ -83,9 +89,11 @@ public class PlanController {
     }
 
     @PostMapping(path = "/cancelPlan/{plan_id}")
+   
     public boolean cancelPlan(@PathVariable(value = "plan_id") long planId, @RequestBody String reason) {
         try {
-            planRecordService.canelPlan(planId, reason);
+        	JSONObject json = new JSONObject(reason);
+            planRecordService.canelPlan(planId, json.getString("reason"));
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
