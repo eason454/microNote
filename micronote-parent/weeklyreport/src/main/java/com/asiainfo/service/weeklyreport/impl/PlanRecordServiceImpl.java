@@ -33,10 +33,21 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	@Autowired
 	private PlanRelRepository planRelRepository;
 	@Override
-	public boolean canelPlan(long planId) throws Exception{
+	public boolean canelPlan(long planId, String reason) throws Exception{
 		// TODO 修改计划状态到取消 (canceled)
 		Plan plan = planRepository.findOne(planId);
 		plan.setState(PlanRecordState.CANCELED);
+		plan.setCancelReason(reason);
+		plan.setStartDate(System.currentTimeMillis());
+		planRepository.save(plan);
+		return true;
+	}
+	
+	@Override
+	public boolean recoverPlan(long planId) throws Exception{
+		Plan plan = planRepository.findOne(planId);
+		plan.setState(PlanRecordState.PLANNING);
+		plan.setCancelReason(null);
 		plan.setStartDate(System.currentTimeMillis());
 		planRepository.save(plan);
 		return true;
