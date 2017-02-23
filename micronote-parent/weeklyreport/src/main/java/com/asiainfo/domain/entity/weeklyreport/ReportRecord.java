@@ -2,7 +2,6 @@ package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,6 +30,18 @@ public class ReportRecord {
 
 	@Column(name="content", nullable=false)
 	private String content;
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
+	}
+
+	@OneToOne
+	@JoinColumn(name="plan_id")
+	private Plan plan;
 
     public Long getReportRecordId() {
         return reportRecordId;

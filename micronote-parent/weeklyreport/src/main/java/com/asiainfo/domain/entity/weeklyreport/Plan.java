@@ -1,16 +1,10 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
+
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by eason on 2017/1/9.
@@ -37,7 +31,6 @@ public class Plan {
 	@Column(name = "week")
 	private int week;
 
-	
 	public int getWeek() {
 		return week;
 	}

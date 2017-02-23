@@ -52,7 +52,7 @@ public interface IPlanRecordService{
 	 * @param planId
 	 * @return
 	 */
-	boolean deleteWeeklyPlan(long planId);
+	Long deleteWeeklyPlan(long planId);
 
 	/**
 	 * 获取下周计划

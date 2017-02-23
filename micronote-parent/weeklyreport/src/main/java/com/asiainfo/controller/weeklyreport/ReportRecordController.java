@@ -1,6 +1,6 @@
 package com.asiainfo.controller.weeklyreport;
+//Change return result type to Long. Modify by Zhaojl
 
-import com.asiainfo.domain.entity.microRecord.MicroRecord;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
 import com.asiainfo.domain.kara.KaraRequestObject;
@@ -76,7 +76,7 @@ public class ReportRecordController {
     }
 
     @PostMapping(path = "/deleteRecord")
-    public boolean deleteRecord(@RequestBody ReportRecord jsonObject){
+    public Long deleteRecord(@RequestBody ReportRecord jsonObject){
         Long recordId = jsonObject.getReportRecordId();
         return reportRecordService.deleteReportRecordById(recordId);
     }

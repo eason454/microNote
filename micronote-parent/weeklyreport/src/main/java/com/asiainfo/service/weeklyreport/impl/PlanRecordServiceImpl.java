@@ -1,27 +1,20 @@
 package com.asiainfo.service.weeklyreport.impl;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.joda.time.DateTime;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
-import com.asiainfo.domain.entity.weeklyreport.Plan;
-import com.asiainfo.domain.entity.weeklyreport.PlanRel;
-import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
-import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
-import com.asiainfo.repository.weeklyreport.PlanRelRepository;
-import com.asiainfo.repository.weeklyreport.PlanRepository;
-import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
-import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
+import com.asiainfo.domain.entity.weeklyreport.*;
+import com.asiainfo.repository.weeklyreport.*;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.consts.CommonConst.PlanRecordState;
 import com.asiainfo.util.consts.CommonConst.WorkRecordState;
 import com.asiainfo.util.time.TimeUtil;
+import org.joda.time.DateTime;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 简单的计划操作实现
  * 
@@ -39,7 +32,6 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	private WeeklyReportRepository weeklyReportRepository;
 	@Autowired
 	private PlanRelRepository planRelRepository;
-	
 	@Override
 	public boolean canelPlan(long planId) throws Exception{
 		// TODO 修改计划状态到取消 (canceled)
@@ -65,6 +57,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		workRecord.setContent(plan.getContent());
 		workRecord.setReportUserId(plan.getReportUserId());
 		workRecord.setState(WorkRecordState.WORKED);
+        workRecord.setPlan(plan);
 
 		List<RecordAttachment> attachments = new ArrayList<RecordAttachment>();
 		attachments.addAll(plan.getRecordAttachments());
@@ -76,8 +69,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		WeeklyReport weeklyReport = weeklyReportRepository.findOne(worklyReportId);
 		workRecord.setWeeklyReport(weeklyReport);
 		workRecord = reportRecordRepository.save(workRecord);
-		
-		
+
 		return workRecord;
 	}
 
@@ -124,7 +116,6 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		planRel.setRelatedPlanId(delayPlan.getPlanId());
 		planRel.setRelationship(CommonConst.PlanRelationship.DELAY);
 		planRelRepository.save(planRel);
-		
 		return true;
 	}
 	
@@ -161,8 +152,9 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public boolean deleteWeeklyPlan(long planId) {
+	public Long deleteWeeklyPlan(long planId) {
 		boolean exists = planRepository.exists(planId);
+		Long relatePlanId = null;
 		if(exists){
 			//刪除有計劃關系
 			List<PlanRel> planRels = planRelRepository.findByRelatedPlanId(planId);
@@ -170,12 +162,13 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 				Plan plan = planRepository.findOne(planRel.getPlanId());
 				plan.setState(CommonConst.PlanRecordState.PLANNING);
 				planRepository.save(plan);
+				relatePlanId = planRel.getPlanId();
 			}
 			planRelRepository.delete(planRels);
 			planRepository.delete(planId);
-			return true;
+			return relatePlanId;
 		}else{
-			return false;
+			return null;
 		}
 		
 	}

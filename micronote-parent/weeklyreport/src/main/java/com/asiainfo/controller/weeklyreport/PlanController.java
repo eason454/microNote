@@ -33,7 +33,8 @@ public class PlanController {
         return planRecordService.modifyWeeklyPlan(plan);
     }
     @PostMapping(path="/deleteWeeklyPlan")
-    public boolean deleteWeeklyPlan(@RequestBody Plan plan){
+    public Long deleteWeeklyPlan(@RequestBody Plan plan){
+        //Change return result type to Long. Modify by Zhaojl
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
     @PostMapping(path="/queryNextWeekPlan")
