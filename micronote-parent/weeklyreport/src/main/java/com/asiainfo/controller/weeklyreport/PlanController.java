@@ -1,6 +1,7 @@
 
 package com.asiainfo.controller.weeklyreport;
 import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.domain.entity.weeklyreport.PlanRel;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.kara.KaraRequestObject;
 import com.asiainfo.domain.kara.response.KaraField;
@@ -34,7 +35,7 @@ public class PlanController {
         return planRecordService.modifyWeeklyPlan(plan);
     }
     @PostMapping(path="/deleteWeeklyPlan")
-    public Long deleteWeeklyPlan(@RequestBody Plan plan){
+    public Plan deleteWeeklyPlan(@RequestBody Plan plan){
         //Change return result type to Long. Modify by Zhaojl
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
@@ -42,8 +43,7 @@ public class PlanController {
     public KaraMessage queryNextWeekPlan(@RequestBody KaraRequestObject request){//@RequestHeader(value = "userId") long userId, , @RequestBody String body
         List<Plan> plans=planRecordService.queryNextWeekPlan(request.getUserId());
         List<KaraField> list=new ArrayList<>();
-        for (Plan plan :
-                plans) {
+        for (Plan plan : plans) {
             KaraField field=new KaraField();
             field.setTitle("");
             field.setValue(plan.getContent());
@@ -116,14 +116,14 @@ public class PlanController {
     }
 
     @PostMapping(path = "/delayPlan/{plan_id}")
-    public boolean confirmedPlan(@PathVariable(value = "plan_id") long planId) {
+    public PlanRel delayPlan(@PathVariable(value = "plan_id") long planId) {
+        PlanRel planRel = new PlanRel();
         try {
-            planRecordService.delayPlan(planId);
+            planRel = planRecordService.delayPlan(planId);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return false;
         }
-        return true;
+        return planRel;
     }
 
 }

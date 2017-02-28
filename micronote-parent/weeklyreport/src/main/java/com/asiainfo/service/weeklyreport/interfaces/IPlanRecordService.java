@@ -3,6 +3,7 @@ package com.asiainfo.service.weeklyreport.interfaces;
 import java.util.List;
 
 import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.domain.entity.weeklyreport.PlanRel;
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 
 /**
@@ -38,7 +39,7 @@ public interface IPlanRecordService{
 	 * @param planRecordId
 	 * @return
 	 */
-	boolean delayPlan(long planId) throws Exception;
+	PlanRel delayPlan(long planId) throws Exception;
 
 	/**
 	 * 创建计划
@@ -60,7 +61,7 @@ public interface IPlanRecordService{
 	 * @param planId
 	 * @return
 	 */
-	Long deleteWeeklyPlan(long planId);
+	Plan deleteWeeklyPlan(long planId);
 
 	/**
 	 * 获取下周计划

@@ -76,7 +76,7 @@ public class ReportRecordController {
     }
 
     @PostMapping(path = "/deleteRecord")
-    public Long deleteRecord(@RequestBody ReportRecord jsonObject){
+    public ReportRecord deleteRecord(@RequestBody ReportRecord jsonObject){
         Long recordId = jsonObject.getReportRecordId();
         return reportRecordService.deleteReportRecordById(recordId);
     }

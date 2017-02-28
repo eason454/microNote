@@ -1,7 +1,13 @@
 package com.asiainfo.service.weeklyreport.impl;
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
-import com.asiainfo.domain.entity.weeklyreport.*;
-import com.asiainfo.repository.weeklyreport.*;
+import com.asiainfo.domain.entity.weeklyreport.Plan;
+import com.asiainfo.domain.entity.weeklyreport.PlanRel;
+import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
+import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
+import com.asiainfo.repository.weeklyreport.PlanRelRepository;
+import com.asiainfo.repository.weeklyreport.PlanRepository;
+import com.asiainfo.repository.weeklyreport.ReportRecordRepository;
+import com.asiainfo.repository.weeklyreport.WeeklyReportRepository;
 import com.asiainfo.service.weeklyreport.interfaces.IPlanRecordService;
 import com.asiainfo.util.CommonUtils;
 import com.asiainfo.util.consts.CommonConst;
@@ -85,8 +91,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public boolean delayPlan(long planRecordId) throws Exception{
-		
+	public PlanRel delayPlan(long planRecordId) throws Exception{
 		/**
 		 * 2017-02-06 CHANGE BY YI
 		 * TODO 不穩定需求，延遲計劃是順延一周
@@ -126,8 +131,7 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 		planRel.setPlanId(plan.getPlanId());
 		planRel.setRelatedPlanId(delayPlan.getPlanId());
 		planRel.setRelationship(CommonConst.PlanRelationship.DELAY);
-		planRelRepository.save(planRel);
-		return true;
+		return planRelRepository.save(planRel);
 	}
 	
 	@Override
@@ -163,21 +167,19 @@ public class PlanRecordServiceImpl implements IPlanRecordService {
 	}
 
 	@Override
-	public Long deleteWeeklyPlan(long planId) {
+	public Plan deleteWeeklyPlan(long planId) {
 		boolean exists = planRepository.exists(planId);
-		Long relatePlanId = null;
 		if(exists){
 			//刪除有計劃關系
 			List<PlanRel> planRels = planRelRepository.findByRelatedPlanId(planId);
-			for(PlanRel planRel : planRels){
-				Plan plan = planRepository.findOne(planRel.getPlanId());
-				plan.setState(CommonConst.PlanRecordState.PLANNING);
-				planRepository.save(plan);
-				relatePlanId = planRel.getPlanId();
-			}
+            Plan plan = planRepository.findOne(planRels.get(0).getPlanId());
+            if(!plan.equals(null)){
+                plan.setState(PlanRecordState.PLANNING);
+                planRepository.save(plan);
+            }
 			planRelRepository.delete(planRels);
 			planRepository.delete(planId);
-			return relatePlanId;
+            return plan;
 		}else{
 			return null;
 		}
