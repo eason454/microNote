@@ -58,4 +58,5 @@ public class AbstractDomainClass implements DomainObject {
             dateCreated = new Date();
         }
     }
+
 }

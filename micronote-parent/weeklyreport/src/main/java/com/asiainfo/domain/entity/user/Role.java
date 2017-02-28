@@ -49,4 +49,7 @@ public class Role extends AbstractDomainClass {
         this.users.remove(user);
         user.getRoles().remove(this);
     }
+
+    public Role() {
+    }
 }

@@ -4,7 +4,10 @@ package com.asiainfo.util.consts;
  * Created by eason on 2017/1/6.
  */
 public interface CommonConst {
-
+	interface Role{
+		String USER="USER";
+		String ADMIN = "ADMIN";
+	}
 	interface WeeklyReportReport {
 
 		String SUBMMITED = "submmited";

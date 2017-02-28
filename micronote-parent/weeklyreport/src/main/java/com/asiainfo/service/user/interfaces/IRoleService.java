@@ -7,4 +7,5 @@ import com.asiainfo.service.ICRUDService;
  * Created by eason on 2017/2/21.
  */
 public interface IRoleService extends ICRUDService<Role> {
+    Role findByRole(String role);
 }

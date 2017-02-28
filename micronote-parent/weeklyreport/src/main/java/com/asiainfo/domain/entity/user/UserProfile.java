@@ -1,5 +1,8 @@
 package com.asiainfo.domain.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +12,13 @@ import java.util.List;
  */
 @Entity
 public class UserProfile extends AbstractDomainClass {
+    @Column(unique = true)
     private String username;
 
     @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
+    @JsonIgnore
     private String encryptedPassword;
     private Boolean enabled = true;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -30,11 +35,9 @@ public class UserProfile extends AbstractDomainClass {
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -84,5 +87,17 @@ public class UserProfile extends AbstractDomainClass {
     public void removeRole(Role role){
         this.roles.remove(role);
         role.getUsers().remove(this);
+    }
+
+    public UserProfile() {
+    }
+
+    public UserProfile(String username, String password, String encryptedPassword, Boolean enabled, List<Role> roles, Integer failedLoginAttempts) {
+        this.username = username;
+        this.password = password;
+        this.encryptedPassword = encryptedPassword;
+        this.enabled = enabled;
+        this.roles = roles;
+        this.failedLoginAttempts = failedLoginAttempts;
     }
 }

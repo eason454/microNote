@@ -46,8 +46,8 @@ public class SpringSecConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception{
         //Allows all requests to the /microNote
         //Secures all other paths of the application to require authentication
-//        security.authorizeRequests().antMatchers("/microNote").permitAll().anyRequest().authenticated().and().httpBasic();
-        security.authorizeRequests().anyRequest().permitAll();
+        security.authorizeRequests().antMatchers("/UserProfile/createUser").permitAll().anyRequest().authenticated().and().httpBasic();//antMatchers("/*forWeb").authenticated().
+//        security.authorizeRequests().anyRequest().permitAll();
         security.csrf().disable();
         security.headers().frameOptions().disable();
     }
