@@ -53,7 +53,7 @@ public class ReportRecordServiceImpl implements IReportRecordService {
 
     @Override
     @Transactional
-    public Long deleteReportRecordById(@Param("recordId") long recordId) {
+    public ReportRecord deleteReportRecordById(@Param("recordId") long recordId) {
         /*
         1. If record is exists, delete it.
         2. Check if there are any plans related to this record.
@@ -66,9 +66,8 @@ public class ReportRecordServiceImpl implements IReportRecordService {
                 Plan plan = reportRecord.getPlan();
                 plan.setState(CommonConst.PlanRecordState.PLANNING);
                 planRepository.save(plan);
-                return plan.getPlanId();
             }
-            return null;
+            return reportRecord;
         }
         return null;
     }
