@@ -16,7 +16,15 @@ public interface IPlanRecordService{
 	 * @param planRecordId
 	 * @return
 	 */
-	boolean canelPlan(long planId) throws Exception;
+	boolean canelPlan(long planId, String reason) throws Exception;
+	
+	/**
+	 * 恢复取消计划
+	 * @param planId
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean recoverPlan(long planId) throws Exception;
 	
 	/**
 	 * 确认完成计划
@@ -52,7 +60,7 @@ public interface IPlanRecordService{
 	 * @param planId
 	 * @return
 	 */
-	boolean deleteWeeklyPlan(long planId);
+	Long deleteWeeklyPlan(long planId);
 
 	/**
 	 * 获取下周计划

@@ -1,9 +1,7 @@
 package com.asiainfo.domain.entity.weeklyreport;
 
 import com.asiainfo.domain.entity.microRecord.RecordAttachment;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ public class ReportRecord {
 	private Long reportRecordId;
 	
 	@Column(name = "create_date")
-	private long createDate = System.currentTimeMillis();
+	private long createDate;
 	
 	@Column(name = "start_date")
 	private long startDate;
@@ -32,6 +30,18 @@ public class ReportRecord {
 
 	@Column(name="content", nullable=false)
 	private String content;
+
+	public Plan getPlan() {
+		return plan;
+	}
+
+	public void setPlan(Plan plan) {
+		this.plan = plan;
+	}
+
+	@OneToOne
+	@JoinColumn(name="plan_id")
+	private Plan plan;
 
     public Long getReportRecordId() {
         return reportRecordId;
@@ -95,6 +105,39 @@ public class ReportRecord {
 		this.content = content;
 	}
 
+
+	public String getRecordType() {
+		return recordType;
+	}
+
+	public long getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(long createDate) {
+		this.createDate = createDate;
+	}
+
+	public long getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(long startDate) {
+		this.startDate = startDate;
+	}
+
+	public long getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(long endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setRecordType(String recordType) {
+		this.recordType = recordType;
+	}
+
 	public ReportRecord() {
 	}
 
@@ -108,37 +151,6 @@ public class ReportRecord {
 		this.recordAttachments = recordAttachments;
 		this.recordType = recordType;
 	}
-
-
-	public long getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(long createDate) {
-		this.createDate = createDate;
-	}
-
-
-
-	public long getStartDate() {
-		return startDate;
-	}
-
-
-	public void setStartDate(long startDate) {
-		this.startDate = startDate;
-	}
-
-
-	public long getEndDate() {
-		return endDate;
-	}
-
-
-	public void setEndDate(long endDate) {
-		this.endDate = endDate;
-	}
-
 
 	public String getState() {
 		return state;

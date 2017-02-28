@@ -1,4 +1,5 @@
 package com.asiainfo.controller.weeklyreport;
+//Change return result type to Long. Modify by Zhaojl
 
 import com.asiainfo.domain.entity.weeklyreport.ReportRecord;
 import com.asiainfo.domain.entity.weeklyreport.WeeklyReport;
@@ -49,13 +50,13 @@ public class ReportRecordController {
             return null;
         }
 
-        //查询该员工本周的周报对象
-        WeeklyReport weeklyReport=  weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId, TimeUtil.getWeekOfYear());
+        //查询该员工本周的周报
+        WeeklyReport weeklyReport = weeklyReportService.queryWeeklyReportByUserIdAndWeekly(userId,TimeUtil.getWeekOfYear());
 
-        //构造写入对象并写入数据
+        //构建ReportRecord并写入值
         ReportRecord reportRecord = new ReportRecord();
-        reportRecord.setContent(content);
         reportRecord.setReportUserId(userId);
+        reportRecord.setContent(content);
         reportRecord.setStartDate(System.currentTimeMillis());
         reportRecord.setCreateDate(System.currentTimeMillis());
         reportRecord.setEndDate(System.currentTimeMillis());
@@ -75,7 +76,7 @@ public class ReportRecordController {
     }
 
     @PostMapping(path = "/deleteRecord")
-    public boolean deleteRecord(@RequestBody ReportRecord jsonObject){
+    public Long deleteRecord(@RequestBody ReportRecord jsonObject){
         Long recordId = jsonObject.getReportRecordId();
         return reportRecordService.deleteReportRecordById(recordId);
     }

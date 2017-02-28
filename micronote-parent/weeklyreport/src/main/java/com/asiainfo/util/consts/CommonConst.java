@@ -5,20 +5,21 @@ package com.asiainfo.util.consts;
  */
 public interface CommonConst {
 
-	public interface WeeklyReportReport {
+	interface WeeklyReportReport {
 
-		public static final String SUBMMITED = "submmited";
-		public static final String READY = "ready";
+		String SUBMMITED = "submmited";
+		String READY = "ready";
 
 	}
 
-	public interface NotificationType {
-		public static final String WEEKLY_REPORT_CHECK_NOTIFY  = "weekly_report_check_notify";
-		public static final String WEEKLY_REPORT_REPORT_NOTIFY  = "weekly_report_report_notify";
+	interface NotificationType {
+		String WEEKLY_REPORT_CHECK_NOTIFY  = "weekly_report_check_notify";
+		String WEEKLY_REPORT_REPORT_NOTIFY  = "weekly_report_report_notify";
 	}
 	
-	public interface PlanRelationship{
-		public static final String DELAY = "delay";
+	interface PlanRelationship{
+		String DELAY = "delay";
+		String CONFIRM = "confirm";
 	}
 	/**
 	 * <B>周报条目是计划(plan)状态为:</B> <br>
@@ -28,15 +29,15 @@ public interface CommonConst {
 	 * confirmed 已确认<br>
 	 * @author yi
 	 */
-	public static interface PlanRecordState {
-		public static final String NEW = "new";
-		public static final String PLANNING = "planning";
+	interface PlanRecordState {
+		String NEW = "new";
+		String PLANNING = "planning";
 		//延遲的計劃
-		public static final String DELAY = "delay";
+		String DELAY = "delay";
 		//被延遲的計劃
-		public static final String DELAYED = "delayed";
-		public static final String CANCELED = "canceled";
-		public static final String CONFIRMED = "confirmed";
+		String DELAYED = "delayed";
+		String CANCELED = "canceled";
+		String CONFIRMED = "confirmed";
 	}
 	
 	/**
@@ -45,9 +46,9 @@ public interface CommonConst {
 	 * worked 完成工作<br>
 	 * @author yi
 	 */
-	public static interface WorkRecordState {
-		public static final String NEW = "new";
-		public static final String WORKED = "worked";
+	interface WorkRecordState {
+		String NEW = "new";
+		String WORKED = "worked";
 	}
 	
 	/**
@@ -56,15 +57,15 @@ public interface CommonConst {
 	 * plan 工作計劃<br>
 	 * @author yi
 	 */
-	public static interface RecordType {
-		public static final String PLAN = "plan";
-		public static final String WORK = "wrok";
+	interface RecordType {
+		String PLAN = "plan";
+		String WORK = "wrok";
 	}
-	public static interface KaraInfo{
-		public static final String responseTypeDefault="in_channel";
-		public static final String querySuccess="查询成功";
-		public static final String nextWeeklyInfo="下周计划";
-		public static final String thisWeeklyInfo="本周计划";
+	interface KaraInfo{
+		String responseTypeDefault="in_channel";
+		String querySuccess="查询成功";
+		String nextWeeklyInfo="下周计划";
+		String thisWeeklyInfo="本周计划";
 		String weeklyWork="本周工作成果";
 		String recordElement="工作条目";
 		String responseSuccessCode="000000";

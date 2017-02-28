@@ -10,6 +10,7 @@ import com.asiainfo.util.consts.CommonConst;
 import com.asiainfo.util.kara.MessageConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,8 @@ public class PlanController {
         return planRecordService.modifyWeeklyPlan(plan);
     }
     @PostMapping(path="/deleteWeeklyPlan")
-    public boolean deleteWeeklyPlan(@RequestBody Plan plan){
+    public Long deleteWeeklyPlan(@RequestBody Plan plan){
+        //Change return result type to Long. Modify by Zhaojl
         return planRecordService.deleteWeeklyPlan(plan.getPlanId());
     }
     @PostMapping(path="/queryNextWeekPlan")
@@ -82,15 +84,28 @@ public class PlanController {
         return planRecordService.queryNextWeekPlan(userId);
     }
 
-    @PostMapping(path = "/cancelPlan")
-    public boolean cancelPlan(@RequestBody Plan plan) {
+    @PostMapping(path = "/cancelPlan/{plan_id}")
+   
+    public boolean cancelPlan(@PathVariable(value = "plan_id") long planId, @RequestBody String reason) {
         try {
-            planRecordService.canelPlan(plan.getPlanId());
+        	JSONObject json = new JSONObject(reason);
+            planRecordService.canelPlan(planId, json.getString("reason"));
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
 
+        return true;
+    }
+    
+    @PostMapping(path = "/recoverPlan/{plan_id}")
+    public boolean recoverPlan(@PathVariable(value = "plan_id") long planId) {
+        try {
+            planRecordService.recoverPlan(planId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
         return true;
     }
 
